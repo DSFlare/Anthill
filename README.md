@@ -9,3 +9,4 @@ DETAILS
 -------------
 Model of the ant behavior with blackjack and whores
 
+***You can learn more in CONCEPT.MD, which in secret place!***
