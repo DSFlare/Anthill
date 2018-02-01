@@ -2,7 +2,7 @@
 
 int main()
 {
-	a;
+	printf("!!!");
 
 
 	return 0;
