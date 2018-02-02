@@ -2,8 +2,8 @@ ANTHILL
 =======
 
 ### DEVELOPERS :hammer_and_pick: :
-* Zaebala Sobaka:  [vk.com/dmitry_sa](https://vk.com/dmitry_sa)
-* Mitronin Dmitry: [google.com/BlackHorror]( https://vk.com/id183184707)
+* Semenov Dmitry:  [vk.com/dmitry_sa](https://vk.com/dmitry_sa)
+* Some Durachok: [google.com/sho_za_decl]( https://vk.com/id183184707)
 
 DETAILS
 -------------
