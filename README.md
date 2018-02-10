@@ -1,6 +1,12 @@
-# Anthill
-Model of the ant behaviour
+ANTHILL
+=======
 
-Сначала запускается матка с несколькими муравьями. Они ищут ресурсы и строят муравейник. Матка плодится. Достигается критическое число муравьев в одном муравейнике и он раскалывается.
+### DEVELOPERS :hammer_and_pick: :
+* Semenov Dmitry:  [vk.com/dmitry_sa](https://vk.com/dmitry_sa)
+* Mitronin Dmitry: [google.com/BlackHorror]( https://vk.com/id183184707)
 
-У муравьев есть специальности - матка (одна на муравейник), строитель и воины.
+DETAILS
+-------------
+Model of the ant behavior with blackjack and whores
+
+***You can learn more in CONCEPT.MD, which in secret place!***
