@@ -31,24 +31,8 @@
 *.out
 *.app
 
-Anthill/.vs/Anthill/v14/.suo
 Anthill/Anthill.sln
 Anthill/Anthill.vcxproj.filters
 Anthill/Anthill.vcxproj
-Anthill/Debug/Anthill.ilk
-Anthill/Debug/Anthill.log
-Anthill/Debug/Anthill.pdb
-Anthill/Debug/Anthill.tlog/Anthill.lastbuildstate
-Anthill/Debug/Anthill.tlog/CL.command.1.tlog
-Anthill/Debug/Anthill.tlog/CL.read.1.tlog
-Anthill/Debug/Anthill.tlog/CL.write.1.tlog
-Anthill/Debug/Anthill.tlog/link.command.1.tlog
-Anthill/Debug/Anthill.tlog/link.read.1.tlog
-Anthill/Debug/Anthill.tlog/link.write.1.tlog
-Anthill/Debug/vc140.idb
-Anthill/Debug/vc140.pdb
-Anthill/.vs/Anthill/v15/.suo
-Anthill/.vs/Anthill/v15/Browse.VC.db
-Anthill/.vs/Anthill/v15/Browse.VC.opendb
-Anthill/.vs/Anthill/v15/.suo
-Anthill/Debug/vc140.pdb
+Anthill/Debug/
+Anthill/.vs/

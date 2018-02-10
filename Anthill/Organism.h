@@ -12,7 +12,7 @@ public:
 	void setHealth(int health);
 	int getAttack();
 	void setAttack(int attack);
-	virtual void Death();
+	virtual void Death() = 0;
 	virtual ~Organism();
 };
 
