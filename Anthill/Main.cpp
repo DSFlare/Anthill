@@ -3,8 +3,12 @@
 
 int main()
 {
-	Forest forest;
+	//время
+	sf::Clock clock;
+	float lastFrameTime = 0;
+	float deltaTime = 0;
 
+	Forest forest;
 
 	printf("dfgndfn");
 	getchar();

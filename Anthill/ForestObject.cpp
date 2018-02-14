@@ -16,3 +16,17 @@ ForestObject::~ForestObject()
 void ForestObject::HandleEvent(sf::Event e)
 {
 }
+
+void ForestObject::Destroy()
+{
+}
+
+void ForestObject::Update()
+{
+
+}
+
+void ForestObject::HiddenUpdate()
+{
+
+}

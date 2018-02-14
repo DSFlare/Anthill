@@ -1,12 +1,14 @@
 #include "Camera.h"
 
+void Camera::HandleEvent(sf::Event e)
+{
+	
+}
 
-
-Camera::Camera()
+void Camera::Destroy()
 {
 }
 
-
-Camera::~Camera()
+void Camera::Update()
 {
 }

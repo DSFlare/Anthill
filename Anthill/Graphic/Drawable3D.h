@@ -6,7 +6,7 @@
 class Drawable3D
 {
 	Model3D mesh;
-	Shader shader;
+	Shader* shader;
 	sf::Texture texture;
 public:
 	Drawable3D();

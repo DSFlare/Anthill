@@ -9,7 +9,7 @@ using glm::vec3;
 class ForestObject
 {
 	vec3 position;
-	vec3 rotation; //тангаж, рыскание, крен (pitch, yaw, roll)
+	vec3 rotation; //тангаж, рыскание, крен (pitch, yaw, roll) - все углами эйлера
 	vec3 scale;
 	std::vector<ForestObject*>* others;
 	ForestObject* parent;
@@ -20,11 +20,11 @@ public:
 	ForestObject(vec3 position_ = vec3(0, 0, 0), 
 				 vec3 rotation_ = vec3(0, 0, 0), 
 				 vec3 scale_    = vec3(1, 1, 1));
-	~ForestObject();
+	virtual ~ForestObject();
 
 	vec3 getPosition() { return position; }
 	vec3 getRotation() { return rotation; }
-	vec3 getScale()	{ return scale; }
+	vec3 getScale()	   { return scale; }
 	void setPosition(vec3 position_) { position = position_; }
 	void setRotation(vec3 rotation_) { rotation = rotation_; }
 	void setScale   (vec3 scale_)	 { scale = scale_; }
@@ -35,7 +35,12 @@ public:
 	bool FindChild(std::string tag, ForestObject* container);
 	
 	bool CompareTag(std::string tag) { return this->tag == tag; }
-	void HandleEvent(sf::Event e);
-	void Destroy();
+	
+	virtual void Update();
+	virtual void HandleEvent(sf::Event e);
+	virtual void Destroy();
+
+	// здесь происходят все вычисления, которые не должны быть переопределены в потомках
+	virtual void HiddenUpdate() final; 
 };
 

@@ -4,13 +4,31 @@
 
 
 
-Forest::Forest()
+void Forest::Init()
 {
+
 }
 
+Forest::Forest()
+{
+	Init();
+}
 
 Forest::~Forest()
 {
+}
+
+void Forest::Update()
+{
+	//обновляем переменные времени
+	t::update();
+	std::cout << t::deltaTime << "    " << t::lastFrame << std::endl;
+
+	//для каждого объекта в лесу вызываем Update()
+	for (auto obj : objects)
+	{
+		obj->Update();
+	}
 }
 
 int Forest::StartSimulation()
@@ -29,21 +47,31 @@ int Forest::StartSimulation()
 		std::cout << "Failed to initialize GLEW" << std::endl;
 		return -1;
 	}
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glClearColor(0.6f, 0.85f, 0.9f, 1.0f); //цвет, которым будет очищен экран
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	////////////////////////////////////////////////////////////////////////
+	/////////////////////////// -- GAME CYCLE -- ///////////////////////////
+	////////////////////////////////////////////////////////////////////////
 
 	while (window->isOpen())
 	{
+		//события
 		sf::Event event;
 		while (window->pollEvent(event))
 		{
 			processEvents(event);
 		}
 
+		//вычисления
+		Update();
+
+		//OpenGL комманды и отрисовка
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
 
-
-
-		// Finally, display the rendered frame on screen
 		window->display();
 	}
 
