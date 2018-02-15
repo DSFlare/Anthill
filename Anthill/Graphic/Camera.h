@@ -39,7 +39,7 @@ class Camera : public ForestObject
 	glm::mat4 projectionMatrix;
 
 	// движение
-	bool up = false, down = false, left = false, right = false, forward = false, backward = false;
+	bool up = false, down = false, left = false, right = false, forwardd = false, backward = false;
 
 public:
 	
