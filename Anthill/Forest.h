@@ -1,9 +1,13 @@
 #pragma once
+#include <GL\glew.h>
 #include <SFML\Graphics.hpp>
+
 #include "ForestObject.h"
 #include "Graphic\Camera.h"
-#include <vector>
 #include "Time.h"
+
+#include <vector>
+#include <iostream>
 
 // главный управл€ющий класс
 class Forest     
@@ -23,6 +27,6 @@ public:
 	void AddObject(ForestObject* obj);
 
 	int StartSimulation();
-	void processEvents(sf::Event);
+	void ProcessEvents(sf::Event);
 };
 

@@ -1,6 +1,4 @@
 #include "Forest.h"
-#include <GL\glew.h>
-#include <iostream>
 
 
 
@@ -61,23 +59,23 @@ int Forest::StartSimulation()
 		sf::Event event;
 		while (window->pollEvent(event))
 		{
-			processEvents(event);
+			ProcessEvents(event);
 		}
 
-		//вычисления
-		Update();
-
-		//OpenGL комманды и отрисовка
+		//OpenGL комманды
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		//вычисления и отрисовка всех Drawable и UI объектов
+		Update();
 
+	
 
 		window->display();
 	}
 
 }
 
-void Forest::processEvents(sf::Event e)
+void Forest::ProcessEvents(sf::Event e)
 {
 	// Close window: exit
 	if (e.type == sf::Event::Closed)
