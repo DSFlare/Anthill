@@ -2,13 +2,15 @@
 
 
 
+Role * Queen::getRole()
+{
+	return role;
+}
+
 Queen::Queen()
 {
 }
 
-void Queen::Death()
-{
-}
 
 
 Queen::~Queen()

@@ -1,13 +1,13 @@
 #pragma once
 #include "Role.h"
-class Queen :
-	public Role
+class Scout 
+	: public Role
 {
 private:
 	Role* role;
 public:
 	Role* getRole();
-	Queen();
-	~Queen();
+	Scout();
+	~Scout();
 };
 
