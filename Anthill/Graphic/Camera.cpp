@@ -13,7 +13,7 @@ void Camera::HandleEvent(sf::Event e)
 	}
 
 	else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::W)
-		forward = true;
+		forwardd = true;
 	else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::A)
 		backward = true;
 	else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::S)
