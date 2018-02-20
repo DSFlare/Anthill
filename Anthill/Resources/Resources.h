@@ -1,11 +1,12 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include <SFML\Audio.hpp>
+#include "../Graphic/Shader.h"
 
 namespace resources
 {
-	static void loadTextures();
-
+	//static void loadTextures();
+	/*
 	namespace textures
 	{
 		sf::Texture ant;
@@ -17,7 +18,7 @@ namespace resources
 		sf::Texture stick;
 		sf::Texture leaf;
 
-	}
+	}*/
 
 	namespace audio
 	{
@@ -31,6 +32,13 @@ namespace resources
 
 	namespace gui
 	{
+
+	}
+
+	namespace shaders
+	{
+		GLchar anthill_vertex[] = "Resources\\land_vertex.glsl";
+		GLchar anthill_fragment[] = "Resources\\land_fragment.glsl";
 
 	}
 }
