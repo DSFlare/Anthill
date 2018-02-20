@@ -79,6 +79,11 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath)
 	glDeleteShader(fragment);
 }
 
+void Shader::setFloat(const std::string &name, float value) const
+{
+	glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
+
+}
 void Shader::Use()
 {
 	glUseProgram(this->Program);

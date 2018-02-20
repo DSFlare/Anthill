@@ -11,7 +11,7 @@
 
 class Drawable3D
 {
-	Model3D mesh;
+	Model3D* mesh;
 	Shader* shader;
 	sf::Texture texture;
 	sf::RenderWindow* window;
