@@ -11,6 +11,7 @@
 
 class Drawable3D
 {
+protected:
 	Model3D mesh;
 	Shader* shader;
 	sf::Texture texture;
