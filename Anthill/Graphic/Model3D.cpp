@@ -1,7 +1,8 @@
 #include "Model3D.h"
 
-#include <SOIL/SOIL.h>
-#include <SOIL/stb_image_aug.h>
+//#include <SOIL/SOIL.h>
+//#include <SOIL/stb_image_aug.h>
+#include "STB/stb_image.h"
 
 
 
@@ -14,7 +15,7 @@ void Model3D::Draw(Shader shader)
 void Model3D::loadModel(string path)
 {
 	Assimp::Importer import;
-	const aiScene *scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+	const aiScene *scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{

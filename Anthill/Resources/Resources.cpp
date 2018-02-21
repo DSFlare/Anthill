@@ -34,3 +34,11 @@ void Resources::LoadShaders(string vertexStd_, string fragmentStd_,
 	selectedShader = Shader(vertexSelected_.c_str(), fragmentSelected_.c_str());
 }
 
+void Resources::LoadModels(char * ant, char * queen, char * catherpillar, char * beetle)
+{
+	antModel = ant;
+	queenModel = queen;
+	catherpillarModel = catherpillar;
+	beetleModel = beetle;
+}
+

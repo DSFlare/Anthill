@@ -40,6 +40,11 @@ Forest::Forest(sf::RenderWindow* window_, Resources* res_)
 	windowWidth = window->getSize().x;
 	windowHeight = window->getSize().y;
 
+	//ресурсы
+	res->LoadShaders("Resources\\vertex.glsl", "Resources\\fragment.glsl", "Resources\\vertex.glsl", "Resources\\fragment.glsl");
+	res->LoadModels("Resources/Models/RedAnt/formica rufa.obj", "", "", "");
+
+
 	//инициализируем переменные времени
 	deltaTime = 0;
 	lastFrame = 0;
@@ -102,6 +107,11 @@ void Forest::Update()
 	}
 }
 
+void Forest::AddObject(ForestObject * obj)
+{
+	objects.push_back(obj);
+}
+
 int Forest::StartSimulation()
 {
 	//добавим поверхность
@@ -109,7 +119,8 @@ int Forest::StartSimulation()
 	camera->setPosition(vec3(-5, 0, 0));
 	camera->setRotation(vec3(0, 20, 0));
 
-
+	//муравейка тест
+	objects.push_back(new Ant(camera, res, window, vec3(-1, -2, 0)));
 
 	
 	////////////////////////////////////////////////////////////////////////
