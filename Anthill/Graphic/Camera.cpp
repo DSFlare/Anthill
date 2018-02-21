@@ -9,7 +9,7 @@ Camera::Camera(int * windowWidth_, int * windowHeight_, float* deltaTime_, sf::R
 	window = window_;
 
 	movementSpeed = 4;
-	mouseSensitivity = 0.2;
+	mouseSensitivity = 0.15;
 	prevMouseX = 0;
 	prevMouseY = 0;
 	mouseOffsetX = 0;
@@ -25,49 +25,34 @@ void Camera::LookAt(vec3 position)
 
 void Camera::HandleEvent(sf::Event e)
 {
-	//вращение мышкой
-	if (e.type == sf::Event::MouseMoved)
-	{
-		//int mx = sf::Mouse::getPosition(*window).x;
-		//int my = -sf::Mouse::getPosition(*window).y;
-		//mouseOffsetX = prevMouseX - mx;
-		//mouseOffsetY = prevMouseY - my;
-		//prevMouseX = mx; 
-		//prevMouseY = my;
-	}
-	else {
-		//mouseOffsetX = 0;
-		//mouseOffsetY = 0;
 
-		//движение
-		if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::W)
-			forwardd = true;
-		else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::S)
-			backward = true;
-		else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::A)
-			left = true;
-		else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::D)
-			right = true;
-		else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::LShift)
-			down = true;
-		else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Space)
-			up = true;
-		//прекращение движения
-		else if (e.type == sf::Event::KeyReleased && e.key.code == sf::Keyboard::W)
-			forwardd = false;
-		else if (e.type == sf::Event::KeyReleased && e.key.code == sf::Keyboard::S)
-			backward = false;
-		else if (e.type == sf::Event::KeyReleased && e.key.code == sf::Keyboard::A)
-			left = false;
-		else if (e.type == sf::Event::KeyReleased && e.key.code == sf::Keyboard::D)
-			right = false;
-		else if (e.type == sf::Event::KeyReleased && e.key.code == sf::Keyboard::LShift)
-			down = false;
-		else if (e.type == sf::Event::KeyReleased && e.key.code == sf::Keyboard::Space)
-			up = false;
-	}
+	//движение
+	if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::W)
+		forwardd = true;
+	else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::S)
+		backward = true;
+	else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::A)
+		left = true;
+	else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::D)
+		right = true;
+	else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::LShift)
+		down = true;
+	else if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Space)
+		up = true;
+	//прекращение движения
+	else if (e.type == sf::Event::KeyReleased && e.key.code == sf::Keyboard::W)
+		forwardd = false;
+	else if (e.type == sf::Event::KeyReleased && e.key.code == sf::Keyboard::S)
+		backward = false;
+	else if (e.type == sf::Event::KeyReleased && e.key.code == sf::Keyboard::A)
+		left = false;
+	else if (e.type == sf::Event::KeyReleased && e.key.code == sf::Keyboard::D)
+		right = false;
+	else if (e.type == sf::Event::KeyReleased && e.key.code == sf::Keyboard::LShift)
+		down = false;
+	else if (e.type == sf::Event::KeyReleased && e.key.code == sf::Keyboard::Space)
+		up = false;
 
-	
 }
 
 void Camera::Destroy()

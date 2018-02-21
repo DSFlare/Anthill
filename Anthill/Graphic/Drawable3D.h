@@ -5,8 +5,10 @@
 #include "Model3D.h"
 #include "Shader.h"
 #include "Camera.h"
+#include "../Resources/Resources.h"
 
 #include "glm\glm.hpp"
+
 
 
 class Drawable3D
@@ -17,8 +19,10 @@ protected:
 	sf::Texture texture;
 	sf::RenderWindow* window;
 	Camera* camera;
+	Resources* res;
 public:
-	Drawable3D(sf::RenderWindow* window_, Camera* camera_) { window = window_; camera = camera_; }
+	Drawable3D(sf::RenderWindow* window_, Camera* camera_, Resources* res_) 
+	{ window = window_; camera = camera_; res = res_; }
 	~Drawable3D();
 
 	//объекты отрисовывают сами себя (этот метод вызывается из Update() у объекта)

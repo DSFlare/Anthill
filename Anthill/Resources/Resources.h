@@ -1,44 +1,51 @@
 #pragma once
-#include <SFML\Graphics.hpp>
-#include <SFML\Audio.hpp>
+#include "../Graphic/Model3D.h"
 #include "../Graphic/Shader.h"
+#include <SFML/Audio/Sound.hpp>
+#include <string>
+#include "SFML\Graphics.hpp"
 
-namespace resources
+using std::string;
+
+class Resources
 {
-	//static void loadTextures();
-	/*
-	namespace textures
-	{
-		sf::Texture ant;
-		sf::Texture queen;
-		sf::Texture caterpillar;
-		sf::Texture beetle;
-		sf::Texture anthill;
+public:
 
-		sf::Texture stick;
-		sf::Texture leaf;
+	//модели
+	std::string antModel;
+	std::string queenModel;
+	std::string catherpillarModel;
+	std::string beetleModel;
 
-	}*/
+	//текстуры
+	sf::Texture dirtTex;
+	sf::Texture woodTex;
+	sf::Texture antTex;
+	sf::Texture queenTex;
+	sf::Texture catherpillarTex;
+	sf::Texture beetleTex;
+	sf::Texture leafTex;
+	sf::Texture stickTex;
+	sf::Texture anthillTex;
 
-	namespace audio
-	{
+	//интерфейс
+	sf::Sprite button;
+	sf::Sprite textfield;
+	sf::Sprite anthillSprite;
 
-	}
+	//звуки
+	sf::Sound music;
+	sf::Sound warSound;
 
-	namespace models
-	{
+	//шейдеры
+	Shader standartShader;
+	Shader selectedShader; //для объектов, на которые нацелено перекрестие
 
-	}
+	void LoadTextures(string dirt, string wood, string ant, string queen, string cath, string beetle,
+					  string leaf, string stick, string anthill);
+	void LoadShaders(string vertexSTD, string fragmentSTD, string vertexSelected, string fragmentSelected);
 
-	namespace gui
-	{
+	Resources();
+	~Resources();
+};
 
-	}
-
-	namespace shaders
-	{
-		GLchar anthill_vertex[] = "Resources\\land_vertex.glsl";
-		GLchar anthill_fragment[] = "Resources\\land_fragment.glsl";
-
-	}
-}

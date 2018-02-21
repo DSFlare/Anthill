@@ -19,10 +19,7 @@ class Model3D
 {
 public:
 	/*  Методы   */
-	Model3D(char *path)
-	{
-		loadModel(path);
-	}
+	Model3D(char *path){ loadModel(path); }
 	void Draw(Shader shader);
 private:
 	//Список уже загруженных текстур
@@ -36,5 +33,3 @@ private:
 	Mesh processMesh(aiMesh *mesh, const aiScene *scene);
 	vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, string typeName);
 };
-
-

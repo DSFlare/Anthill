@@ -17,6 +17,7 @@ public:
 	void setFloat(const std::string &name, float value) const;
 
 	// Конструктор считывает и собирает шейдер
+	Shader() {} //для того чтобы статически объявлять без инициализации
 	Shader(const GLchar* vertexPath, const GLchar* fragmentPath);
 
 	// Использование программы

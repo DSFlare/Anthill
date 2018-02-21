@@ -4,7 +4,8 @@
 
 
 
-Landscape::Landscape(sf::RenderWindow * window_, Camera * camera_) : Drawable3D(window_, camera_)
+Landscape::Landscape(sf::RenderWindow * window_, Camera * camera_, Resources* res_) 
+	: Drawable3D(window_, camera_, res_)
 {
 	//сам куб
 	float vertices[] = {

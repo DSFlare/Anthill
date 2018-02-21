@@ -1,31 +1,30 @@
 #include "Forest.h"
 
 
+
 void Forest::Init()
 {
-	sf::ContextSettings contextSettings;
-	contextSettings.depthBits = 24;
-	contextSettings.sRgbCapable = true;
-	window = new sf::RenderWindow(sf::VideoMode(windowWidth, windowHeight), "Anthill simulation",
-		sf::Style::Default, contextSettings);
-	window->setVerticalSyncEnabled(true);
+	//sf::ContextSettings contextSettings;
+	//contextSettings.depthBits = 24;
+	//contextSettings.sRgbCapable = true;
+	//window = new sf::RenderWindow(sf::VideoMode(windowWidth, windowHeight), "Anthill simulation",
+		//sf::Style::Default, contextSettings);
+	//window->setVerticalSyncEnabled(true);
 
 	//инициализируем GLEW перед использованием каких-либо функций openGL
-	glewExperimental = GL_TRUE;
-	if (glewInit() != GLEW_OK)
-	{
-		std::cout << "Failed to initialize GLEW" << std::endl;
-		return;
-	}
+	//glewExperimental = GL_TRUE;
+	//if (glewInit() != GLEW_OK)
+	//{
+	//	std::cout << "Failed to initialize GLEW" << std::endl;
+	//	return;
+	//}
 	
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glClearColor(0.6f, 0.85f, 0.9f, 1.0f); //цвет, которым будет очищен экран
-	glEnable(GL_DEPTH_TEST);
-	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//glClearColor(0.6f, 0.85f, 0.9f, 1.0f); //цвет, которым будет очищен экран
+	//glEnable(GL_DEPTH_TEST);
+	//glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
 	//инициализируем переменные времени
-	//t::deltaTime = 0;
-	//t::lastFrame = 0;
 	deltaTime = 0;
 	lastFrame = 0;
 
@@ -34,13 +33,50 @@ void Forest::Init()
 	objects.push_back(&(*camera));
 }
 
-Forest::Forest()
+Forest::Forest(sf::RenderWindow* window_, Resources* res_)
 {
-	Init();
+	res = res_;
+	window = window_;
+	windowWidth = window->getSize().x;
+	windowHeight = window->getSize().y;
+
+	//инициализируем переменные времени
+	deltaTime = 0;
+	lastFrame = 0;
+
+	//создаем камеру
+	camera = new Camera(&windowWidth, &windowHeight, &deltaTime, window);
+	objects.push_back(&(*camera));
+	//Init();
 }
 
 Forest::~Forest()
 {
+}
+
+sf::RenderWindow* Forest::InitializeGL(int width, int height)
+{
+	sf::ContextSettings contextSettings;
+	contextSettings.depthBits = 24;
+	contextSettings.sRgbCapable = true;
+	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(width, height), "Anthill simulation",
+		sf::Style::Default, contextSettings);
+	window->setVerticalSyncEnabled(true);
+
+	//инициализируем GLEW перед использованием каких-либо функций openGL
+	glewExperimental = GL_TRUE;
+	if (glewInit() != GLEW_OK)
+	{
+		std::cout << "Failed to initialize GLEW" << std::endl;
+		return NULL;
+	}
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glClearColor(0.6f, 0.85f, 0.9f, 1.0f); //цвет, которым будет очищен экран
+	glEnable(GL_DEPTH_TEST);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	return window;
 }
 
 void Forest::Update()
@@ -69,9 +105,10 @@ void Forest::Update()
 int Forest::StartSimulation()
 {
 	//добавим поверхность
-	objects.push_back(new Landscape(window, camera));
+	objects.push_back(new Landscape(window, camera, res));
 	camera->setPosition(vec3(-5, 0, 0));
 	camera->setRotation(vec3(0, 20, 0));
+
 
 
 	
@@ -110,10 +147,17 @@ void Forest::ProcessEvents(sf::Event e)
 	}
 
 	// Escape key: exit
-	if ((e.type == sf::Event::KeyPressed) && (e.key.code == sf::Keyboard::Escape))
+	else if ((e.type == sf::Event::KeyPressed) && (e.key.code == sf::Keyboard::Escape))
 	{
 		window->close();
 	}
+
+	else if ((e.type == sf::Event::KeyPressed) && (e.key.code == sf::Keyboard::C))
+	{
+		isCursorVisible = !isCursorVisible;
+		window->setMouseCursorVisible(!isCursorVisible);
+	}
+
 
 	//TODO: определенные события рассылаются всем объектам на сцене
 	if (true) {

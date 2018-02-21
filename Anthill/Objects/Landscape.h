@@ -10,7 +10,7 @@ class Landscape: public ForestObject, public Drawable3D
 	sf::Texture texture;
 
 public:
-	Landscape(sf::RenderWindow* window_, Camera* camera_);
+	Landscape(sf::RenderWindow * window_, Camera * camera_, Resources* res_);
 	~Landscape();
 
 	virtual void Update() override;

@@ -4,7 +4,9 @@
 
 int main()
 {
-	Forest forest;
+	sf::RenderWindow* window = Forest::InitializeGL(1280, 720);
+	Resources res;
+	Forest forest(window, &res);
 	forest.StartSimulation();
 
 	return 0;
