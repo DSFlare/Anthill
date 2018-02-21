@@ -36,8 +36,8 @@ class Camera : public ForestObject
 	int *windowWidth, *windowHeight;
 	float FOV = 60;
 
-	//вспомогательные вектора
-	vec3 forward;
+	sf::RenderWindow* window;
+	sf::Sprite screenCenter;
 
 	//полезные матрицы
 	mat4 viewMatrix;
@@ -46,10 +46,12 @@ class Camera : public ForestObject
 	// движение
 	bool up = false, down = false, left = false, right = false, forwardd = false, backward = false;
 	float* deltaTime;
+	int prevMouseX, prevMouseY;
+	int mouseOffsetX, mouseOffsetY;
 
 public:
 	
-	Camera(int* windowWidth_, int* windowHeight_, float* deltaTime_); 
+	Camera(int* windowWidth_, int* windowHeight_, float* deltaTime_, sf::RenderWindow* window_); 
 	void LookAt(vec3 position); // поворачивает камеру таким образом, что она смотрит на данный объект
 
 	mat4 GetView() { return viewMatrix; }

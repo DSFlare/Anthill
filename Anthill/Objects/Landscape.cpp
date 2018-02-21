@@ -78,7 +78,6 @@ Landscape::Landscape(sf::RenderWindow * window_, Camera * camera_) : Drawable3D(
 	glBindVertexArray(0);
 
 	shader = new Shader("Resources\\vertex.glsl", "Resources\\fragment.glsl");
-	setPosition(vec3(0, -0.5, 0));
 
 	texture.loadFromFile("Resources\\test.png");
 	texture.generateMipmap();

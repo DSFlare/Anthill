@@ -30,7 +30,7 @@ void Forest::Init()
 	lastFrame = 0;
 
 	//создаем камеру
-	camera = new Camera(&windowWidth, &windowHeight, &deltaTime);
+	camera = new Camera(&windowWidth, &windowHeight, &deltaTime, window);
 	objects.push_back(&(*camera));
 }
 
@@ -70,7 +70,8 @@ int Forest::StartSimulation()
 {
 	//добавим поверхность
 	objects.push_back(new Landscape(window, camera));
-
+	camera->setPosition(vec3(-5, 0, 0));
+	camera->setRotation(vec3(0, 20, 0));
 
 
 	
