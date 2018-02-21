@@ -16,6 +16,7 @@ void Ant::Update()
 
 	glm::mat4 modelMatrix;
 	modelMatrix = glm::translate(modelMatrix, getPosition());
+	modelMatrix = glm::scale(modelMatrix, getScale());
 
 	GLint modelLoc = glGetUniformLocation(shader->Program, "model");
 	GLint viewLoc = glGetUniformLocation(shader->Program, "view");

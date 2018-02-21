@@ -116,7 +116,7 @@ vector<Texture> Model3D::loadMaterialTextures(aiMaterial * mat, aiTextureType ty
 		if (!skip)
 		{   // если текстура не была загружена – сделаем это
 			Texture texture;
-			texture.id = TextureFromFile(str.C_Str(), directory, true);
+			texture.id = TextureFromFile(str.C_Str(), directory);
 			texture.type = typeName;
 			texture.path = str;
 			textures.push_back(texture);
@@ -127,13 +127,19 @@ vector<Texture> Model3D::loadMaterialTextures(aiMaterial * mat, aiTextureType ty
 	return textures;
 }
 
-unsigned int TextureFromFile(const char *path, const string &directory, bool gamma)
+unsigned int TextureFromFile(const char *path, const string &directory)
 {
 	string filename = string(path);
 	filename = directory + '/' + filename;
 
 	unsigned int textureID;
 	glGenTextures(1, &textureID);
+
+	/*sf::Texture texture;
+	texture.loadFromFile(filename);
+	texture.generateMipmap();
+	texture.setSmooth(true);	
+	sf::Texture::bind(&texture);*/
 
 	int width, height, nrComponents;
 	unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
