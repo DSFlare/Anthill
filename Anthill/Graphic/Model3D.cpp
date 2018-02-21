@@ -1,6 +1,7 @@
 #include "Model3D.h"
 
-#include "SOIL\stb_image_aug.h"
+#include <SOIL/SOIL.h>
+#include <SOIL/stb_image_aug.h>
 
 
 
