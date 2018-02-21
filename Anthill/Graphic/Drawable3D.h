@@ -16,7 +16,7 @@ class Drawable3D
 protected:
 	Model3D* mesh;
 	Shader* shader;
-	sf::Texture texture;
+	sf::Texture* texture;
 	sf::RenderWindow* window;
 	Camera* camera;
 	Resources* res;

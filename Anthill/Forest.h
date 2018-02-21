@@ -1,18 +1,19 @@
 #pragma once
-#define GLEW_STATIC
+//#define GLEW_STATIC
 #include <GL\glew.h>
 #include <SFML\Graphics.hpp>
 
 #include "Objects\ForestObject.h"
+#include "Objects\TestObject.h"
 #include "Objects\Landscape.h"
 #include "Objects\Animals\Ant.h"
 #include "Objects\Staff.h"
 #include "Graphic\Camera.h"
-//#include "Time.h"
+#include "Resources\Resources.h"
+
 
 #include <vector>
 #include <iostream>
-#include "Resources\Resources.h"
 
 
 // главный управл€ющий класс
@@ -38,7 +39,7 @@ public:
 	Forest(sf::RenderWindow* window_, Resources* res);
 	~Forest();
 
-	static sf::RenderWindow* InitializeGL(int width, int height);
+	static sf::RenderWindow* InitializeGL(int width, int height, int style);
 
 	void Update();
 	void AddObject(ForestObject* obj);

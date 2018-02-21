@@ -9,24 +9,6 @@
 using glm::vec3;
 using glm::mat4;
 
-enum Camera_Movement {
-	STAY,
-	FORWARD,
-	BACKWARD,
-	LEFT,
-	RIGHT,
-	DOWN,
-	UP
-};
-
-// Default camera values
-const float YAW = -90.0f;
-const float PITCH = 0.0f;
-const float ROLL = 0.0f;
-const float SPEED = 2.5f;
-const float SENSITIVTY = 0.1f;
-const float ZOOM = 45.0f;
-
 class Camera : public ForestObject
 {
 	// Camera options
@@ -48,6 +30,7 @@ class Camera : public ForestObject
 	float* deltaTime;
 	int prevMouseX, prevMouseY;
 	int mouseOffsetX, mouseOffsetY;
+	int mouseWheelDelta;
 
 public:
 	

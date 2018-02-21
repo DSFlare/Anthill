@@ -18,6 +18,7 @@ public:
 	std::string beetleModel;
 
 	//текстуры
+	sf::Texture testTex;
 	sf::Texture dirtTex;
 	sf::Texture woodTex;
 	sf::Texture antTex;

@@ -1,67 +1,16 @@
 #include "Landscape.h"
 
 
-
-
-
-Landscape::Landscape(sf::RenderWindow * window_, Camera * camera_, Resources* res_) 
-	: Drawable3D(window_, camera_, res_)
+Landscape::Landscape(sf::RenderWindow * window_, Camera * camera_, Resources * res_)
+	:Drawable3D(window_, camera_, res_)
 {
-	//сам куб
 	float vertices[] = {
-		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-	};
-	cubePositions = new vec3[10]{
-		glm::vec3(0.0f,  0.0f,  0.0f),
-		glm::vec3(2.0f,  5.0f, -15.0f),
-		glm::vec3(-1.5f, -2.2f, -2.5f),
-		glm::vec3(-3.8f, -2.0f, -12.3f),
-		glm::vec3(2.4f, -0.4f, -3.5f),
-		glm::vec3(-1.7f,  3.0f, -7.5f),
-		glm::vec3(1.3f, -2.0f, -2.5f),
-		glm::vec3(1.5f,  2.0f, -2.5f),
-		glm::vec3(1.5f,  0.2f, -1.5f),
-		glm::vec3(-1.3f,  1.0f, -1.5f)
+		-10.0f, -10.0f, -0.0f,  0.0f, 0.0f,
+		10.0, -10.0f, -0.0f,  10.0f, 0.0f,
+		10.0f,  10.0f, -0.0f,  10.0f, 10.0f,
+		10.0f,  10.0f, -0.0f,  10.0f, 10.0f,
+		-10.0f,  10.0f, -0.0f,  0.0f, 10.0f,
+		-10.0f, -10.0f, -0.0f,  0.0f, 0.0f
 	};
 
 	glGenVertexArrays(1, &VAO);
@@ -78,11 +27,11 @@ Landscape::Landscape(sf::RenderWindow * window_, Camera * camera_, Resources* re
 	//Отвязываем VAO и все готово
 	glBindVertexArray(0);
 
-	shader = new Shader("Resources\\vertex.glsl", "Resources\\fragment.glsl");
-
-	texture.loadFromFile("Resources\\test.png");
-	texture.generateMipmap();
-	texture.setSmooth(true);
+	shader = &(res->standartShader);
+	texture = &(res->dirtTex);
+	texture->generateMipmap();
+	texture->setSmooth(true);
+	texture->setRepeated(true);
 }
 
 Landscape::~Landscape()
@@ -93,15 +42,19 @@ void Landscape::Update()
 {
 	shader->Use();
 	mat4 model = glm::translate(mat4(), getPosition());
+	vec3 rot = getRotation();
+	model = glm::rotate(model, glm::radians(rot.x), vec3(1, 0, 0));
+	model = glm::rotate(model, glm::radians(rot.y), vec3(0, 1, 0));
+	model = glm::rotate(model, glm::radians(rot.z), vec3(0, 0, 1));
 	mat4 view = camera->GetView();
 	mat4 proj = camera->GetProjection();
 
-	sf::Texture::bind(&texture);
+	sf::Texture::bind(texture);
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "projection"), 1, GL_FALSE, glm::value_ptr(proj));
 	glBindVertexArray(VAO);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindVertexArray(0);
 }

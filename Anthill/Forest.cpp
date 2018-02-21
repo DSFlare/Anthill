@@ -54,13 +54,13 @@ Forest::~Forest()
 {
 }
 
-sf::RenderWindow* Forest::InitializeGL(int width, int height)
+sf::RenderWindow* Forest::InitializeGL(int width, int height, int style)
 {
 	sf::ContextSettings contextSettings;
 	contextSettings.depthBits = 24;
 	contextSettings.sRgbCapable = true;
 	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(width, height), "Anthill simulation",
-		sf::Style::Default, contextSettings);
+		style, contextSettings);
 	window->setVerticalSyncEnabled(true);
 
 	//инициализируем GLEW перед использованием каких-либо функций openGL
@@ -82,8 +82,6 @@ sf::RenderWindow* Forest::InitializeGL(int width, int height)
 void Forest::Update()
 {
 	//обновляем переменные времени
-	//t::update();
-	//std::cout << t::deltaTime << "    " << t::lastFrame << std::endl;
 	float now = clock.getElapsedTime().asSeconds();
 	deltaTime = now - lastFrame;
 	lastFrame = now;
@@ -102,12 +100,27 @@ void Forest::Update()
 	}
 }
 
+void Forest::AddObject(ForestObject * obj)
+{
+	//ForestObject* 
+}
+
 int Forest::StartSimulation()
 {
+	////////////////////////////////////////////////////////////////////////
+	////здесь заполняем сцену (интерфейс строим в конструкторе у Canvas)////
+	////////////////////////////////////////////////////////////////////////
+
 	//добавим поверхность
-	objects.push_back(new Landscape(window, camera, res));
+	Landscape* landscape = new Landscape(window, camera, res);
+	objects.push_back(landscape);
+	landscape->setPosition(vec3(0, -5, 0));
+	landscape->setRotation(vec3(90, 0, 0));
+	
+	//тестовые объекты just for fun
+	objects.push_back(new TestObject(window, camera, res));
+	
 	camera->setPosition(vec3(-5, 0, 0));
-	camera->setRotation(vec3(0, 20, 0));
 
 
 

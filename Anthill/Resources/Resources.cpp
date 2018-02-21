@@ -24,7 +24,6 @@ void Resources::LoadTextures(string dirt_, string wood_, string ant_, string que
 	stickTex.loadFromFile(stick_);
 	anthillTex.loadFromFile(anthill_);
 
-
 }
 
 void Resources::LoadShaders(string vertexStd_, string fragmentStd_, 

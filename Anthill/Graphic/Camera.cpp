@@ -14,6 +14,7 @@ Camera::Camera(int * windowWidth_, int * windowHeight_, float* deltaTime_, sf::R
 	prevMouseY = 0;
 	mouseOffsetX = 0;
 	mouseOffsetY = 0;
+	mouseWheelDelta = 0;
 
 	Update();
 }
@@ -25,7 +26,6 @@ void Camera::LookAt(vec3 position)
 
 void Camera::HandleEvent(sf::Event e)
 {
-
 	//движение
 	if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::W)
 		forwardd = true;
@@ -52,6 +52,16 @@ void Camera::HandleEvent(sf::Event e)
 		down = false;
 	else if (e.type == sf::Event::KeyReleased && e.key.code == sf::Keyboard::Space)
 		up = false;
+	//изменение скорости движения
+	else if (e.type == sf::Event::MouseWheelMoved)
+	{
+		mouseWheelDelta += e.mouseWheel.delta;
+	}
+	//breakpoint
+	else if (e.type == sf::Event::KeyReleased && e.key.code == sf::Keyboard::B)
+	{
+		int i = 0;
+	}
 
 }
 
@@ -90,6 +100,17 @@ void Camera::Update()
 		deltaPos = glm::normalize(deltaPos);
 	setPosition(getPosition() + deltaPos * (*deltaTime) * movementSpeed);
 
+	//изменяем скорость движения
+	if (mouseWheelDelta != 0)
+	{
+		int sign = 1;
+		if (mouseWheelDelta < 0) sign = -1;
+
+		for (int i = 0; i < abs(mouseWheelDelta); i++)
+			movementSpeed += sign * 0.3 * movementSpeed;
+
+		mouseWheelDelta = 0;
+	}
 	
 	//просчитываем матрицы вида и проекции
 	vec3 purpose;
