@@ -7,6 +7,8 @@
 #include "Objects\TestObject.h"
 #include "Objects\Landscape.h"
 #include "Objects\Animals\Ant.h"
+#include "Objects\Animals\Beetle.h"
+#include "Objects\Animals\Queen.h"
 #include "Objects\Staff.h"
 #include "Graphic\Camera.h"
 #include "Resources\Resources.h"

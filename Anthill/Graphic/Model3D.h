@@ -10,10 +10,12 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include <SFML/Graphics.hpp>
+
 using std::vector;
 using std::string;
 
-unsigned int TextureFromFile(const char *path, const string &directory, bool gamma);
+unsigned int TextureFromFile(const char *path, const string &directory);
 
 class Model3D
 {

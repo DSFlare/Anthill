@@ -21,6 +21,11 @@ void ForestObject::Destroy()
 {
 }
 
+void ForestObject::SetParent(ForestObject * obj)
+{
+	parent = obj;
+}
+
 void ForestObject::Update()
 {
 

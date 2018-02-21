@@ -40,6 +40,12 @@ Forest::Forest(sf::RenderWindow* window_, Resources* res_)
 	windowWidth = window->getSize().x;
 	windowHeight = window->getSize().y;
 
+	//ресурсы
+	res->LoadShaders("Resources\\vertex.glsl", "Resources\\fragment.glsl", "Resources\\vertex.glsl", "Resources\\fragment.glsl");
+	res->LoadModels("Resources/Models/RedAnt/formica rufa.obj", "Resources/Models/Queen/gigantic_ant_monster.obj",
+		"", "Resources/Models/Beetle/rolypolymodoli.obj");
+
+
 	//инициализируем переменные времени
 	deltaTime = 0;
 	lastFrame = 0;
@@ -102,7 +108,7 @@ void Forest::Update()
 
 void Forest::AddObject(ForestObject * obj)
 {
-	//ForestObject* 
+
 }
 
 int Forest::StartSimulation()
@@ -122,8 +128,10 @@ int Forest::StartSimulation()
 	
 	camera->setPosition(vec3(-5, 0, 0));
 
-
-
+	//муравейка тест
+	objects.push_back(new Ant(camera, res, window, vec3(-1, -2, 0)));
+	objects.push_back(new Beetle(camera, res, window, vec3(0, -4, 0)));
+	objects.push_back(new Queen(camera, res, window, vec3(0, -8, 0)));
 	
 	////////////////////////////////////////////////////////////////////////
 	/////////////////////////// -- GAME CYCLE -- ///////////////////////////

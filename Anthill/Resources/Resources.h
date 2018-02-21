@@ -12,10 +12,10 @@ class Resources
 public:
 
 	//модели
-	std::string antModel;
-	std::string queenModel;
-	std::string catherpillarModel;
-	std::string beetleModel;
+	char * antModel;
+	char * queenModel;
+	char * catherpillarModel;
+	char * beetleModel;
 
 	//текстуры
 	sf::Texture testTex;
@@ -45,6 +45,8 @@ public:
 	void LoadTextures(string dirt, string wood, string ant, string queen, string cath, string beetle,
 					  string leaf, string stick, string anthill);
 	void LoadShaders(string vertexSTD, string fragmentSTD, string vertexSelected, string fragmentSelected);
+
+	void LoadModels(char * ant, char * queen, char * catherpillar, char * beetle);
 
 	Resources();
 	~Resources();
