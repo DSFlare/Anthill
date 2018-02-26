@@ -30,9 +30,10 @@ public:
 	sf::Texture anthillTex;
 
 	//интерфейс
-	sf::Sprite button;
-	sf::Sprite textfield;
-	sf::Sprite anthillSprite;
+	sf::Texture button;
+	sf::Texture textfield;
+	sf::Texture anthillSprite;
+	sf::Texture screenCenter;
 
 	//звуки
 	sf::Sound music;

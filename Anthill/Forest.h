@@ -12,6 +12,7 @@
 #include "Objects\Staff.h"
 #include "Graphic\Camera.h"
 #include "Resources\Resources.h"
+#include "UI\Canvas.h"
 
 
 #include <vector>
@@ -27,6 +28,7 @@ private:
 	sf::RenderWindow* window;
 	std::vector<ForestObject*> objects;
 	Camera* camera;
+	Canvas canvas;
 	bool isCursorVisible = false;
 	Resources* res;
 

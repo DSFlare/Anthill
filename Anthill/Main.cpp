@@ -12,6 +12,7 @@ int main()
 	res.selectedShader = Shader("Resources\\vertex.glsl", "Resources\\fragment.glsl");
 	res.testTex.loadFromFile("Resources\\test.png");
 	res.dirtTex.loadFromFile("Resources\\dirt.jpg");
+	res.screenCenter.loadFromFile("Resources\\centre.png");
 	
 	Forest forest(window, &res);
 	forest.StartSimulation();

@@ -31,6 +31,8 @@ void Forest::Init()
 	//создаем камеру
 	camera = new Camera(&windowWidth, &windowHeight, &deltaTime, window);
 	objects.push_back(&(*camera));
+
+	
 }
 
 Forest::Forest(sf::RenderWindow* window_, Resources* res_)
@@ -80,8 +82,11 @@ sf::RenderWindow* Forest::InitializeGL(int width, int height, int style)
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glClearColor(0.6f, 0.85f, 0.9f, 1.0f); //цвет, которым будет очищен экран
 	glEnable(GL_DEPTH_TEST);
+	glDepthMask(GL_TRUE);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	sf::Mouse::setPosition(sf::Vector2i(window->getPosition().x + width / 2, 
+		window->getPosition().y + height / 2));
 	return window;
 }
 
@@ -104,6 +109,9 @@ void Forest::Update()
 	{
 		obj->Update();
 	}
+	window->pushGLStates();
+	canvas.Update();
+	window->popGLStates();
 }
 
 void Forest::AddObject(ForestObject * obj)
@@ -132,6 +140,11 @@ int Forest::StartSimulation()
 	objects.push_back(new Ant(camera, res, window, vec3(-1, -2, 0)));
 	objects.push_back(new Beetle(camera, res, window, vec3(0, -4, 0)));
 	objects.push_back(new Queen(camera, res, window, vec3(0, -8, 0)));
+
+	UIImage* screenCenter = new UIImage(window, &(res->screenCenter));
+	canvas.objects.push_back(screenCenter);
+	screenCenter->setPosition(Vector2f(100, 100));
+	sf::Sprite testsprite(res->testTex);
 	
 	////////////////////////////////////////////////////////////////////////
 	/////////////////////////// -- GAME CYCLE -- ///////////////////////////
@@ -152,8 +165,9 @@ int Forest::StartSimulation()
 		//вычисления и отрисовка всех Drawable и UI объектов
 		Update();
 
-	
-
+		window->pushGLStates();
+		window->draw(testsprite);
+		window->popGLStates();
 		window->display();
 	}
 	return 0;

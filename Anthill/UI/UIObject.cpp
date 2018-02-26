@@ -2,15 +2,12 @@
 
 
 
-UIObject::UIObject()
-{
-}
-
-
 UIObject::~UIObject()
 {
+
 }
 
 void UIObject::HiddenUpdate()
 {
+
 }

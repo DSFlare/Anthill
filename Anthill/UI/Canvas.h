@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "UIObject.h"
+#include "UIImage.h"
 
 class Canvas
 {
@@ -13,5 +14,6 @@ public:
 
 
 	void Update();
+	void HandleEvent(sf::Event e);
 };
 

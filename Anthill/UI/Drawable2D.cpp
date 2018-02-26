@@ -2,9 +2,6 @@
 
 
 
-Drawable2D::Drawable2D()
-{
-}
 
 
 Drawable2D::~Drawable2D()
