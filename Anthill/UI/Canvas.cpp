@@ -17,3 +17,11 @@ void Canvas::Update()
 		obj->Update();
 	}
 }
+
+void Canvas::HandleEvent(sf::Event e)
+{
+	for (auto obj : objects)
+	{
+		obj->HandleEvent(e);
+	}
+}

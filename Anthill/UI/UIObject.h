@@ -1,26 +1,26 @@
 #pragma once
-#include "glm\glm.hpp"
 #include <vector>
 #include <SFML\Graphics.hpp>
 
-using glm::vec3;
+using sf::Vector2f;
 
 class UIObject
 {
-	vec3 position;
-	vec3 scale;
+protected:
+	Vector2f position;
+	Vector2f scale;
 	std::vector<UIObject*>* others;
 	UIObject* parent;
 	std::vector<UIObject*> childs;
-
+	sf::RenderWindow* window;
 public:
-	UIObject();
+	UIObject(sf::RenderWindow* window_) { window = window_; }
 	virtual ~UIObject();
 
-	vec3 getPosition() { return position; }
-	vec3 getScale() { return scale; }
-	void setPosition(vec3 position_) { position = position_; }
-	void setScale(vec3 scale_) { scale = scale_; }
+	Vector2f getPosition() { return position; }
+	Vector2f getScale() { return scale; }
+	virtual void setPosition(Vector2f position_) { position = position_; }
+	virtual void setScale(Vector2f scale_) { scale = scale_; }
 
 	UIObject* GetChild(int index) { return childs[index]; }
 	UIObject* GetParent() { return parent; }

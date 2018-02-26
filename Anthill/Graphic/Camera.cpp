@@ -74,11 +74,13 @@ void Camera::Update()
 	//поворот----------------------------
 	int mx = sf::Mouse::getPosition(*window).x;
 	int my = -sf::Mouse::getPosition(*window).y;
-	mouseOffsetX = prevMouseX - mx;
-	mouseOffsetY = prevMouseY - my;
-	prevMouseX = mx;
-	prevMouseY = my;
+	mouseOffsetX = window->getPosition().x + *windowWidth / 2 - mx;
+	mouseOffsetY = window->getPosition().y + *windowHeight / 2 - my;
+	//prevMouseX = mx;
+	//prevMouseY = my;
 	setRotation(getRotation() + vec3(0, -mouseOffsetX * mouseSensitivity, -mouseOffsetY * mouseSensitivity));
+	sf::Mouse::setPosition(sf::Vector2i(window->getPosition().x + *windowWidth / 2,
+		window->getPosition().y + *windowHeight / 2));
 
 	//движение---------------------------
 	vec3 deltaPos(0, 0, 0);
