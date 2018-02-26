@@ -74,6 +74,14 @@ void Camera::Update()
 	//поворот----------------------------
 	int mx = sf::Mouse::getPosition(*window).x;
 	int my = -sf::Mouse::getPosition(*window).y;
+	if (my < -590)
+	{
+		my = -590;
+	}
+	if (my > 400)
+	{
+		my = 400;
+	}
 	mouseOffsetX = prevMouseX - mx;
 	mouseOffsetY = prevMouseY - my;
 	prevMouseX = mx;
