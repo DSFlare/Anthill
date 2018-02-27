@@ -6,6 +6,7 @@
 #include <assimp\Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include <SFML\Graphics.hpp>
 
 #include "Shader.h"
 
@@ -20,11 +21,6 @@ struct Vertex {
 	glm::vec3 Normal;
 	glm::vec2 TexCoords;
 };
-struct Texture {
-	unsigned int id;
-	aiString path;
-	string type;
-};
 
 class Mesh
 {
@@ -32,9 +28,9 @@ public:
 	/*  Mesh Data  */
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
-	vector<Texture> textures;
+	sf::Texture *texture;
 	/*  Functions  */
-	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
+	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, sf::Texture *texture);
 	void Draw(Shader shader);
 private:
 	/*  Render data  */
