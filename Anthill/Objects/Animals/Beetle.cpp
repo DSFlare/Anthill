@@ -6,7 +6,8 @@ Beetle::Beetle(Camera * camera_, Resources * res_, sf::RenderWindow * window_, v
 	:Organism(camera_, res_, window_, position_, rotation_, scale_)
 {
 	shader = &(res->standartShader);
-	model = new Model3D(res->beetleModel);
+	texture = &(res->queenTex);
+	model = new Model3D(res->beetleModel, texture);
 }
 
 void Beetle::Death()

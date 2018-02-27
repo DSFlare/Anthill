@@ -16,6 +16,8 @@ Forest::Forest(sf::RenderWindow* window_, Resources* res_)
 		"Resources/Models/Queen/gigantic_ant_monster.obj",
 		"", "Resources/Models/Beetle/rolypolymodoli.obj");
 
+	res->LoadTextures("", "", "Resources/Models/RedAnt/texture.jpg", "", "", "", "", "", "");
+
 	//инициализируем переменные времени
 	deltaTime = 0;
 	lastFrame = 0;
@@ -104,9 +106,10 @@ int Forest::StartSimulation()
 	camera->setPosition(vec3(-5, 0, 0));
 
 	//муравейка тест
-//	objects.push_back(new Ant(camera, res, window, vec3(-1, -2, 0)));
-//	objects.push_back(new Beetle(camera, res, window, vec3(0, -4, 0)));
-//	objects.push_back(new Queen(camera, res, window, vec3(0, -8, 0)));
+
+	objects.push_back(new Ant(camera, res, window, vec3(-1, -2, 0)));
+	//objects.push_back(new Beetle(camera, res, window, vec3(0, -4, 0)));
+	//objects.push_back(new Queen(camera, res, window, vec3(0, -8, 0)));
 
 	UIImage* screenCenter = new UIImage(window, &(res->screenCenter));
 	canvas.objects.push_back(screenCenter);

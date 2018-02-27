@@ -15,23 +15,20 @@
 using std::vector;
 using std::string;
 
-unsigned int TextureFromFile(const char *path, const string &directory);
-
 class Model3D
 {
 public:
 	/*  Методы   */
-	Model3D(char *path){ loadModel(path); }
+	Model3D(char *path, sf::Texture *texture);
 	void Draw(Shader shader);
+	void changeTexture(sf::Texture *texture);
 private:
-	//Список уже загруженных текстур
-	vector<Texture> textures_loaded;
 	/*  Данные модели  */
+	sf::Texture *texture;
 	vector<Mesh> meshes;
 	string directory;
 	/*  Методы   */
 	void loadModel(string path);
 	void processNode(aiNode *node, const aiScene *scene);
 	Mesh processMesh(aiMesh *mesh, const aiScene *scene);
-	vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, string typeName);
 };

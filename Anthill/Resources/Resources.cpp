@@ -14,15 +14,15 @@ Resources::~Resources()
 void Resources::LoadTextures(string dirt_, string wood_, string ant_, string queen_, string cath_, 
 	string beetle_, string leaf_, string stick_, string anthill_)
 {
-	dirtTex.loadFromFile(dirt_);
+	/*dirtTex.loadFromFile(dirt_);
 	woodTex.loadFromFile(wood_);
-	antTex.loadFromFile(ant_);
 	queenTex.loadFromFile(queen_);
 	catherpillarTex.loadFromFile(cath_);
 	beetleTex.loadFromFile(beetle_);
 	leafTex.loadFromFile(leaf_);
 	stickTex.loadFromFile(stick_);
-	anthillTex.loadFromFile(anthill_);
+	anthillTex.loadFromFile(anthill_);*/
+	antTex.loadFromFile(ant_);
 
 }
 

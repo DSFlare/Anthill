@@ -39,7 +39,8 @@ Ant::Ant(Camera * camera_, Resources * res_, sf::RenderWindow * window_, vec3 po
 	:Organism(camera_, res_, window_, position_,  rotation_, scale_)
 {
 	shader = &(res->standartShader);
-	model = new Model3D(res->antModel);
+	texture = &(res->antTex);
+	model = new Model3D(res->antModel, texture);
 }
 
 

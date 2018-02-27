@@ -7,7 +7,8 @@ Queen::Queen(Camera * camera_, Resources * res_, sf::RenderWindow * window_, vec
 : Ant(camera_, res_, window_, position_, rotation_, scale_)
 {
 	shader = &(res->standartShader);
-	model = new Model3D(res->queenModel);
+	texture = &(res->queenTex);
+	model = new Model3D(res->queenModel, texture);
 }
 
 void Queen::Update()

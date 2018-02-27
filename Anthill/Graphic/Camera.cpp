@@ -72,6 +72,7 @@ void Camera::Destroy()
 void Camera::Update()
 {
 	//поворот----------------------------
+
 	int mx = window->getPosition().x + sf::Mouse::getPosition(*window).x + 9;
 	int my =  window->getPosition().y + sf::Mouse::getPosition(*window).y + 40;
 	int statex = window->getPosition().x + *windowWidth / 2;
@@ -86,6 +87,7 @@ void Camera::Update()
 	}
 	setRotation(newRot);
 	sf::Mouse::setPosition(sf::Vector2i(statex, statey));
+
 
 	//движение---------------------------
 	vec3 deltaPos(0, 0, 0);
