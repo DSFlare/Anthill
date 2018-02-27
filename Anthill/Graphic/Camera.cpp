@@ -73,8 +73,8 @@ void Camera::Update()
 {
 	//поворот----------------------------
 
-	int mx = window->getPosition().x + sf::Mouse::getPosition(*window).x + 9;
-	int my =  window->getPosition().y + sf::Mouse::getPosition(*window).y + 40;
+	int mx = sf::Mouse::getPosition().x;
+	int my = sf::Mouse::getPosition().y;
 	int statex = window->getPosition().x + *windowWidth / 2;
 	int statey = window->getPosition().y + *windowHeight / 2;
 
