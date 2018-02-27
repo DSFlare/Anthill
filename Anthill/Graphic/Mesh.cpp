@@ -19,6 +19,7 @@ void Mesh::Draw(Shader shader)
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	sf::Texture::bind(0);
 }
 
