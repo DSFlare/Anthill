@@ -34,7 +34,11 @@ void UIImage::HandleEvent(sf::Event e)
 {
 	if (isActive && e.type == sf::Event::MouseButtonPressed)
 	{
-
+		
+	}
+	if (e.type == sf::Event::KeyReleased && e.key.code == sf::Keyboard::K)
+	{
+		isActive = !isActive;
 	}
 }
 

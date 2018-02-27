@@ -88,7 +88,6 @@ void Camera::Update()
 	setRotation(newRot);
 	sf::Mouse::setPosition(sf::Vector2i(statex, statey));
 
-
 	//движение---------------------------
 	vec3 deltaPos(0, 0, 0);
 	vec3 rot = getRotation();

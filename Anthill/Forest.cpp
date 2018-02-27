@@ -90,20 +90,16 @@ int Forest::StartSimulation()
 	////////////////////////////////////////////////////////////////////////
 	////здесь заполняем сцену (интерфейс строим в конструкторе у Canvas)////
 	////////////////////////////////////////////////////////////////////////
+	
+	camera->setPosition(vec3(-5, 0, 0));
 
 	//добавим поверхность
 	Landscape* landscape = new Landscape(window, camera, res);
 	objects.push_back(landscape);
 	landscape->setPosition(vec3(0, -5, 0));
 	landscape->setRotation(vec3(90, 0, 0));
-	
-	//тестовые объекты just for fun
-	objects.push_back(new TestObject(window, camera, res));
-	
-	camera->setPosition(vec3(-5, 0, 0));
 
 	//муравейка тест
-
 	objects.push_back(new Ant(camera, res, window, vec3(-1, -2, 0)));
 	//objects.push_back(new Beetle(camera, res, window, vec3(0, -4, 0)));
 	//objects.push_back(new Queen(camera, res, window, vec3(0, -8, 0)));
@@ -157,10 +153,12 @@ void Forest::ProcessEvents(sf::Event e)
 	}
 
 
+
 	//TODO: определенные события рассылаются всем объектам на сцене
 	if (true) {
 		for (auto obj : objects) {
 			obj->HandleEvent(e);
 		}
 	}
+	canvas.HandleEvent(e);
 }
