@@ -24,8 +24,9 @@ Landscape::Landscape(sf::RenderWindow * window_, Camera * camera_, Resources * r
 	//Атрибут с текстурными координатами
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(2);
-	//Отвязываем VAO и все готово
+	//Отвязываем VAO [И VBO!!!!!!!!!!!!!!!!] и все готово
 	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	shader = &(res->standartShader);
 	texture = &(res->dirtTex);
@@ -36,6 +37,7 @@ Landscape::Landscape(sf::RenderWindow * window_, Camera * camera_, Resources * r
 
 Landscape::~Landscape()
 {
+
 }
 
 void Landscape::Update()

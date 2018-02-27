@@ -1,6 +1,7 @@
 #pragma once
 #include "Organism.h"
 #include "AntRoles\Role.h"
+
 class Ant :
 	public Organism
 {

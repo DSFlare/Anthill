@@ -15,6 +15,7 @@ int main()
 	res.screenCenter.loadFromFile("Resources\\centre.png");
 	
 	Forest forest(window, &res);
+
 	forest.StartSimulation();
 	
 	return 0;

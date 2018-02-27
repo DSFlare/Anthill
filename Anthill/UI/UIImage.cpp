@@ -5,6 +5,7 @@ UIImage::UIImage(sf::RenderWindow* window_, sf::Texture * texture_) :
 {
 	texture = texture_;
 	sprite.setTexture(*texture);
+	sprite.setOrigin(texture->getSize().x / 2, texture->getSize().x / 2);
 }
 
 void UIImage::setPosition(Vector2f position_)
@@ -20,7 +21,8 @@ void UIImage::setScale(Vector2f scale_)
 
 void UIImage::Update()
 {
-	Draw();
+	if (isActive)
+		Draw();
 }
 
 void UIImage::Draw()
@@ -30,6 +32,10 @@ void UIImage::Draw()
 
 void UIImage::HandleEvent(sf::Event e)
 {
+	if (isActive && e.type == sf::Event::MouseButtonPressed)
+	{
+
+	}
 }
 
 void UIImage::Destroy()

@@ -72,15 +72,20 @@ void Camera::Destroy()
 void Camera::Update()
 {
 	//поворот----------------------------
-	int mx = sf::Mouse::getPosition(*window).x;
-	int my = -sf::Mouse::getPosition(*window).y;
-	mouseOffsetX = window->getPosition().x + *windowWidth / 2 - mx;
-	mouseOffsetY = window->getPosition().y + *windowHeight / 2 - my;
-	//prevMouseX = mx;
-	//prevMouseY = my;
-	setRotation(getRotation() + vec3(0, -mouseOffsetX * mouseSensitivity, -mouseOffsetY * mouseSensitivity));
-	sf::Mouse::setPosition(sf::Vector2i(window->getPosition().x + *windowWidth / 2,
-		window->getPosition().y + *windowHeight / 2));
+	int mx = window->getPosition().x + sf::Mouse::getPosition(*window).x + 9;
+	int my =  window->getPosition().y + sf::Mouse::getPosition(*window).y + 40;
+	int statex = window->getPosition().x + *windowWidth / 2;
+	int statey = window->getPosition().y + *windowHeight / 2;
+
+	mouseOffsetX = statex - mx;
+	mouseOffsetY = statey - my;
+	vec3 newRot = getRotation() + vec3(0, -mouseOffsetX * mouseSensitivity, mouseOffsetY * mouseSensitivity);
+	if (abs(newRot.z) >= 80)
+	{
+		newRot = vec3(newRot.x, newRot.y, 80 * abs(newRot.z) / newRot.z);
+	}
+	setRotation(newRot);
+	sf::Mouse::setPosition(sf::Vector2i(statex, statey));
 
 	//движение---------------------------
 	vec3 deltaPos(0, 0, 0);

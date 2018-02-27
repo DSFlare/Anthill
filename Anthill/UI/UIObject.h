@@ -14,7 +14,9 @@ protected:
 	std::vector<UIObject*> childs;
 	sf::RenderWindow* window;
 public:
-	UIObject(sf::RenderWindow* window_) { window = window_; }
+	bool isActive;
+
+	UIObject(sf::RenderWindow* window_) { window = window_; isActive = true; }
 	virtual ~UIObject();
 
 	Vector2f getPosition() { return position; }

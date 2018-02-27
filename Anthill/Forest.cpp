@@ -2,39 +2,6 @@
 
 
 
-void Forest::Init()
-{
-	//sf::ContextSettings contextSettings;
-	//contextSettings.depthBits = 24;
-	//contextSettings.sRgbCapable = true;
-	//window = new sf::RenderWindow(sf::VideoMode(windowWidth, windowHeight), "Anthill simulation",
-		//sf::Style::Default, contextSettings);
-	//window->setVerticalSyncEnabled(true);
-
-	//инициализируем GLEW перед использованием каких-либо функций openGL
-	//glewExperimental = GL_TRUE;
-	//if (glewInit() != GLEW_OK)
-	//{
-	//	std::cout << "Failed to initialize GLEW" << std::endl;
-	//	return;
-	//}
-	
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	//glClearColor(0.6f, 0.85f, 0.9f, 1.0f); //цвет, которым будет очищен экран
-	//glEnable(GL_DEPTH_TEST);
-	//glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-
-	//инициализируем переменные времени
-	deltaTime = 0;
-	lastFrame = 0;
-
-	//создаем камеру
-	camera = new Camera(&windowWidth, &windowHeight, &deltaTime, window);
-	objects.push_back(&(*camera));
-
-	
-}
-
 Forest::Forest(sf::RenderWindow* window_, Resources* res_)
 {
 	res = res_;
@@ -43,10 +10,11 @@ Forest::Forest(sf::RenderWindow* window_, Resources* res_)
 	windowHeight = window->getSize().y;
 
 	//ресурсы
-	res->LoadShaders("Resources\\vertex.glsl", "Resources\\fragment.glsl", "Resources\\vertex.glsl", "Resources\\fragment.glsl");
-	res->LoadModels("Resources/Models/RedAnt/formica rufa.obj", "Resources/Models/Queen/gigantic_ant_monster.obj",
+	res->LoadShaders("Resources\\vertex.glsl", "Resources\\fragment.glsl", 
+		"Resources\\vertex.glsl", "Resources\\fragment.glsl");
+	res->LoadModels("Resources/Models/RedAnt/formica rufa.obj", 
+		"Resources/Models/Queen/gigantic_ant_monster.obj",
 		"", "Resources/Models/Beetle/rolypolymodoli.obj");
-
 
 	//инициализируем переменные времени
 	deltaTime = 0;
@@ -55,7 +23,6 @@ Forest::Forest(sf::RenderWindow* window_, Resources* res_)
 	//создаем камеру
 	camera = new Camera(&windowWidth, &windowHeight, &deltaTime, window);
 	objects.push_back(&(*camera));
-	//Init();
 }
 
 Forest::~Forest()
@@ -137,14 +104,13 @@ int Forest::StartSimulation()
 	camera->setPosition(vec3(-5, 0, 0));
 
 	//муравейка тест
-	objects.push_back(new Ant(camera, res, window, vec3(-1, -2, 0)));
-	objects.push_back(new Beetle(camera, res, window, vec3(0, -4, 0)));
-	objects.push_back(new Queen(camera, res, window, vec3(0, -8, 0)));
+//	objects.push_back(new Ant(camera, res, window, vec3(-1, -2, 0)));
+//	objects.push_back(new Beetle(camera, res, window, vec3(0, -4, 0)));
+//	objects.push_back(new Queen(camera, res, window, vec3(0, -8, 0)));
 
 	UIImage* screenCenter = new UIImage(window, &(res->screenCenter));
 	canvas.objects.push_back(screenCenter);
-	screenCenter->setPosition(Vector2f(100, 100));
-	sf::Sprite testsprite(res->testTex);
+	screenCenter->setPosition(Vector2f(window->getSize().x / 2, window->getSize().y / 2));
 	
 	////////////////////////////////////////////////////////////////////////
 	/////////////////////////// -- GAME CYCLE -- ///////////////////////////
@@ -165,9 +131,6 @@ int Forest::StartSimulation()
 		//вычисления и отрисовка всех Drawable и UI объектов
 		Update();
 
-		window->pushGLStates();
-		window->draw(testsprite);
-		window->popGLStates();
 		window->display();
 	}
 	return 0;
