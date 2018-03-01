@@ -14,7 +14,7 @@ Forest::Forest(sf::RenderWindow* window_, Resources* res_)
 		"Resources\\vertex.glsl", "Resources\\fragment.glsl");
 	res->LoadModels("Resources/Models/RedAnt/formica rufa.obj", 
 		"Resources/Models/Queen/gigantic_ant_monster.obj",
-		"", "Resources/Models/Beetle/rolypolymodoli.obj");
+		"", "Resources/Models/Beetle/rolypolymodoli.obj", "Resources/Models/Anthill/anthill.obj");
 
 	res->LoadTextures("", "", "Resources/Models/RedAnt/texture.jpg", "", "", "", "", "", "");
 
@@ -100,14 +100,40 @@ int Forest::StartSimulation()
 	landscape->setRotation(vec3(90, 0, 0));
 
 	//муравейка тест
-	objects.push_back(new Ant(camera, res, window, vec3(-1, -2, 0)));
+	Ant* ant = new Ant(camera, res, window, vec3(-2, -5, 0));
+	objects.push_back(ant);
+	ant->setScale(vec3(0.25f, 0.25f, 0.25f));
+	ant->setRotation(vec3(0, 30, 0));
 	//objects.push_back(new Beetle(camera, res, window, vec3(0, -4, 0)));
 	//objects.push_back(new Queen(camera, res, window, vec3(0, -8, 0)));
 
+	//тест муравейника
+	Anthill *anthill = new Anthill(window, camera, res);
+	objects.push_back(anthill);
+	anthill->setPosition(vec3(0, -5, 0));
+
+	//User interface ebac
+	float scrCenterX = window->getSize().x / 2.0f;
+	float scrCenterY = window->getSize().y / 2.0f;
+
 	UIImage* screenCenter = new UIImage(window, &(res->screenCenter));
 	canvas.objects.push_back(screenCenter);
-	screenCenter->setPosition(Vector2f(window->getSize().x / 2, window->getSize().y / 2));
+	screenCenter->setPosition(Vector2f(scrCenterX, scrCenterY));
+
+	UIHotkeysInfo* hotkeysInfo = new UIHotkeysInfo(window, &(res->hotkeys));
+	canvas.objects.push_back(hotkeysInfo);
+	hotkeysInfo->setPosition(Vector2f(scrCenterX, scrCenterY));
+	hotkeysInfo->isActive = false;
+
+	UIAnthill* uiAnthill = new UIAnthill(window, &(res->anthillSprite));
+	canvas.objects.push_back(uiAnthill);
+	uiAnthill->setPosition(Vector2f(scrCenterX, scrCenterY));
+	uiAnthill->isActive = false;
 	
+
+
+
+
 	////////////////////////////////////////////////////////////////////////
 	/////////////////////////// -- GAME CYCLE -- ///////////////////////////
 	////////////////////////////////////////////////////////////////////////
@@ -145,12 +171,14 @@ void Forest::ProcessEvents(sf::Event e)
 	{
 		window->close();
 	}
-
+	//C - hide/show cursor
 	else if ((e.type == sf::Event::KeyPressed) && (e.key.code == sf::Keyboard::C))
 	{
 		isCursorVisible = !isCursorVisible;
 		window->setMouseCursorVisible(!isCursorVisible);
 	}
+
+	
 
 
 

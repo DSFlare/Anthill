@@ -5,7 +5,7 @@ UIImage::UIImage(sf::RenderWindow* window_, sf::Texture * texture_) :
 {
 	texture = texture_;
 	sprite.setTexture(*texture);
-	sprite.setOrigin(texture->getSize().x / 2, texture->getSize().x / 2);
+	sprite.setOrigin(texture->getSize().x / 2.0f, texture->getSize().y / 2.0f);
 }
 
 void UIImage::setPosition(Vector2f position_)

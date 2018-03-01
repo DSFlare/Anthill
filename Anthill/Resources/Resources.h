@@ -16,6 +16,7 @@ public:
 	char * queenModel;
 	char * catherpillarModel;
 	char * beetleModel;
+	char * anthillModel;
 
 	//текстуры
 	sf::Texture testTex;
@@ -34,6 +35,7 @@ public:
 	sf::Texture textfield;
 	sf::Texture anthillSprite;
 	sf::Texture screenCenter;
+	sf::Texture hotkeys;
 
 	//звуки
 	sf::Sound music;
@@ -47,7 +49,7 @@ public:
 					  string leaf, string stick, string anthill);
 	void LoadShaders(string vertexSTD, string fragmentSTD, string vertexSelected, string fragmentSelected);
 
-	void LoadModels(char * ant, char * queen, char * catherpillar, char * beetle);
+	void LoadModels(char * ant, char * queen, char * catherpillar, char * beetle, char * anthill);
 
 	Resources();
 	~Resources();
