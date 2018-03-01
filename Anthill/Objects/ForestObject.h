@@ -8,13 +8,15 @@ using glm::vec3;
 
 class ForestObject
 {
-	vec3 position;
-	vec3 rotation; //крен, рыскание, тангаж (roll, yaw, pitch) - все углами эйлера
-	vec3 scale;
+	
 	std::vector<ForestObject*>* others;
 	ForestObject* parent;
 	std::vector<ForestObject*> childs;
 	std::string tag = "";
+protected:
+	vec3 position;
+	vec3 rotation; //крен, рыскание, тангаж (roll, yaw, pitch) - все углами эйлера
+	vec3 scale;
 
 public:
 	ForestObject(vec3 position_ = vec3(0, 0, 0), 

@@ -2,7 +2,7 @@
 
 
 Landscape::Landscape(sf::RenderWindow * window_, Camera * camera_, Resources * res_)
-	:Drawable3D(window_, camera_, res_)
+	:Drawable3D(window_, camera_, res_, &position, &rotation, &scale)
 {
 	float vertices[] = {
 		-10.0f, -10.0f, -0.0f,  0.0f, 0.0f,
