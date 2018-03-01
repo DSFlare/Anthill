@@ -1,14 +1,11 @@
 #pragma once
-#include "UIObject.h"
+#include "UIImage.h"
 
-class UIImage : public UIObject
+class UIHotkeysInfo : public UIImage
 {
-protected:
-	sf::Sprite sprite;
-	sf::Texture* texture;
-
 public:
-	UIImage(sf::RenderWindow* window_, sf::Texture* texture_);
+	UIHotkeysInfo(sf::RenderWindow* window_, sf::Texture* texture_);
+	~UIHotkeysInfo();
 
 	virtual void setPosition(Vector2f position) override;
 	virtual void setScale(Vector2f scale) override;
@@ -17,5 +14,5 @@ public:
 	virtual void Draw() override;
 	virtual void HandleEvent(sf::Event e) override;
 	virtual void Destroy() override;
-
 };
+

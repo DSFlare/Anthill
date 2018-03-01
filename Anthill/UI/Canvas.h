@@ -2,6 +2,8 @@
 #include <vector>
 #include "UIObject.h"
 #include "UIImage.h"
+#include "UIAnthill.h"
+#include "UIHotkeysInfo.h"
 
 class Canvas
 {
