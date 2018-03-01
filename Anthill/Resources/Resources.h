@@ -54,4 +54,3 @@ public:
 	Resources();
 	~Resources();
 };
-
