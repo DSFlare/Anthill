@@ -2,7 +2,7 @@
 #include "ForestObject.h"
 #include "../Graphic/Drawable3D.h"
 
-class TestObject: public ForestObject, public Drawable3D
+class TestObject: public ForestObject
 {
 	//float vertices[];
 	//vec3* cubePositions;

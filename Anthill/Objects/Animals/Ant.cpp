@@ -9,7 +9,7 @@ void Ant::Death()
 void Ant::Update()
 {
 	vec3 pos = getPosition();
-	Drawable3D::Draw();	
+	ForestObject::Draw();	
 }
 
 Role * Ant::getRole()
