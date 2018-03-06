@@ -3,25 +3,40 @@
 #include "glm\glm.hpp"
 #include <vector>
 #include <string>
+#include "../Graphic/Model3D.h"
+#include "../Graphic/Shader.h"
+#include "../Resources/Resources.h"
 
 using glm::vec3;
+class Camera;
 
 class ForestObject
 {
-	
 	std::vector<ForestObject*>* others;
 	ForestObject* parent;
 	std::vector<ForestObject*> childs;
 	std::string tag = "";
+	bool isDrawn = true;
 protected:
+	//Drawable
+	Model3D* model;
+	Shader* shader;
+	sf::Texture* texture;
+	sf::RenderWindow* window;
+	Camera* camera;
+	Resources* res;
+
 	vec3 position;
 	vec3 rotation; //крен, рыскание, тангаж (roll, yaw, pitch) - все углами эйлера
 	vec3 scale;
 
 public:
-	ForestObject(vec3 position_ = vec3(0, 0, 0), 
-				 vec3 rotation_ = vec3(0, 0, 0), 
-				 vec3 scale_    = vec3(1, 1, 1));
+
+	ForestObject(sf::RenderWindow* window_, Camera* camera_, Resources* res_,
+		vec3 position_ = vec3(0, 0, 0),
+		vec3 rotation_ = vec3(0, 0, 0),
+		vec3 scale_ = vec3(1, 1, 1));
+
 	virtual ~ForestObject();
 
 	vec3 getPosition() { return position; }
@@ -41,8 +56,10 @@ public:
 	virtual void Update();
 	virtual void HandleEvent(sf::Event e);
 	virtual void Destroy();
+	
+	//объекты отрисовывают сами себя (этот метод вызывается из Update() у объекта)
+	void Draw();
 
 	// здесь происходят все вычисления, которые не должны быть переопределены в потомках
 	virtual void HiddenUpdate() final; 
 };
-

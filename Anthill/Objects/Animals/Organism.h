@@ -1,8 +1,8 @@
 #pragma once
 #include "../ForestObject.h"
-#include "../../Graphic/Drawable3D.h"
+
 class Organism
-	: public ForestObject, public Drawable3D
+	: public ForestObject
 {
 private:
 	int health;

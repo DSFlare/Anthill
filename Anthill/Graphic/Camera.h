@@ -4,7 +4,6 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "../Objects/ForestObject.h"
-//#include "../Time.h"
 
 using glm::vec3;
 using glm::mat4;
@@ -18,7 +17,7 @@ class Camera : public ForestObject
 	int *windowWidth, *windowHeight;
 	float FOV = 60;
 
-	sf::RenderWindow* window;
+	//sf::RenderWindow* window;
 	sf::Sprite screenCenter;
 
 	//полезные матрицы
@@ -45,4 +44,3 @@ public:
 	virtual void Update() override;
 	
 };
-

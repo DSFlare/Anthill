@@ -8,10 +8,6 @@
 #include "glm\glm.hpp"
 #include "../Resources/Resources.h"
 
-#include "glm\glm.hpp"
-
-
-
 class Drawable3D
 {
 protected:
