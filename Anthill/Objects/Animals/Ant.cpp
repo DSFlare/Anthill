@@ -8,7 +8,6 @@ void Ant::Death()
 
 void Ant::Update()
 {
-	vec3 pos = getPosition();
 	ForestObject::Draw();	
 }
 
