@@ -5,10 +5,10 @@
 #include <string>
 #include "../Graphic/Model3D.h"
 #include "../Graphic/Shader.h"
-#include "../Graphic/Camera.h"
 #include "../Resources/Resources.h"
 
 using glm::vec3;
+class Camera;
 
 class ForestObject
 {
@@ -33,11 +33,6 @@ protected:
 public:
 
 	ForestObject(sf::RenderWindow* window_, Camera* camera_, Resources* res_,
-				 vec3 position_ = vec3(0, 0, 0),
-				 vec3 rotation_ = vec3(0, 0, 0), 
-				 vec3 scale_    = vec3(1, 1, 1));
-
-	ForestObject(sf::RenderWindow* window_,
 		vec3 position_ = vec3(0, 0, 0),
 		vec3 rotation_ = vec3(0, 0, 0),
 		vec3 scale_ = vec3(1, 1, 1));

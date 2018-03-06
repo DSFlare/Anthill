@@ -1,19 +1,14 @@
 #include "ForestObject.h"
 #include "glm\glm.hpp"
+#include "../Graphic/Camera.h"
 
 
 ForestObject::ForestObject(sf::RenderWindow* window_, Camera* camera_, Resources* res_,
-	vec3 position_ = vec3(0, 0, 0),
-	vec3 rotation_ = vec3(0, 0, 0),
-	vec3 scale_ = vec3(1, 1, 1))
+	vec3 position_, vec3 rotation_, vec3 scale_)
 	:window(window_), camera(camera_), res(res_), position(position_), rotation(rotation_), scale(scale_)
 {
 }
 
-ForestObject::ForestObject(sf::RenderWindow * window_, vec3 position_, vec3 rotation_, vec3 scale_)
-	:window(window_), position(position_), rotation(rotation_), scale(scale_)
-{
-}
 
 ForestObject::~ForestObject()
 {
