@@ -2,7 +2,7 @@
 #include <iostream>
 
 Camera::Camera(int * windowWidth_, int * windowHeight_, float* deltaTime_, sf::RenderWindow* window_)
-	:ForestObject(window_, NULL, NULL)
+	:ForestObject(window_, NULL, NULL, vec3(0, 5, 0))
 {
 	deltaTime = deltaTime_;
 	windowWidth = windowWidth_; 

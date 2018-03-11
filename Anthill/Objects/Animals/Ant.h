@@ -1,12 +1,14 @@
 #pragma once
 #include "Organism.h"
 #include "AntRoles\Role.h"
+#include "../../AI/AntStateMachine.h"
 
 class Ant :
 	public Organism
 {
 	Role* role;
-	int currentTask;
+	//int currentTask;
+	AntStateMachine brain;
 public:
 	virtual void Death();
 	virtual void Update() override;
@@ -17,4 +19,3 @@ public:
 		vec3 scale_ = vec3(1, 1, 1));
 	virtual ~Ant();
 };
-
