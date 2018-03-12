@@ -1,5 +1,5 @@
 #include "Ant.h"
-//#include "../../AI/AntStateMachine.h"
+#include "../../AI/AntStateMachine.h"
 
 void Ant::Death()
 {

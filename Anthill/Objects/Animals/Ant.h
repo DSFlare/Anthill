@@ -14,7 +14,6 @@ private:
 
 	void(Ant::*action)();
 	int role = EADLE;
-
 public:
 
 	virtual void Death();
