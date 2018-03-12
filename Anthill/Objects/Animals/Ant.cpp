@@ -1,5 +1,4 @@
 #include "Ant.h"
-#include "../../AI/AntStateMachine.h"
 
 void Ant::Death()
 {
@@ -9,11 +8,6 @@ void Ant::Update(){
 	//brain->update(this);
 	Organism::Update();
 	ForestObject::Draw();
-}
-
-Role * Ant::getRole()
-{
-	return role;
 }
 
 Ant::Ant(Camera * camera_, Resources * res_, sf::RenderWindow * window_, vec3 position_, vec3 rotation_, vec3 scale_)
@@ -28,7 +22,3 @@ Ant::~Ant()
 {
 }
 
-//Scout functions
-void Ant::Eplore()
-{
-}

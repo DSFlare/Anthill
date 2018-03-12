@@ -1,5 +1,5 @@
 #pragma once
-//#define GLEW_STATIC
+
 #include <GL\glew.h>
 #include <SFML\Graphics.hpp>
 
@@ -14,7 +14,6 @@
 #include "Graphic\Camera.h"
 #include "Resources\Resources.h"
 #include "UI\Canvas.h"
-
 
 #include <vector>
 #include <iostream>
@@ -40,7 +39,6 @@ private:
 
 	void Init();
 
-	int dirtLevel; //уровень, на котором находится плоскость земли
 
 
 public:
