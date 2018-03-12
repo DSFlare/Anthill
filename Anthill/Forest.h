@@ -40,6 +40,9 @@ private:
 
 	void Init();
 
+	int dirtLevel; //уровень, на котором находится плоскость земли
+
+
 public:
 	Forest(sf::RenderWindow* window_, Resources* res);
 	~Forest();

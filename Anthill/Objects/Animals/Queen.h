@@ -11,5 +11,6 @@ public:
 		vec3 scale_ = vec3(1, 1, 1));
 	virtual void Update() override;
 	~Queen();
+
 };
 

@@ -28,7 +28,7 @@ public:
 	UIObject* GetParent() { return parent; }
 	void SetParent(UIObject* obj);
 	bool FindChild(std::string tag, UIObject* container);
-
+	
 	virtual void Draw() = 0;
 	virtual void Update() = 0;
 	virtual void HandleEvent(sf::Event e) = 0;
