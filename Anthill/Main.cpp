@@ -4,7 +4,7 @@
 
 int main()	
 {	
-	sf::RenderWindow* window = Forest::InitializeGL(1920, 1080, sf::Style::Default);
+	sf::RenderWindow* window = Forest::InitializeGL(1920, 1080, sf::Style::Fullscreen);
 	Resources res;
 
 	//пока захардкорим. потом если припрет напишем интерфейс (надеюсь не припрет)

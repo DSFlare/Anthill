@@ -1,17 +1,22 @@
 #pragma once
 #include "Organism.h"
-#include "AntRoles\Role.h"
-//#include "../../AI/AntStateMachine.h"
 
-class AntStateMachine;
+enum Role {
+	SCOUT,
+	WARRIOR,
+	HUNTER,
+	EADLE
+};
 
-class Ant :
-	public Organism
+class Ant : public Organism
 {
-	Role* role;
-	//int currentTask;
-	//AntStateMachine * brain;
+private:
+
+	void(Ant::*action)();
+	int role = EADLE;
+
 public:
+
 	virtual void Death();
 	virtual void Update() override;
 	Role* getRole();
@@ -20,4 +25,13 @@ public:
 		vec3 rotation_ = vec3(0, 0, 0),
 		vec3 scale_ = vec3(1, 1, 1));
 	virtual ~Ant();
+
+
+	//Входные точки в роли
+	void Scout(); //приносит ресурсы и сообщает о живой еде
+	void Scout(ForestObject* target); //приносит ресурсы и сообщает о живой еде
+	void Hunter(Organism* target); //
+
+	//TODO
+	void Warrior();
 };

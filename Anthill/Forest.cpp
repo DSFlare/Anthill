@@ -91,7 +91,7 @@ int Forest::StartSimulation()
 	////здесь заполняем сцену (интерфейс строим в конструкторе у Canvas)////
 	////////////////////////////////////////////////////////////////////////
 	
-	camera->setPosition(vec3(-5, 0, 0));
+	camera->setPosition(vec3(-5, 1, 0));
 
 	//добавим поверхность
 	Landscape* landscape = new Landscape(window, camera, res);
@@ -105,6 +105,7 @@ int Forest::StartSimulation()
 		Ant* ant = new Ant(camera, res, window, vec3(i-2, 0, -3));
 		objects.push_back(ant);
 		ant->setScale(vec3(0.25f, 0.25f, 0.25f));
+		ant->setRotation(vec3(45, 45, 45));
 	}
 	
 
