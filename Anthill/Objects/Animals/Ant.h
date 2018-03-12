@@ -10,7 +10,7 @@ class Ant :
 {
 	Role* role;
 	//int currentTask;
-	//AntStateMachine * brain;
+	AntStateMachine * brain;
 public:
 	virtual void Death();
 	virtual void Update() override;
