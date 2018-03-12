@@ -2,7 +2,7 @@
 #include "ForestObject.h"
 #include "../Graphic/Drawable3D.h"
 
-class Landscape: public ForestObject, public Drawable3D
+class Landscape: public ForestObject
 {
 	GLuint VAO, VBO;
 public:

@@ -103,7 +103,7 @@ int Forest::StartSimulation()
 	Ant* ant = new Ant(camera, res, window, vec3(-2, -5, 0));
 	objects.push_back(ant);
 	ant->setScale(vec3(0.25f, 0.25f, 0.25f));
-	ant->setRotation(vec3(0, 30, 0));
+	ant->setRotation(vec3(0, 45, 0));
 	//objects.push_back(new Beetle(camera, res, window, vec3(0, -4, 0)));
 	//objects.push_back(new Queen(camera, res, window, vec3(0, -8, 0)));
 

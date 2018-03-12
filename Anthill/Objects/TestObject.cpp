@@ -5,7 +5,7 @@
 
 
 TestObject::TestObject(sf::RenderWindow * window_, Camera * camera_, Resources* res_) 
-	: Drawable3D(window_, camera_, res_)
+	: ForestObject(window_, camera_, res_)
 {
 	//сам куб
 	float vertices[] = {

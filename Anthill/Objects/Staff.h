@@ -3,7 +3,7 @@
 #include "../Graphic/Drawable3D.h"
 #include "../Resources/Resources.h"
 
-class Staff: public ForestObject, public Drawable3D
+class Staff: public ForestObject
 {
 
 public:
