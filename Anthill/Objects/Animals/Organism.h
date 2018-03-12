@@ -12,6 +12,7 @@ public:
 		vec3 position_ = vec3(0, 0, 0),
 		vec3 rotation_ = vec3(0, 0, 0),
 		vec3 scale_ = vec3(1, 1, 1));
+
 	virtual void Update() override;
 	void Start();
 	int getHealth();
@@ -21,4 +22,3 @@ public:
 	virtual void Death() = 0;
 	virtual ~Organism();
 };
-

@@ -1,14 +1,13 @@
 #include "Ant.h"
 
-
-
 void Ant::Death()
 {
 }
 
-void Ant::Update()
-{
-	ForestObject::Draw();	
+void Ant::Update(){
+	brain.update(this);
+	Organism::Update();
+	ForestObject::Draw();
 }
 
 Role * Ant::getRole()

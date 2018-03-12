@@ -96,21 +96,27 @@ int Forest::StartSimulation()
 	//добавим поверхность
 	Landscape* landscape = new Landscape(window, camera, res);
 	objects.push_back(landscape);
-	landscape->setPosition(vec3(0, -5, 0));
+	landscape->setPosition(vec3(0, 0, 0));
 	landscape->setRotation(vec3(90, 0, 0));
 
-	//муравейка тест
-	Ant* ant = new Ant(camera, res, window, vec3(-2, -5, 0));
-	objects.push_back(ant);
-	ant->setScale(vec3(0.25f, 0.25f, 0.25f));
-	ant->setRotation(vec3(0, 45, 0));
-	//objects.push_back(new Beetle(camera, res, window, vec3(0, -4, 0)));
-	//objects.push_back(new Queen(camera, res, window, vec3(0, -8, 0)));
+	//муравьи
+	for (int i = 0; i < 5; i++)
+	{
+		Ant* ant = new Ant(camera, res, window, vec3(i-2, 0, -3));
+		objects.push_back(ant);
+		ant->setScale(vec3(0.25f, 0.25f, 0.25f));
+	}
+	
+
+	Queen* queen = new Queen(camera, res, window, vec3(-4, 0, -3));
+	queen->setScale(vec3(0.1f, 0.1f, 0.1f));
+	queen->setRotation(vec3(0, 45, 0));
+	objects.push_back(queen);
 
 	//тест муравейника
 	Anthill *anthill = new Anthill(window, camera, res);
 	objects.push_back(anthill);
-	anthill->setPosition(vec3(0, -5, 0));
+	anthill->setPosition(vec3(0, 0, 0));
 
 	//User interface ebac
 	float scrCenterX = window->getSize().x / 2.0f;
