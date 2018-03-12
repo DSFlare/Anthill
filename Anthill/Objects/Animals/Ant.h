@@ -1,14 +1,16 @@
 #pragma once
 #include "Organism.h"
 #include "AntRoles\Role.h"
-#include "../../AI/AntStateMachine.h"
+//#include "../../AI/AntStateMachine.h"
+
+class AntStateMachine;
 
 class Ant :
 	public Organism
 {
 	Role* role;
 	//int currentTask;
-	AntStateMachine brain;
+	//AntStateMachine * brain;
 public:
 	virtual void Death();
 	virtual void Update() override;

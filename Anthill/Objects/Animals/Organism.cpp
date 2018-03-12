@@ -15,5 +15,4 @@ Organism::Organism(Camera * camera_, Resources * res_, sf::RenderWindow * window
 
 void Organism::Update()
 {
-	brain->update();
 }

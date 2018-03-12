@@ -1,11 +1,12 @@
 #include "Ant.h"
+//#include "../../AI/AntStateMachine.h"
 
 void Ant::Death()
 {
 }
 
 void Ant::Update(){
-	brain.update(this);
+	//brain->update(this);
 	Organism::Update();
 	ForestObject::Draw();
 }
