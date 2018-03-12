@@ -24,7 +24,11 @@ Ant::Ant(Camera * camera_, Resources * res_, sf::RenderWindow * window_, vec3 po
 	model = new Model3D(res->antModel, texture);
 }
 
-
 Ant::~Ant()
+{
+}
+
+//Scout functions
+void Ant::Eplore()
 {
 }
