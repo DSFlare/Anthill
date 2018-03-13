@@ -2,16 +2,16 @@
 #include "../Graphic/Camera.h"
 using namespace glm;
 
-Landscape::Landscape(sf::RenderWindow * window_, Camera * camera_, Resources * res_)
+Landscape::Landscape(sf::RenderWindow * window_, Camera * camera_, Resources * res_, int landscapeWidth, int landscapeHeight)
 	:ForestObject(window_, camera_, res_)
 {
 	float vertices[] = {
-		-10.0f, -10.0f, -0.0f,  0.0f, 0.0f,
-		10.0, -10.0f, -0.0f,  10.0f, 0.0f,
-		10.0f,  10.0f, -0.0f,  10.0f, 10.0f,
-		10.0f,  10.0f, -0.0f,  10.0f, 10.0f,
-		-10.0f,  10.0f, -0.0f,  0.0f, 10.0f,
-		-10.0f, -10.0f, -0.0f,  0.0f, 0.0f
+		-landscapeWidth, -landscapeHeight, -0.0f,  0.0f, 0.0f,
+		landscapeWidth, -landscapeHeight, -0.0f,  landscapeWidth, 0.0f,
+		landscapeWidth,  landscapeHeight, -0.0f,  landscapeWidth, landscapeHeight,
+		landscapeWidth,  landscapeHeight, -0.0f,  landscapeWidth, landscapeHeight,
+		-landscapeWidth,  landscapeHeight, -0.0f,  0.0f, landscapeHeight,
+		-landscapeWidth, -landscapeHeight, -0.0f,  0.0f, 0.0f
 	};
 
 	glGenVertexArrays(1, &VAO);

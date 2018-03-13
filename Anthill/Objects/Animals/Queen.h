@@ -24,7 +24,7 @@ public:
 	Queen(Camera * camera_, Resources * res_, sf::RenderWindow * window_,
 		  vec3 position_ = vec3(0, 0, 0),
 		  vec3 rotation_ = vec3(0, 0, 0),
-		  vec3 scale_    = vec3(1, 1, 1));
+		  vec3 scale_    = vec3(0.07f, 0.07f, 0.07f));
 	
 	virtual void Death() override;
 	virtual void Update() override;

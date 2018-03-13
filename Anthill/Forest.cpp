@@ -2,6 +2,7 @@
 
 
 
+
 Forest::Forest(sf::RenderWindow* window_, Resources* res_)
 {
 	res = res_;
@@ -18,8 +19,8 @@ Forest::Forest(sf::RenderWindow* window_, Resources* res_)
 		"Resources/Models/Anthill/anthill.obj", "Resources/Models/Leaf/leaf.obj",
 		"Resources/Models/Stick/stick.obj");
 
-	res->LoadTextures("", "", "Resources/Models/RedAnt/texture.jpg", "", "", "",
-		"Resources/Models/Leaf/leaf.jpg", "Resources/Models/Stick/stick.jpg", "");
+	res->LoadTextures("", "", "Resources/Models/RedAnt/texture.jpg", "Resources/Models/Queen/texture.jpg", "", "",
+		"Resources/Models/Leaf/leaf.jpg", "Resources/Models/Stick/barktree.jpg", "");
 
 	//инициализируем переменные времени
 	deltaTime = 0;
@@ -42,6 +43,7 @@ sf::RenderWindow* Forest::InitializeGL(int width, int height, int style)
 	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(width, height), "Anthill simulation",
 		style, contextSettings);
 	window->setVerticalSyncEnabled(true);
+	window->setFramerateLimit(60);
 
 	//инициализируем GLEW перед использованием каких-либо функций openGL
 	glewExperimental = GL_TRUE;
@@ -68,7 +70,7 @@ void Forest::Update()
 	float now = clock.getElapsedTime().asSeconds();
 	deltaTime = now - lastFrame;
 	lastFrame = now;
-	std::cout << deltaTime << "    " << lastFrame << std::endl;
+	//std::cout << deltaTime << "    " << lastFrame << std::endl;
 
 
 
@@ -88,6 +90,22 @@ void Forest::AddObject(ForestObject * obj)
 
 }
 
+void Forest::generateItems(int leafQuantity, int stickQuantity)
+{
+	for (int i = 0; i < leafQuantity; i++) 
+	{
+		Leaf* leaf = new Leaf(window, camera, res, vec3(rand() % landscapeWidth * 2 - landscapeWidth, 
+			0, rand() % landscapeHeight * 2 - landscapeHeight));
+		objects.push_back(leaf);
+	}
+	for (int i = 0; i < stickQuantity; i++)
+	{
+		Stick* stick = new Stick(window, camera, res, vec3(rand() % landscapeWidth * 2 - landscapeWidth,
+			0, rand() % landscapeHeight * 2 - landscapeHeight));
+		objects.push_back(stick);
+	}
+}
+
 int Forest::StartSimulation()
 {
 	////////////////////////////////////////////////////////////////////////
@@ -97,32 +115,25 @@ int Forest::StartSimulation()
 	camera->setPosition(vec3(-5, 1, 0));
 
 	//добавим поверхность
-	Landscape* landscape = new Landscape(window, camera, res);
+	Landscape* landscape = new Landscape(window, camera, res, landscapeWidth, landscapeHeight);
 	objects.push_back(landscape);
 	landscape->setPosition(vec3(0, 0, 0));
 	landscape->setRotation(vec3(90, 0, 0));
 
-	//палки и листья
-	Leaf* leaf = new Leaf(window, camera, res, vec3(8, 0, -3));
-	leaf->setScale(vec3(0.25f, 0.25f, 0.25f));
-	objects.push_back(leaf);
-
-	Stick* stick = new Stick(window, camera, res, vec3(6, 0, -7));
-	stick->setScale(vec3(0.25f, 0.25f, 0.25f));
-	objects.push_back(stick);
+	//генерируем палки и листья
+	generateItems(50, 50);
 
 	//муравьи
+
 	for (int i = 0; i < 5; i++)
 	{
 		Ant* ant = new Ant(camera, res, window, vec3(i-2, 0, -3));
 		objects.push_back(ant);
-		ant->setScale(vec3(0.25f, 0.25f, 0.25f));
 		ant->setRotation(vec3(0, 90, 0));
 	}
 	
 
 	Queen* queen = new Queen(camera, res, window, vec3(-4, 0, -3));
-	queen->setScale(vec3(0.1f, 0.1f, 0.1f));
 	queen->setRotation(vec3(0, 45, 0));
 	objects.push_back(queen);
 

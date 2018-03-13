@@ -33,13 +33,16 @@ private:
 	bool isCursorVisible = false;
 	Resources* res;
 
+	int landscapeWidth = 50, landscapeHeight = 50;
+
+
 	//время
 	sf::Clock clock;
 	float deltaTime;
 	float lastFrame;
 
 	void Init();
-
+	void generateItems(int leafQuantity, int stickQuantity); //рандомно генерирует палки и листья
 
 
 public:
