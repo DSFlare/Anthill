@@ -1,5 +1,6 @@
 #include "Landscape.h"
-
+#include "../Graphic/Camera.h"
+using namespace glm;
 
 Landscape::Landscape(sf::RenderWindow * window_, Camera * camera_, Resources * res_)
 	:ForestObject(window_, camera_, res_)

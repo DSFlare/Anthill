@@ -17,6 +17,8 @@ public:
 	char * catherpillarModel;
 	char * beetleModel;
 	char * anthillModel;
+	char * leafModel;
+	char * stickModel;
 
 	//текстуры
 	sf::Texture testTex;
@@ -49,7 +51,7 @@ public:
 					  string leaf, string stick, string anthill);
 	void LoadShaders(string vertexSTD, string fragmentSTD, string vertexSelected, string fragmentSelected);
 
-	void LoadModels(char * ant, char * queen, char * catherpillar, char * beetle, char * anthill);
+	void LoadModels(char * ant, char * queen, char * catherpillar, char * beetle, char * anthill, char * leaf, char * stick);
 
 	Resources();
 	~Resources();

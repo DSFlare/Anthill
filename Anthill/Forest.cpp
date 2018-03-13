@@ -14,9 +14,12 @@ Forest::Forest(sf::RenderWindow* window_, Resources* res_)
 		"Resources\\vertex.glsl", "Resources\\fragment.glsl");
 	res->LoadModels("Resources/Models/RedAnt/formica rufa.obj", 
 		"Resources/Models/Queen/gigantic_ant_monster.obj",
-		"", "Resources/Models/Beetle/rolypolymodoli.obj", "Resources/Models/Anthill/anthill.obj");
+		"", "Resources/Models/Beetle/rolypolymodoli.obj",
+		"Resources/Models/Anthill/anthill.obj", "Resources/Models/Leaf/leaf.obj",
+		"Resources/Models/Stick/stick.obj");
 
-	res->LoadTextures("", "", "Resources/Models/RedAnt/texture.jpg", "", "", "", "", "", "");
+	res->LoadTextures("", "", "Resources/Models/RedAnt/texture.jpg", "", "", "",
+		"Resources/Models/Leaf/leaf.jpg", "Resources/Models/Stick/stick.jpg", "");
 
 	//инициализируем переменные времени
 	deltaTime = 0;
@@ -99,13 +102,22 @@ int Forest::StartSimulation()
 	landscape->setPosition(vec3(0, 0, 0));
 	landscape->setRotation(vec3(90, 0, 0));
 
+	//палки и листья
+	Leaf* leaf = new Leaf(window, camera, res, vec3(8, 0, -3));
+	leaf->setScale(vec3(0.25f, 0.25f, 0.25f));
+	objects.push_back(leaf);
+
+	Stick* stick = new Stick(window, camera, res, vec3(6, 0, -7));
+	stick->setScale(vec3(0.25f, 0.25f, 0.25f));
+	objects.push_back(stick);
+
 	//муравьи
 	for (int i = 0; i < 5; i++)
 	{
 		Ant* ant = new Ant(camera, res, window, vec3(i-2, 0, -3));
 		objects.push_back(ant);
 		ant->setScale(vec3(0.25f, 0.25f, 0.25f));
-		ant->setRotation(vec3(45, 45, 45));
+		ant->setRotation(vec3(0, 90, 0));
 	}
 	
 

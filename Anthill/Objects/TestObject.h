@@ -1,6 +1,7 @@
 #pragma once
 #include "ForestObject.h"
-#include "../Graphic/Drawable3D.h"
+//#include "../Graphic/Drawable3D.h"
+//#include "glm\glm.hpp"
 
 class TestObject: public ForestObject
 {

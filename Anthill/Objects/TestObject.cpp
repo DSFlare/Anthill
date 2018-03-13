@@ -1,8 +1,8 @@
 #include "TestObject.h"
 
+#include "glm\glm.hpp"
 
-
-
+using glm::mat4;
 
 TestObject::TestObject(sf::RenderWindow * window_, Camera * camera_, Resources* res_) 
 	: ForestObject(window_, camera_, res_)

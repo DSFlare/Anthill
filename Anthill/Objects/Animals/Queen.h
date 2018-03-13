@@ -2,7 +2,8 @@
 #include "Ant.h"
 #include "Organism.h"
 #include "../Anthill.h"
-#include "../Staff.h"
+#include "../Stick.h"
+#include "../Leaf.h"
 
 class Queen : public Organism
 {
@@ -12,7 +13,8 @@ private:
 	vector<Ant*> hunters;
 	vector<Ant*> scouts;
 	vector<Ant*> warriors;
-	vector<Staff*> staff; // ветки, которые найдены, но не подобраны
+	vector<Stick*> sticks; // ветки, которые найдены, но не подобраны
+	vector<Leaf*> leafs;  // листья, которые найдены, но не подобраны
 	vector<Organism*> enemies;
 
 	Anthill* anthill;

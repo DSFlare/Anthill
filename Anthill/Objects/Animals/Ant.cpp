@@ -4,8 +4,8 @@ void Ant::Death()
 {
 }
 
-void Ant::Update(){
-	//brain->update(this);
+void Ant::Update()
+{
 	Organism::Update();
 	ForestObject::Draw();
 }
