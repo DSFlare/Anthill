@@ -12,7 +12,7 @@ Resources::~Resources()
 }
 
 void Resources::LoadTextures(string dirt_, string wood_, string ant_, string queen_, string cath_, 
-	string beetle_, string leaf_, string stick_, string anthill_)
+	string beetle_, string leaf_, string stick_, string anthill_, string fence_)
 {
 	/*dirtTex.loadFromFile(dirt_);
 	woodTex.loadFromFile(wood_);
@@ -26,6 +26,7 @@ void Resources::LoadTextures(string dirt_, string wood_, string ant_, string que
 	antTex.loadFromFile(ant_);
 	stickTex.loadFromFile(stick_);
 	leafTex.loadFromFile(leaf_);
+	//fenceTex.loadFromFile(fence_);
 
 }
 
@@ -36,7 +37,8 @@ void Resources::LoadShaders(string vertexStd_, string fragmentStd_,
 	selectedShader = Shader(vertexSelected_.c_str(), fragmentSelected_.c_str());
 }
 
-void Resources::LoadModels(char * ant, char * queen, char * catherpillar, char * beetle, char * anthill, char * leaf, char * stick)
+void Resources::LoadModels(char * ant, char * queen, char * catherpillar, char * beetle,
+	char * anthill, char * leaf, char * stick, char * fence)
 {
 	antModel = ant;
 	queenModel = queen;
@@ -45,5 +47,6 @@ void Resources::LoadModels(char * ant, char * queen, char * catherpillar, char *
 	anthillModel = anthill;
 	leafModel = leaf;
 	stickModel = stick;
+	//fenceModel = fence;
 }
 

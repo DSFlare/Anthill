@@ -12,6 +12,7 @@
 #include "Objects\Anthill.h"
 #include "Objects\Stick.h"
 #include "Objects\Leaf.h"
+#include "Objects/EnvironmentalObject.h"
 #include "Graphic\Camera.h"
 #include "Resources\Resources.h"
 #include "UI\Canvas.h"
@@ -32,6 +33,7 @@ private:
 	Canvas canvas;
 	bool isCursorVisible = false;
 	Resources* res;
+	Parametres* par;
 
 	int landscapeWidth = 50, landscapeHeight = 50;
 

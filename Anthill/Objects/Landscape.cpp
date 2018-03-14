@@ -2,9 +2,12 @@
 #include "../Graphic/Camera.h"
 using namespace glm;
 
-Landscape::Landscape(sf::RenderWindow * window_, Camera * camera_, Resources * res_, int landscapeWidth, int landscapeHeight)
-	:ForestObject(window_, camera_, res_)
+Landscape::Landscape(sf::RenderWindow * window_, Camera * camera_, Resources * res_, Parametres* par_, 
+	std::vector<ForestObject*>* allObjects_, int landscapeWidth, int landscapeHeight)
+	:ForestObject(window_, camera_, res_, par_, allObjects_)
 {
+	tag = "Landscape";
+
 	float vertices[] = {
 		-landscapeWidth, -landscapeHeight, -0.0f,  0.0f, 0.0f,
 		landscapeWidth, -landscapeHeight, -0.0f,  landscapeWidth, 0.0f,
@@ -40,6 +43,7 @@ Landscape::~Landscape()
 {
 
 }
+
 
 void Landscape::Update()
 {
