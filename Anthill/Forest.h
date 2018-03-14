@@ -10,7 +10,8 @@
 #include "Objects\Animals\Beetle.h"
 #include "Objects\Animals\Queen.h"
 #include "Objects\Anthill.h"
-#include "Objects\Staff.h"
+#include "Objects\Stick.h"
+#include "Objects\Leaf.h"
 #include "Graphic\Camera.h"
 #include "Resources\Resources.h"
 #include "UI\Canvas.h"
@@ -32,13 +33,16 @@ private:
 	bool isCursorVisible = false;
 	Resources* res;
 
+	int landscapeWidth = 50, landscapeHeight = 50;
+
+
 	//время
 	sf::Clock clock;
 	float deltaTime;
 	float lastFrame;
 
 	void Init();
-
+	void generateItems(int leafQuantity, int stickQuantity); //рандомно генерирует палки и листья
 
 
 public:
