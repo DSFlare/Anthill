@@ -59,7 +59,11 @@ public:
 
 private:
 	//Eadle
+
 	void goHome();
+	void goBack(); //муравей идет в сторону своего муравейника
+	void enterToAnthill(); //вызывается, когда муравей подошел вплотную к муравейнику
+
 
 	//методы Hunter
 
@@ -68,7 +72,8 @@ private:
 	void pickUp(ForestObject* item);
 	bool checkRes(); //ищет ресурсы в зоне видимости, если нашел возвр true
 
-
+	//общие методы
+	
 	//методы Warrior
 
 	//для движения
