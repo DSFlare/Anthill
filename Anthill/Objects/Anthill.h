@@ -3,8 +3,20 @@
 
 class Anthill: public ForestObject
 {
+	int antsNumber;
+	int eggsNumber;
+	int foodAmount;
+	int stockFullness;
+
+	int mainRoomSize;
+	int childRoomSize;
+	int foodStorageSize;
+	int stockSize;
+
 public:
 
+	
+	
 	
 
 
