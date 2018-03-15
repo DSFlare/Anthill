@@ -33,7 +33,8 @@ class Camera : public ForestObject
 
 public:
 	
-	Camera(int* windowWidth_, int* windowHeight_, float* deltaTime_, sf::RenderWindow* window_); 
+	Camera(int* windowWidth_, int* windowHeight_, float* deltaTime_, sf::RenderWindow* window_, Parametres* par_,
+		std::vector<ForestObject*>* allObjects_ );
 	void LookAt(vec3 position); // поворачивает камеру таким образом, что она смотрит на данный объект
 
 	mat4 GetView() { return viewMatrix; }

@@ -28,7 +28,9 @@ private:
 public:
 	int antsInAnthillForNow; // все муравьи, находящиеся именно в муравейнике
 
-	Queen(Camera * camera_, Resources * res_, sf::RenderWindow * window_, vector<ForestObject*>* objects,
+	Queen(Camera * camera_, Resources * res_, Parametres* par_, std::vector<ForestObject*>* objects, 
+		sf::RenderWindow * window_,
+
 		  vec3 position_ = vec3(0, 0, 0),
 		  vec3 rotation_ = vec3(0, 0, 0),
 		  vec3 scale_    = vec3(0.07f, 0.07f, 0.07f));
@@ -37,7 +39,6 @@ public:
 	virtual void Update() override;
 	virtual ~Queen();
 
-	
 
 	//стартовая точка при создании симуляции ===================================
 	static Queen* Initialize(vec3 position_, Camera *camera, Resources* res, sf::RenderWindow* window,

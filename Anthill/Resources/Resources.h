@@ -19,6 +19,7 @@ public:
 	char * anthillModel;
 	char * leafModel;
 	char * stickModel;
+	char * fenceModel;
 
 	//текстуры
 	sf::Texture testTex;
@@ -31,6 +32,7 @@ public:
 	sf::Texture leafTex;
 	sf::Texture stickTex;
 	sf::Texture anthillTex;
+	sf::Texture fenceTex;
 
 	//интерфейс
 	sf::Texture button;
@@ -48,10 +50,10 @@ public:
 	Shader selectedShader; //для объектов, на которые нацелено перекрестие
 
 	void LoadTextures(string dirt, string wood, string ant, string queen, string cath, string beetle,
-					  string leaf, string stick, string anthill);
+					  string leaf, string stick, string anthill, string fence);
 	void LoadShaders(string vertexSTD, string fragmentSTD, string vertexSelected, string fragmentSelected);
 
-	void LoadModels(char * ant, char * queen, char * catherpillar, char * beetle, char * anthill, char * leaf, char * stick);
+	void LoadModels(char * ant, char * queen, char * catherpillar, char * beetle, char * anthill, char * leaf, char * stick, char * fence);
 
 	Resources();
 	~Resources();

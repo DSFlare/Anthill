@@ -17,17 +17,18 @@ Forest::Forest(sf::RenderWindow* window_, Resources* res_)
 		"Resources/Models/Queen/gigantic_ant_monster.obj",
 		"", "Resources/Models/Beetle/rolypolymodoli.obj",
 		"Resources/Models/Anthill/anthill.obj", "Resources/Models/Leaf/leaf.obj",
-		"Resources/Models/Stick/stick.obj");
+		"Resources/Models/Stick/stick.obj", "Resources/Models/Fence/Fence-01.obj");
 
 	res->LoadTextures("", "", "Resources/Models/RedAnt/texture.jpg", "Resources/Models/Queen/texture.jpg", "", "",
-		"Resources/Models/Leaf/leaf.jpg", "Resources/Models/Stick/barktree.jpg", "");
+		"Resources/Models/Leaf/leaf.jpg", "Resources/Models/Stick/barktree.jpg", "",
+		"Resources/Models/Fence/Fence-01.jpg");
 
 	//инициализируем переменные времени
 	deltaTime = 0;
 	lastFrame = 0;
 
 	//создаем камеру
-	camera = new Camera(&windowWidth, &windowHeight, &deltaTime, window);
+	camera = new Camera(&windowWidth, &windowHeight, &deltaTime, window, par, &objects);
 	objects.push_back(&(*camera));
 }
 
@@ -94,16 +95,25 @@ void Forest::generateItems(int leafQuantity, int stickQuantity)
 {
 	for (int i = 0; i < leafQuantity; i++) 
 	{
-		Leaf* leaf = new Leaf(window, camera, res, vec3(rand() % landscapeWidth - landscapeWidth / 2, 
-			0, rand() % landscapeHeight - landscapeHeight / 2));
+		Leaf* leaf = new Leaf(window, camera, res, par, &objects);
+
+		leaf->setPosition(vec3(rand() % landscapeWidth - landscapeWidth / 2,
+			0, rand() % landscapeHeight  - landscapeHeight / 2));
+
 		objects.push_back(leaf);
 	}
 	for (int i = 0; i < stickQuantity; i++)
 	{
-		Stick* stick = new Stick(window, camera, res, vec3(rand() % landscapeWidth - landscapeWidth / 2,
+		Stick* stick = new Stick(window, camera, res, par, &objects);
+		stick->setPosition(vec3(rand() % landscapeWidth - landscapeWidth / 2,
 			0, rand() % landscapeHeight - landscapeHeight / 2));
+
 		objects.push_back(stick);
 	}
+	/*Leaf* leaf = new Leaf(window, camera, res, par, &objects);
+	leaf->setPosition(vec3( 20, 0, 0));
+	leaf->setScale(vec3(1, 1, 1));
+	objects.push_back(leaf);*/
 }
 
 int Forest::StartSimulation()
@@ -115,27 +125,32 @@ int Forest::StartSimulation()
 	camera->setPosition(vec3(-5, 1, 0));
 
 	//добавим поверхность
-	Landscape* landscape = new Landscape(window, camera, res, landscapeWidth / 2, landscapeHeight / 2);
+	Landscape* landscape = new Landscape(window, camera, res, par, &objects, landscapeWidth / 2, landscapeHeight / 2);
 	objects.push_back(landscape);
 	landscape->setPosition(vec3(0, 0, 0));
 	landscape->setRotation(vec3(90, 0, 0));
 
 	//генерируем палки и листья
-	generateItems(50, 50);
+	generateItems(70, 70);
 
+
+
+<<<<<<< HEAD
 	/*for (int i = 0; i < 5; i++)
 	{
-		Ant* ant = new Ant(camera, res, window, vec3(i-2, 0, -3));
+		Ant* ant = new Ant(camera, res, par, &objects, window, vec3(i-2, 0, -3));
 		objects.push_back(ant);
 		ant->setRotation(vec3(0, 90, 0));
-	} */
+	} 
 	
+<<<<<<< HEAD
 	/*Queen* queen = new Queen(camera, res, window, vec3(-4, 0, -3));
+
 	queen->setRotation(vec3(0, 45, 0));
 	objects.push_back(queen);
 
 	//тест муравейника
-	Anthill *anthill = new Anthill(window, camera, res);
+	Anthill *anthill = new Anthill(window, camera, res, par, &objects);
 	objects.push_back(anthill);
 	anthill->setPosition(vec3(0, 0, 0));*/
 

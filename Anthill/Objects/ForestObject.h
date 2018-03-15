@@ -6,18 +6,24 @@
 #include "../Graphic/Model3D.h"
 #include "../Graphic/Shader.h"
 #include "../Resources/Resources.h"
+#include "../Parametres.h"
 
 using glm::vec3;
 class Camera;
 
+
 class ForestObject
 {
-	std::vector<ForestObject*>* others;
-	ForestObject* parent;
+	
+protected:
+	std::vector<ForestObject*>* allObjects;
+	ForestObject* parent = NULL;
 	std::vector<ForestObject*> childs;
+
+	/*Ant, Leaf, Stick и тд. - типы*/
 	std::string tag = "";
 	bool isDrawn = true;
-protected:
+
 	//Drawable
 	Model3D* model;
 	Shader* shader;
@@ -25,6 +31,7 @@ protected:
 	sf::RenderWindow* window;
 	Camera* camera;
 	Resources* res;
+	Parametres* par;
 
 	vec3 position;
 	vec3 rotation; //крен, рыскание, тангаж (roll, yaw, pitch) - все углами эйлера
@@ -32,7 +39,7 @@ protected:
 
 public:
 
-	ForestObject(sf::RenderWindow* window_, Camera* camera_, Resources* res_,
+	ForestObject(sf::RenderWindow* window_, Camera* camera_, Resources* res_, Parametres* par_, std::vector<ForestObject*>* allObjects_, 
 		vec3 position_ = vec3(0, 0, 0),
 		vec3 rotation_ = vec3(0, 0, 0),
 		vec3 scale_ = vec3(1, 1, 1));
@@ -52,6 +59,10 @@ public:
 	bool FindChild(std::string tag, ForestObject* container);
 	
 	bool CompareTag(std::string tag) { return this->tag == tag; }
+	void SetTag(std::string newTag) { tag = newTag;  }
+
+	bool isObjDrawn();
+	void setDrawn(bool isDrawn_);
 	
 	virtual void Update();
 	virtual void HandleEvent(sf::Event e);

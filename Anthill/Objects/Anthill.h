@@ -15,12 +15,8 @@ class Anthill: public ForestObject
 
 public:
 
-	
-	
-	
+	Anthill(sf::RenderWindow* window_, Camera* camera_, Resources* res_, Parametres* par_, std::vector<ForestObject*>* allObjects_);
 
-
-	Anthill(sf::RenderWindow* window_, Camera* camera_, Resources* res_);
 	~Anthill();
 
 	virtual void Update() override;

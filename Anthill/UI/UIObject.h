@@ -9,7 +9,7 @@ class UIObject
 protected:
 	Vector2f position;
 	Vector2f scale;
-	std::vector<UIObject*>* others;
+	std::vector<UIObject*>* allObjects;
 	UIObject* parent;
 	std::vector<UIObject*> childs;
 	sf::RenderWindow* window;
