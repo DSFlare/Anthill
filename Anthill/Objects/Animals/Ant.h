@@ -50,7 +50,7 @@ public:
 	//Входные точки в роли
 	void Scout(); //приносит ресурсы и сообщает о живой еде
 	void Scout(ForestObject* target); //приносит ресурсы и сообщает о живой еде
-	void Hunter(Organism* target); //
+	void Hunter(ForestObject* target); //
 	void Eadle();
 	//TODO
 	void Warrior();

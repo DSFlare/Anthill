@@ -135,7 +135,7 @@ int Forest::StartSimulation()
 
 
 
-<<<<<<< HEAD
+
 	/*for (int i = 0; i < 5; i++)
 	{
 		Ant* ant = new Ant(camera, res, par, &objects, window, vec3(i-2, 0, -3));
@@ -143,7 +143,7 @@ int Forest::StartSimulation()
 		ant->setRotation(vec3(0, 90, 0));
 	} 
 	
-<<<<<<< HEAD
+
 	/*Queen* queen = new Queen(camera, res, window, vec3(-4, 0, -3));
 
 	queen->setRotation(vec3(0, 45, 0));
@@ -154,9 +154,9 @@ int Forest::StartSimulation()
 	objects.push_back(anthill);
 	anthill->setPosition(vec3(0, 0, 0));*/
 
-	Queen* queen = Queen::Initialize(vec3(0, 0, 0), camera, res, window, &objects);
+	Queen* queen = Queen::Initialize(vec3(0, 0, 0), camera, res, par, window, &objects);
 	Anthill* anthill = queen->CreateAnthill();
-
+	
 	
 
 

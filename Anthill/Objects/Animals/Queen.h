@@ -41,13 +41,13 @@ public:
 
 
 	//стартовая точка при создании симуляции ===================================
-	static Queen* Initialize(vec3 position_, Camera *camera, Resources* res, sf::RenderWindow* window,
-		vector<ForestObject*>* objects);
+	static Queen* Initialize(vec3 position_, Camera *camera, Resources* res, Parametres* par, 
+		sf::RenderWindow* window, vector<ForestObject*>* objects);
 	Anthill* CreateAnthill();
 	
 	//методы машины состояний ==================================================
 
 	void UpgradeRooms();
-	void InstantiateAnt();
+	void InstantiateAnt(Role role, ForestObject* target = nullptr);
 };
 

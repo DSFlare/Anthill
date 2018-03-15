@@ -77,6 +77,10 @@ void Ant::Eadle()
 	action = &Ant::goHome;
 }
 
+void Ant::Warrior()
+{
+}
+
 void Ant::goHome()
 {
 	if (glm::length(anthillPosition - position) < 0.1)
@@ -86,8 +90,8 @@ void Ant::goHome()
 			obj->setDrawn(false);
 
 			auto it = std::find(allObjects->begin(), allObjects->end(), obj);
-			if (it != allObjects->end())
-				allObjects->erase(it);
+			//if (it != allObjects->end())
+				//allObjects->erase(it);
 
 			obj->SetTag("broughtItem");
 
@@ -108,6 +112,7 @@ void Ant::goHome()
 		position += velosity;
 		calculateDiraction();
 	}
+ 	int a = 0;
 }
 
 //========================  методы SCOUT  ====================================
@@ -117,6 +122,14 @@ void Ant::Scout()	//стартовый
 	velosity = vec3(maxVelosity, 0, 0);
 	glm::rotateY(velosity, (rand() % 360) * 1.0f);
 	action = &Ant::explore;
+}
+
+void Ant::Scout(ForestObject * target)
+{
+}
+
+void Ant::Hunter(ForestObject * target)
+{
 }
 
 bool Ant::checkRes()
@@ -165,7 +178,6 @@ void Ant::explore()
 	//смотрим, есть ли поблизости ресурсы
 	if (!checkRes())
 	{
-
 		changeDirTimer++;
 		if (changeDirTimer > changeDirFreq)
 		{
