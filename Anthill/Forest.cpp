@@ -94,14 +94,14 @@ void Forest::generateItems(int leafQuantity, int stickQuantity)
 {
 	for (int i = 0; i < leafQuantity; i++) 
 	{
-		Leaf* leaf = new Leaf(window, camera, res, vec3(rand() % landscapeWidth * 2 - landscapeWidth, 
-			0, rand() % landscapeHeight * 2 - landscapeHeight));
+		Leaf* leaf = new Leaf(window, camera, res, vec3(rand() % landscapeWidth - landscapeWidth / 2, 
+			0, rand() % landscapeHeight - landscapeHeight / 2));
 		objects.push_back(leaf);
 	}
 	for (int i = 0; i < stickQuantity; i++)
 	{
-		Stick* stick = new Stick(window, camera, res, vec3(rand() % landscapeWidth * 2 - landscapeWidth,
-			0, rand() % landscapeHeight * 2 - landscapeHeight));
+		Stick* stick = new Stick(window, camera, res, vec3(rand() % landscapeWidth - landscapeWidth / 2,
+			0, rand() % landscapeHeight - landscapeHeight / 2));
 		objects.push_back(stick);
 	}
 }
@@ -115,7 +115,7 @@ int Forest::StartSimulation()
 	camera->setPosition(vec3(-5, 1, 0));
 
 	//добавим поверхность
-	Landscape* landscape = new Landscape(window, camera, res, landscapeWidth, landscapeHeight);
+	Landscape* landscape = new Landscape(window, camera, res, landscapeWidth / 2, landscapeHeight / 2);
 	objects.push_back(landscape);
 	landscape->setPosition(vec3(0, 0, 0));
 	landscape->setRotation(vec3(90, 0, 0));
@@ -123,26 +123,34 @@ int Forest::StartSimulation()
 	//генерируем палки и листья
 	generateItems(50, 50);
 
-	//муравьи
-
-	for (int i = 0; i < 5; i++)
+	/*for (int i = 0; i < 5; i++)
 	{
 		Ant* ant = new Ant(camera, res, window, vec3(i-2, 0, -3));
 		objects.push_back(ant);
 		ant->setRotation(vec3(0, 90, 0));
-	}
+	} */
 	
-
-	Queen* queen = new Queen(camera, res, window, vec3(-4, 0, -3));
+	/*Queen* queen = new Queen(camera, res, window, vec3(-4, 0, -3));
 	queen->setRotation(vec3(0, 45, 0));
 	objects.push_back(queen);
 
 	//тест муравейника
 	Anthill *anthill = new Anthill(window, camera, res);
 	objects.push_back(anthill);
-	anthill->setPosition(vec3(0, 0, 0));
+	anthill->setPosition(vec3(0, 0, 0));*/
 
-	//User interface ebac
+	Queen* queen = Queen::Initialize(vec3(0, 0, 0), camera, res, window, &objects);
+	Anthill* anthill = queen->CreateAnthill();
+
+	
+
+
+
+
+
+
+	//User interface ==========================================================
+
 	float scrCenterX = window->getSize().x / 2.0f;
 	float scrCenterY = window->getSize().y / 2.0f;
 
