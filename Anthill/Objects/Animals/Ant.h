@@ -3,6 +3,8 @@
 #include "../Stick.h"
 #include "../Leaf.h"
 
+class Queen;
+
 enum Role {
 	SCOUT,
 	WARRIOR,
@@ -17,31 +19,21 @@ private:
 	void(Ant::*action)();
 	Role role = EADLE;
 	vec3 anthillPosition; //координаты родного муравейника
+	Queen* queen;  //Своя матка
 	vector<ForestObject*> items;  // найденные ветки и палки
 	vector<Organism*> enemies; //найденыне новые враги
 
 	bool isFree = true;	//true, если муравей ничего не несет
-
-	//все это будет в ресурсах(пока так)
-	//For stearing behaviour
-	float maxVelosity = 0.015;	//максимальная дальность передвижения
-	float maxForce = 0.01f;	//макс величина изменения velosity
-	float circkeDistance = 3;	//круг перед существом, для рандомного движения
-	float circleRadius = 0.7;  //радиус круга
-	float approachRadius = 0.5;
-	float changeDirTimer = 0;
-	float changeDirFreq = 2;
-
-	float viewDistance = 1;
+	Organism* target; //цель для движения, вспомогательное поле
 
 public:
 
-	Ant(Camera * camera_, Resources * res_, Parametres* par_, std::vector<ForestObject*>* allObjects_, sf::RenderWindow * window_,
+	Ant(Camera * camera_, Resources * res_, Parametres* par_, std::vector<ForestObject*>* allObjects_, sf::RenderWindow * window_, Queen* queen,
 		vec3 position_ = vec3(0, 0, 0),
 		vec3 rotation_ = vec3(0, 0, 0),
 		vec3 scale_ = vec3(0.1, 0.1, 0.1));
 
-	virtual void Death() override;
+	virtual void Destroy() override;
 	virtual void Update() override;
 	virtual ~Ant();
 
@@ -58,25 +50,44 @@ public:
 
 
 private:
+
+	//Общие методы
+
+	/*/
+	ищет ресурсы в зоне видимости,
+	если в параметре true, то если найдет свободный ресурс, возварщает true и будет подходить к нему, подбирать и уносить в муравейник,
+	если false - просто будет запоминать увиденные ресурсы, чтобы потом сообщить о них
+	/*/
+	bool checkRes(bool needToPickUp = false); 
+
+	/*/
+	Если needToReport - true, то при засвете нового врага возвратиться в муравейник, чтобы сообщить матке и вернет true,
+			если не найдет нового, вернет false
+	В обратном случае просто будет добавлять себе новых врагов и возвращать false
+	/*/
+	bool checkEnemies(bool needToReport);
+
 	//Eadle
 
-	void goHome();
-	void goBack(); //муравей идет в сторону своего муравейника
+	void goHome();	//муравей идет в сторону своего муравейника
+	//void goBack(); 
 	void enterToAnthill(); //вызывается, когда муравей подошел вплотную к муравейнику
 
 
 	//методы Hunter
+	void followEnemy();
+	void Fight();
 
 	//методы Scout
 	void explore();
 	void pickUp(ForestObject* item);
-	bool checkRes(); //ищет ресурсы в зоне видимости, если нашел возвр true
+
 
 	//общие методы
 	
 	//методы Warrior
 
 	//для движения
-	vec3 followTowards(vec3 target, bool isApproach = true);   //isApproach - замедлять ли движение при подходе к цели
+	vec3 followTowards(vec3 target, bool isApproach = false);   //isApproach - замедлять ли движение при подходе к цели
 	void calculateDiraction(); //меняет rotation исходя из заданного движения
 };

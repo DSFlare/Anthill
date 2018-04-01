@@ -15,8 +15,8 @@ Stick::Stick(sf::RenderWindow* window_, Camera* camera_, Resources * res_, Param
 
 void Stick::Update()
 {
-	ForestObject::Update();
 	ForestObject::Draw();
+	ForestObject::Update();
 }
 
 

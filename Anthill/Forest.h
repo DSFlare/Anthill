@@ -48,7 +48,7 @@ private:
 
 
 public:
-	Forest(sf::RenderWindow* window_, Resources* res);
+	Forest(sf::RenderWindow* window_, Resources* res, Parametres* par);
 	~Forest();
 
 	static sf::RenderWindow* InitializeGL(int width, int height, int style);

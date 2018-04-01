@@ -2,6 +2,14 @@
 
 
 
+void Queen::SendItems(vector<ForestObject*> items)
+{
+}
+
+void Queen::SendEnemies(vector<Organism*> enemies)
+{
+}
+
 Queen::Queen(Camera * camera_, Resources * res_, Parametres* par_, std::vector<ForestObject*>* objects_, sf::RenderWindow * window_,
 			 vec3 position_, vec3 rotation_, vec3 scale_)
 			 : Organism(camera_, res_, par_, objects_, window_, position_, rotation_, scale_)
@@ -20,7 +28,7 @@ Queen::Queen(Camera * camera_, Resources * res_, Parametres* par_, std::vector<F
 	tag = "Queen";
 }
 
-void Queen::Death()
+void Queen::Destroy()
 {
 
 }
@@ -70,7 +78,7 @@ void Queen::UpgradeRooms()
 
 void Queen::InstantiateAnt(Role role, ForestObject* target_)
 {
-	Ant* ant = new Ant(camera, res, par, objects, window);
+	Ant* ant = new Ant(camera, res, par, objects, window, this);
 	objects->push_back(ant);
 	ant->setPosition(position);
 	
@@ -85,4 +93,9 @@ void Queen::InstantiateAnt(Role role, ForestObject* target_)
 		ant->Hunter(target_);
 	else
 		ant->Eadle();
+}
+
+vec3 Queen::getAnthillPosition()
+{
+	return anthill->getPosition();
 }

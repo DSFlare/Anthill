@@ -17,7 +17,9 @@ int main()
 	res.anthillSprite.loadFromFile("Resources\\UI\\uiAnthill.png");
 	res.hotkeys.loadFromFile("Resources\\UI\\hotkeys.png");
 	
-	Forest forest(window, &res);
+	Parametres par;
+
+	Forest forest(window, &res, &par);
 
 	forest.StartSimulation();
 	

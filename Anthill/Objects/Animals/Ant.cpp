@@ -1,29 +1,37 @@
 #include "Ant.h"
 #include "glm/gtx/rotate_vector.hpp"
 #include "glm/gtx/vector_angle.hpp"
+#include "Queen.h"
 
-
-void Ant::Death()
+void Ant::Destroy()
 {
+	auto it = std::find(allObjects->begin(), allObjects->end(), this);
+	if (it != allObjects->end())
+		allObjects->erase(it);
+	delete this;
 }
 
 void Ant::Update()
 {
-	//Organism::Update();
-	(this->*action)();
+	
 	ForestObject::Draw();
+	Organism::Update();
+	(this->*action)();
 }
 
-Ant::Ant(Camera * camera_, Resources * res_, Parametres* par_, std::vector<ForestObject*>* allObjects_, 
-	sf::RenderWindow * window_, vec3 position_, vec3 rotation_, vec3 scale_)
-	:Organism(camera_, res_, par_, allObjects_, window_, position_,  rotation_, scale_)
+Ant::Ant(Camera * camera_, Resources * res_, Parametres* par_, std::vector<ForestObject*>* allObjects_,
+	sf::RenderWindow * window_, Queen* queen_, vec3 position_, vec3 rotation_, vec3 scale_)
+	:Organism(camera_, res_, par_, allObjects_, window_, position_, rotation_, scale_)
 {
+	queen = queen_;
 	shader = &(res->standartShader);
 	texture = &(res->antTex);
 	model = new Model3D(res->antModel, texture);
 	tag = "Ant";
+	health = par->AntPar.antHealth;
+	attack = par->AntPar.attack;
 
-	anthillPosition = vec3(0, 0, 0);
+	anthillPosition = queen->getAnthillPosition();
 	Scout();
 }
 
@@ -31,124 +39,49 @@ Ant::~Ant()
 {
 }
 
-//движение
+//======================== Общие методы =======================
 
-vec3 Ant::followTowards(vec3 target, bool isApproach)
+//возвращает true, если пошел сообщать в муравейник о врагах
+bool Ant::checkEnemies(bool needToReport)
 {
-	vec3 steering = target - position;
-	if (!isApproach)
-	{
-		steering = glm::normalize(steering) * maxVelosity - velosity;
-	}
-	else
-	{
-		float dist = glm::length(steering);
-		steering = glm::normalize(steering);
-
-		if (dist < approachRadius)
-			steering += dist / approachRadius * maxVelosity;
-		else
-			steering *= maxVelosity;
-		steering -= velosity;
-	}
-
-	if (glm::length(steering) > maxForce)
-	{
-		steering = glm::normalize(steering) * maxForce;
-	}
-	return steering;
-}
-
-void Ant::calculateDiraction()
-{
-	if (velosity.z < 0)
-	{
-		rotation.y = glm::degrees(acos(glm::dot(vec3(1, 0, 0), velosity) / glm::length(velosity)));
-	}
-	else
-	{
-		rotation.y = 360 - glm::degrees(acos(glm::dot(vec3(1, 0, 0), velosity) / glm::length(velosity)));
-	}
-}
-
-//============================== методы EADLE ================================
-void Ant::Eadle()
-{
-	action = &Ant::goHome;
-}
-
-void Ant::Warrior()
-{
-}
-
-void Ant::goHome()
-{
-	if (glm::length(anthillPosition - position) < 0.1)
-	{
-		for (ForestObject* obj : childs) {
-			obj->SetParent(NULL);
-			obj->setDrawn(false);
-
-			auto it = std::find(allObjects->begin(), allObjects->end(), obj);
-			//if (it != allObjects->end())
-				//allObjects->erase(it);
-
-			obj->SetTag("broughtItem");
-
+	for (ForestObject* obj : *allObjects) {
+		if (obj->CompareTag("Caterpillar") || obj->CompareTag("Beetle"))
+		{
+			if (glm::length(obj->getPosition() - position) < par->AntPar.viewDistance)
+			{
+				Organism* enemy = dynamic_cast<Organism*>(obj);
+				if (enemy != NULL) {
+					enemies.push_back(enemy);
+				}
+				obj->SetTag(obj->GetTag() + " discovered");
+				//если установлен параметр, то идем в муравейник сообщать
+				if (needToReport)
+				{
+					action = &Ant::goHome;
+					return true;
+				}
+			}
 		}
-  		childs.clear();
-		items.clear();
-		isFree = true;
-		Scout();
 	}
-	else
-	{
-		velosity += followTowards(anthillPosition);
-
-		if (glm::length(velosity) > maxVelosity)
-		{	
-			velosity = glm::normalize(velosity) * maxVelosity;
-		}
-		position += velosity;
-		calculateDiraction();
-	}
- 	int a = 0;
+	return false;
 }
 
-//========================  методы SCOUT  ====================================
 
-void Ant::Scout()	//стартовый
+bool Ant::checkRes(bool needToPickUp)
 {
-	velosity = vec3(maxVelosity, 0, 0);
-	glm::rotateY(velosity, (rand() % 360) * 1.0f);
-	action = &Ant::explore;
-}
-
-void Ant::Scout(ForestObject * target)
-{
-}
-
-void Ant::Hunter(ForestObject * target)
-{
-}
-
-bool Ant::checkRes()
-{
-	bool ret = false;
 	for (ForestObject* obj : *allObjects) {
 		if (obj->CompareTag("Leaf") || obj->CompareTag("Stick"))
 		{
 			ForestObject* temp = obj->GetParent();
-			if (glm::length(obj->getPosition() - position) < viewDistance && obj->GetParent() == NULL)
+			if (glm::length(obj->getPosition() - position) < par->AntPar.viewDistance && obj->GetParent() == NULL)
 			{
-				
 				//если муравей свободен, то подходим к ресурсу и уносим с собой в муравейник
-				if (isFree)
+				if (isFree && needToPickUp)
 				{
 					velosity += followTowards(obj->getPosition());
-					if (glm::length(velosity) > maxVelosity)
+					if (glm::length(velosity) > par->AntPar.maxVelosity)
 					{
-						velosity = glm::normalize(velosity) * maxVelosity;
+						velosity = glm::normalize(velosity) * par->AntPar.maxVelosity;
 					}
 					position += velosity;
 					calculateDiraction();
@@ -166,32 +99,189 @@ bool Ant::checkRes()
 				{
 					items.push_back(obj);
 				}
-				
+
 			}
 		}
 	}
-	return ret;
+	return false;
 }
 
-void Ant::explore()
+//Возвращает steering, которое можно сразу добавлять к velosity
+vec3 Ant::followTowards(vec3 target, bool isApproach)
 {
-	//смотрим, есть ли поблизости ресурсы
-	if (!checkRes())
-	{
-		changeDirTimer++;
-		if (changeDirTimer > changeDirFreq)
-		{
-			changeDirTimer = 0;
-			vec3 circlePos = position + glm::normalize(velosity) * circkeDistance;
-			vec3 target = circlePos + glm::rotateY(vec3(circleRadius, 0, 0), (rand() % 360) * 1.0f);
 
-			velosity += followTowards(target, false);
-		}
-		if (glm::length(velosity) > maxVelosity)
+	vec3 steering = target - position;
+	if (!isApproach)
+	{
+		steering = glm::normalize(steering) * par->AntPar.maxVelosity - velosity;
+	}
+	else
+	{
+		float dist = glm::length(steering);
+		steering = glm::normalize(steering);
+
+		if (dist < par->AntPar.approachRadius)
+			steering += dist / par->AntPar.approachRadius * par->AntPar.maxVelosity;
+		else
+			steering *= par->AntPar.maxVelosity;
+		steering -= velosity;
+	}
+
+	if (glm::length(steering) > par->AntPar.maxForce)
+	{
+		steering = glm::normalize(steering) * par->AntPar.maxForce;
+	}
+	return steering;
+}
+
+void Ant::calculateDiraction()
+{
+	if (velosity.z < 0)
+	{
+		rotation.y = glm::degrees(acos(glm::dot(vec3(1, 0, 0), velosity) / glm::length(velosity)));
+	}
+	else
+	{
+		rotation.y = 360 - glm::degrees(acos(glm::dot(vec3(1, 0, 0), velosity) / glm::length(velosity)));
+	}
+	position.y = 0;
+}
+
+//============================== методы EADLE ================================
+void Ant::Eadle()
+{
+	action = &Ant::goHome;
+}
+
+void Ant::Warrior()
+{
+}
+
+
+
+void Ant::goHome()
+{
+	if (glm::length(anthillPosition - position) < 0.1)
+	{
+		enterToAnthill();
+		//Scout();
+	}
+	else
+	{
+		checkEnemies(false);
+		checkRes();
+		velosity += followTowards(anthillPosition);
+
+		if (glm::length(velosity) > par->AntPar.maxVelosity)
 		{
-			velosity = glm::normalize(velosity) * maxVelosity;
+			velosity = glm::normalize(velosity) * par->AntPar.maxVelosity;
 		}
 		position += velosity;
 		calculateDiraction();
 	}
 }
+
+void Ant::enterToAnthill()
+{
+	queen->SendItems(items);
+	queen->SendEnemies(enemies);
+	target = NULL;
+
+	for (ForestObject* obj : childs) {
+		obj->SetParent(NULL);
+		obj->setDrawn(false);
+
+		auto it = std::find(allObjects->begin(), allObjects->end(), obj);
+		if (it != allObjects->end())
+			allObjects->erase(it);
+
+		obj->SetTag("broughtItem");
+	}
+	childs.clear();
+	items.clear();
+	enemies.clear();
+	isFree = true;
+	Destroy();
+}
+
+//========================  методы SCOUT  ====================================
+
+void Ant::Scout()	//стартовый
+{
+	velosity = vec3(par->AntPar.maxVelosity, 0, 0);
+	glm::rotateY(velosity, (rand() % 360) * 1.0f);
+	action = &Ant::explore;
+}
+
+void Ant::explore()
+{
+	//смотрим, есть ли поблизости ресурсы и враги
+	if (!checkEnemies(true) && !checkRes(true))
+	{
+		par->AntPar.changeDirTimer++;
+		if (par->AntPar.changeDirTimer > par->AntPar.changeDirFreq)
+		{
+			par->AntPar.changeDirTimer = 0;
+			vec3 circlePos = position + glm::normalize(velosity) * par->AntPar.circkeDistance;
+			vec3 target = circlePos + glm::rotateY(vec3(par->AntPar.circleRadius, 0, 0), (rand() % 360) * 1.0f);
+
+			velosity += followTowards(target, false);
+		}
+		if (glm::length(velosity) > par->AntPar.maxVelosity)
+		{
+			velosity = glm::normalize(velosity) * par->AntPar.maxVelosity;
+		}
+		position += velosity;
+		calculateDiraction();
+	}
+}
+
+void Ant::Scout(ForestObject * target)
+{
+
+}
+
+//========================= методы Hunter ================================
+
+void Ant::Hunter(ForestObject * target_)
+{
+	target = dynamic_cast<Organism*>(target_);
+	action = &Ant::followEnemy;
+}
+
+void Ant::followEnemy()
+{
+	checkRes();
+	checkEnemies(false);
+	if (glm::length(target->getPosition() - position) < 0.12)
+	{
+		action = &Ant::Fight;
+	}
+	else
+	{
+		velosity += followTowards(target->getPosition());
+		position += velosity;
+		calculateDiraction();
+	}
+}
+
+void Ant::Fight()
+{
+	if (target->getHealth() > 0)
+	{
+		target->makeDamage(attack);
+	}
+	else
+	{
+		auto it = std::find(enemies.begin(), enemies.end(), target);
+		if (it != enemies.end())
+			enemies.erase(it);
+		action = &Ant::goHome;
+	}
+	if (glm::length(target->getPosition() - position) > par->AntPar.attackDistance)
+	{
+		action = &Ant::followEnemy;
+		return;
+	}
+}
+

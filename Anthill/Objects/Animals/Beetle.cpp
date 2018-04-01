@@ -10,19 +10,49 @@ Beetle::Beetle(Camera * camera_, Resources * res_, Parametres* par_, std::vector
 	texture = &(res->queenTex);
 	model = new Model3D(res->beetleModel, texture);
 	tag = "Beetle";
+	health = par->enemyPar.beetleHealth;
+	attack = par->enemyPar.beetleAttack;
 }
 
-void Beetle::Death()
+void Beetle::Destroy()
 {
+	static int deathTimer = 0;
+	if (deathTimer >= par->enemyPar.deathTimer) {
+		auto it = std::find(allObjects->begin(), allObjects->end(), this);
+		if (it != allObjects->end())
+			allObjects->erase(it);
+		delete this;
+	}
+	else
+	{
+		deathTimer++;
+	}
 }
 
 
 void Beetle::Update()
 {
 	ForestObject::Draw();
+	checkAnts();
+	Organism::Update();
 }
 
 
 Beetle::~Beetle()
 {
+}
+
+void Beetle::checkAnts()
+{
+	for (ForestObject* obj : *allObjects) {
+		if (obj->CompareTag("Ant"))
+		{
+			if (glm::length(obj->getPosition() - position) < par->enemyPar.beetleAttackDistance)
+			{
+				Organism* ant = dynamic_cast<Organism*>(obj);
+				ant->makeDamage(attack);
+				return;
+			}
+		}
+	}
 }

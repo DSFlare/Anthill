@@ -28,6 +28,10 @@ private:
 public:
 	int antsInAnthillForNow; // все муравьи, находящиеся именно в муравейнике
 
+	void SendItems(vector<ForestObject*> items);	//ант передает сюда ветки и листья, которые обнаружил, но не собрал
+	void AntAtHome() { antsInAnthillForNow++; };	//ант вызывает, когда пришел в муравейник
+	void SendEnemies(vector<Organism*> enemies);	//ант передает сюда врагов, которых обнаружил
+
 	Queen(Camera * camera_, Resources * res_, Parametres* par_, std::vector<ForestObject*>* objects, 
 		sf::RenderWindow * window_,
 
@@ -35,7 +39,7 @@ public:
 		  vec3 rotation_ = vec3(0, 0, 0),
 		  vec3 scale_    = vec3(0.07f, 0.07f, 0.07f));
 	
-	virtual void Death() override;
+	virtual void Destroy() override;
 	virtual void Update() override;
 	virtual ~Queen();
 
@@ -49,5 +53,7 @@ public:
 
 	void UpgradeRooms();
 	void InstantiateAnt(Role role, ForestObject* target = nullptr);
+
+	vec3 getAnthillPosition();
 };
 

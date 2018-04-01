@@ -60,6 +60,7 @@ public:
 	
 	bool CompareTag(std::string tag) { return this->tag == tag; }
 	void SetTag(std::string newTag) { tag = newTag;  }
+	string GetTag();
 
 	bool isObjDrawn();
 	void setDrawn(bool isDrawn_);

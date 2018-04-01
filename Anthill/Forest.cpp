@@ -3,9 +3,10 @@
 
 
 
-Forest::Forest(sf::RenderWindow* window_, Resources* res_)
+Forest::Forest(sf::RenderWindow* window_, Resources* res_, Parametres* par_)
 {
 	res = res_;
+	par = par_;
 	window = window_;
 	windowWidth = window->getSize().x;
 	windowHeight = window->getSize().y;

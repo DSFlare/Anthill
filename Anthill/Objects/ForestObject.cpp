@@ -63,6 +63,11 @@ void ForestObject::SetParent(ForestObject * obj)
 	parent = obj;
 }
 
+string ForestObject::GetTag()
+{
+	return tag;
+}
+
 bool ForestObject::isObjDrawn()
 {
 	return isDrawn;

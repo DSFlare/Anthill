@@ -8,9 +8,12 @@ public:
 		sf::RenderWindow * window_,
 		vec3 position_ = vec3(0, 0, 0),
 		vec3 rotation_ = vec3(0, 0, 0),
-		vec3 scale_ = vec3(1, 1, 1));
-	virtual void Death() override;
+		vec3 scale_ = vec3(0.1, 0.1, 0.1));
+	virtual void Destroy() override;
 	virtual void Update() override;
 	~Beetle();
+
+private:
+	void checkAnts();
 };
 

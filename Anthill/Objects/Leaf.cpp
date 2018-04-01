@@ -14,8 +14,8 @@ Leaf::Leaf(sf::RenderWindow* window_, Camera* camera_, Resources * res_, Paramet
 
 void Leaf::Update()
 {
-	ForestObject::Update();
 	ForestObject::Draw();
+	ForestObject::Update();
 }
 
 

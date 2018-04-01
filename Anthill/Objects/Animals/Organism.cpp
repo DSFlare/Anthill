@@ -17,4 +17,33 @@ Organism::Organism(Camera * camera_, Resources * res_, Parametres* par_, std::ve
 
 void Organism::Update()
 {
+	if (health <= 0)
+	{
+		Destroy();
+	}
+}
+
+int Organism::getHealth()
+{
+	return health;
+}
+
+void Organism::setHealth(int health_)
+{
+	health = health_;
+}
+
+int Organism::getAttack()
+{
+	return attack;
+}
+
+void Organism::setAttack(int attack_)
+{
+	attack = attack_;
+}
+
+void Organism::makeDamage(int damage)
+{
+	health -= damage;
 }
