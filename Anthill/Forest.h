@@ -8,6 +8,7 @@
 #include "Objects\Landscape.h"
 #include "Objects\Animals\Ant.h"
 #include "Objects\Animals\Beetle.h"
+#include "Objects\Animals\Caterpillar.h"
 #include "Objects\Animals\Queen.h"
 #include "Objects\Anthill.h"
 #include "Objects\Stick.h"
@@ -43,8 +44,11 @@ private:
 	float deltaTime;
 	float lastFrame;
 
+	float generateItemsTimer = 0;
+
 	void Init();
 	void generateItems(int leafQuantity, int stickQuantity); //рандомно генерирует палки и листья
+	void generateEnemies(int bugs, int caterpillars); //рандомно генерирует врагов
 
 
 public:

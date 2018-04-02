@@ -74,7 +74,13 @@ void Forest::Update()
 	lastFrame = now;
 	//std::cout << deltaTime << "    " << lastFrame << std::endl;
 
-
+	//генериурем ветки и палки
+	if (generateItemsTimer == par->forestPar.generateItemsDelay)
+	{
+		generateItemsTimer = 0;
+		generateItems(1, 1);
+	}
+	generateItemsTimer++;
 
 
 	//для каждого объекта в лесу вызываем Update()
@@ -111,10 +117,27 @@ void Forest::generateItems(int leafQuantity, int stickQuantity)
 
 		objects.push_back(stick);
 	}
-	/*Leaf* leaf = new Leaf(window, camera, res, par, &objects);
-	leaf->setPosition(vec3( 20, 0, 0));
-	leaf->setScale(vec3(1, 1, 1));
-	objects.push_back(leaf);*/
+}
+
+void Forest::generateEnemies(int bugs, int caterpillars)
+{
+	for (int i = 0; i < bugs; i++)
+	{
+		Beetle* beetle = new Beetle(camera, res, par, &objects, window);
+
+		beetle->setPosition(vec3(rand() % landscapeWidth - landscapeWidth / 2,
+			0, rand() % landscapeHeight - landscapeHeight / 2));
+
+		objects.push_back(beetle);
+	}
+	/*for (int i = 0; i < caterpillars; i++)
+	{
+		Caterpillar* caterpillar = new Caterpillar(camera, res, par, &objects, window);
+		caterpillar->setPosition(vec3(rand() % landscapeWidth - landscapeWidth / 2,
+			0, rand() % landscapeHeight - landscapeHeight / 2));
+
+		objects.push_back(caterpillar);
+	}*/
 }
 
 int Forest::StartSimulation()
@@ -135,6 +158,8 @@ int Forest::StartSimulation()
 	generateItems(70, 70);
 
 
+	//генерируем врагов
+	generateEnemies(5, 0);
 
 
 	/*for (int i = 0; i < 5; i++)
@@ -159,8 +184,6 @@ int Forest::StartSimulation()
 	Anthill* anthill = queen->CreateAnthill();
 	
 	
-
-
 
 
 

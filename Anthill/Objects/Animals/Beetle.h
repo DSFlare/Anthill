@@ -3,6 +3,8 @@
 class Beetle :
 	public Organism
 {
+private:
+	int changeDirTimer = 0;
 public:
 	Beetle(Camera * camera_, Resources * res_, Parametres* par_, std::vector<ForestObject*>* allObjects_, 
 		sf::RenderWindow * window_,
@@ -14,6 +16,8 @@ public:
 	~Beetle();
 
 private:
+	vec3 followTowards(vec3 target);
 	void checkAnts();
+	void Explore();
 };
 

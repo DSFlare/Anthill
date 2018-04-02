@@ -24,8 +24,9 @@ private:
 	vector<Organism*> enemies; //найденыне новые враги
 
 	bool isFree = true;	//true, если муравей ничего не несет
-	Organism* target; //цель для движения, вспомогательное поле
+	ForestObject* target; //цель для движения, вспомогательное поле
 
+	int changeDirTimer = 0;
 public:
 
 	Ant(Camera * camera_, Resources * res_, Parametres* par_, std::vector<ForestObject*>* allObjects_, sf::RenderWindow * window_, Queen* queen,
@@ -58,7 +59,7 @@ private:
 	если в параметре true, то если найдет свободный ресурс, возварщает true и будет подходить к нему, подбирать и уносить в муравейник,
 	если false - просто будет запоминать увиденные ресурсы, чтобы потом сообщить о них
 	/*/
-	bool checkRes(bool needToPickUp = false); 
+	bool checkRes(bool needToPickUp); 
 
 	/*/
 	Если needToReport - true, то при засвете нового врага возвратиться в муравейник, чтобы сообщить матке и вернет true,
@@ -80,6 +81,7 @@ private:
 
 	//методы Scout
 	void explore();
+	void followItem();
 	void pickUp(ForestObject* item);
 
 

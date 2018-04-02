@@ -31,8 +31,7 @@ Ant::Ant(Camera * camera_, Resources * res_, Parametres* par_, std::vector<Fores
 	health = par->AntPar.antHealth;
 	attack = par->AntPar.attack;
 
-	anthillPosition = queen->getAnthillPosition();
-	Scout();
+	anthillPosition = vec3(0, 0, 0);
 }
 
 Ant::~Ant()
@@ -88,10 +87,7 @@ bool Ant::checkRes(bool needToPickUp)
 
 					if (glm::length(obj->getPosition() - position) < 0.1f)
 					{
-						childs.push_back(obj);
-						obj->SetParent(this);
-						isFree = false;
-						Eadle();
+						pickUp(obj);
 					}
 					return true;
 				}
@@ -169,7 +165,7 @@ void Ant::goHome()
 	else
 	{
 		checkEnemies(false);
-		checkRes();
+		checkRes(false);
 		velosity += followTowards(anthillPosition);
 
 		if (glm::length(velosity) > par->AntPar.maxVelosity)
@@ -218,10 +214,10 @@ void Ant::explore()
 	//смотрим, есть ли поблизости ресурсы и враги
 	if (!checkEnemies(true) && !checkRes(true))
 	{
-		par->AntPar.changeDirTimer++;
-		if (par->AntPar.changeDirTimer > par->AntPar.changeDirFreq)
+		changeDirTimer++;
+		if (changeDirTimer > par->AntPar.changeDirFreq)
 		{
-			par->AntPar.changeDirTimer = 0;
+			changeDirTimer = 0;
 			vec3 circlePos = position + glm::normalize(velosity) * par->AntPar.circkeDistance;
 			vec3 target = circlePos + glm::rotateY(vec3(par->AntPar.circleRadius, 0, 0), (rand() % 360) * 1.0f);
 
@@ -236,22 +232,48 @@ void Ant::explore()
 	}
 }
 
-void Ant::Scout(ForestObject * target)
+void Ant::followItem()
 {
+	checkRes(false);
+	checkEnemies(false);
+	if (glm::length(target->getPosition() - position) < par->AntPar.attackDistance)
+	{
+		pickUp(target);
+		action = &Ant::goHome;
+	}
+	else
+	{
+		velosity += followTowards(target->getPosition());
+		position += velosity;
+		calculateDiraction();
+	}
+}
 
+void Ant::pickUp(ForestObject * item)
+{
+	childs.push_back(item);
+	item->SetParent(this);
+	isFree = false;
+	Eadle();
+}
+
+void Ant::Scout(ForestObject * target_)
+{
+	target = target_;
+	action = &Ant::followItem;
 }
 
 //========================= методы Hunter ================================
 
 void Ant::Hunter(ForestObject * target_)
 {
-	target = dynamic_cast<Organism*>(target_);
+	target = target_;
 	action = &Ant::followEnemy;
 }
 
 void Ant::followEnemy()
 {
-	checkRes();
+	checkRes(false);
 	checkEnemies(false);
 	if (glm::length(target->getPosition() - position) < 0.12)
 	{
@@ -267,21 +289,21 @@ void Ant::followEnemy()
 
 void Ant::Fight()
 {
-	if (target->getHealth() > 0)
+	Organism* target_ = dynamic_cast<Organism*>(target);
+	if (target_->getHealth() > 0)
 	{
-		target->makeDamage(attack);
+		target_->makeDamage(attack);
 	}
 	else
 	{
-		auto it = std::find(enemies.begin(), enemies.end(), target);
+		auto it = std::find(enemies.begin(), enemies.end(), target_);
 		if (it != enemies.end())
 			enemies.erase(it);
 		action = &Ant::goHome;
 	}
-	if (glm::length(target->getPosition() - position) > par->AntPar.attackDistance)
+	if (glm::length(target_->getPosition() - position) > par->AntPar.attackDistance)
 	{
 		action = &Ant::followEnemy;
 		return;
 	}
 }
-
