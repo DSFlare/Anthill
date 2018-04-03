@@ -16,7 +16,7 @@ class Ant : public Organism
 {
 private:
 
-	void(Ant::*action)();
+	void(Ant::*action)();	//функци€, выполн€юща€с€ каждый кадр
 	Role role = EADLE;
 	vec3 anthillPosition; //координаты родного муравейника
 	Queen* queen;  //—во€ матка

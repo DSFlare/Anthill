@@ -155,7 +155,7 @@ int Forest::StartSimulation()
 	landscape->setRotation(vec3(90, 0, 0));
 
 	//генерируем палки и листья
-	generateItems(70, 70);
+	//generateItems(70, 70);
 
 
 	//генерируем врагов

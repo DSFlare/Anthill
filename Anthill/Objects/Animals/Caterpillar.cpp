@@ -17,3 +17,23 @@ void Caterpillar::Destroy()
 Caterpillar::~Caterpillar()
 {
 }
+
+void Caterpillar::checkEdges()
+{
+	if (position.x >= 50)
+	{
+		velosity.x = -par->AntPar.maxVelosity;
+	}
+	if (position.x <= -50)
+	{
+		velosity.x = par->AntPar.maxVelosity;
+	}
+	if (position.z >= 50)
+	{
+		velosity.z = -par->AntPar.maxVelosity;
+	}
+	if (position.z <= -50)
+	{
+		velosity.z = par->AntPar.maxVelosity;
+	}
+}

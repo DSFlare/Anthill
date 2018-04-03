@@ -10,5 +10,7 @@ public:
 		vec3 scale_ = vec3(1, 1, 1));
 	virtual void Destroy() override;
 	~Caterpillar();
+private:
+	void checkEdges();
 };
 

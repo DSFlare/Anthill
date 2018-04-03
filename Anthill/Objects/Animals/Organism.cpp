@@ -21,6 +21,26 @@ void Organism::Update()
 	{
 		Destroy();
 	}
+	if (position.x >= 25)
+	{
+		position.x = 24.7;
+		velosity = vec3(-1, 0, 0);
+	}
+	if (position.x <= -25)
+	{
+		position.x = -24.7;
+		velosity = vec3(1, 0, 0);
+	}
+	if (position.z >= 25)
+	{
+		position.z = 24.7;
+		velosity = vec3(0, 0, -1);
+	}
+	if (position.z <= -25)
+	{
+		position.z = -24.7;
+		velosity = vec3(0, 0, 1);
+	}
 }
 
 int Organism::getHealth()

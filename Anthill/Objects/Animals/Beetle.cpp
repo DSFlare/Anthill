@@ -12,6 +12,7 @@ Beetle::Beetle(Camera * camera_, Resources * res_, Parametres* par_, std::vector
 	tag = "Beetle";
 	health = par->beetlePar.health;
 	attack = par->beetlePar.attack;
+	action = &Beetle::Explore;
 
 	velosity = vec3(par->beetlePar.maxVelosity, 0, 0);
 	glm::rotateY(velosity, (rand() % 360) * 1.0f);
@@ -36,8 +37,8 @@ void Beetle::Destroy()
 void Beetle::Update()
 {
 	ForestObject::Draw();
-	Explore();
 	checkAnts();
+	(this->*action)();
 	Organism::Update();
 }
 
@@ -60,6 +61,7 @@ void Beetle::checkAnts()
 		}
 	}
 }
+
 
 vec3 Beetle::followTowards(vec3 target)
 {

@@ -20,11 +20,12 @@ struct AntParametres
 struct BeetleParametres
 {
 	//For stearing behaviour
-	float maxForce = 0.01f;	//макс величина изменения velosity
+	int a = 10;
+	float maxForce = 0.007f;	//макс величина изменения velosity
 	float maxVelosity = 0.008f;	//максимальная дальность передвижения
-	float circkeDistance = 3;	//круг перед существом, для рандомного движения
+	float circkeDistance = 3.5f;	//круг перед существом, для рандомного движения
 	float circleRadius = 0.9;  //радиус круга
-	float approachRadius = 0.5;
+	float approachRadius = 0.5;	//радиус в котором начнется притормаживание при подходе к цели
 	float changeDirFreq = 4;
 
 	float viewDistance = 2;
@@ -50,4 +51,3 @@ public:
 	Parametres();
 	~Parametres();
 };
-

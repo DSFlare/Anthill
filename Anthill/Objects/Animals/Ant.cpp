@@ -13,9 +13,8 @@ void Ant::Destroy()
 
 void Ant::Update()
 {
-	
-	ForestObject::Draw();
 	Organism::Update();
+	ForestObject::Draw();
 	(this->*action)();
 }
 
@@ -56,7 +55,7 @@ bool Ant::checkEnemies(bool needToReport)
 				//если установлен параметр, то идем в муравейник сообщать
 				if (needToReport)
 				{
-					action = &Ant::goHome;
+					Eadle();
 					return true;
 				}
 			}
@@ -142,6 +141,7 @@ void Ant::calculateDiraction()
 	}
 	position.y = 0;
 }
+
 
 //============================== методы EADLE ================================
 void Ant::Eadle()
