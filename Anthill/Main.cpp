@@ -21,7 +21,7 @@ int main()
 
 	Forest forest(window, &res, &par);
 
-	forest.StartSimulation();
+	forest.startSimulation();
 	
 	return 0;
 }

@@ -4,6 +4,8 @@
 class Leaf
 	:public ForestObject
 {
+private:
+	int foodAmount;
 public:
 	Leaf(sf::RenderWindow* window_, Camera* camera_, Resources * res_, Parametres* par_,
 		std::vector<ForestObject*>* allObjects_,
@@ -12,5 +14,7 @@ public:
 		vec3 scale_ = vec3(0.1, 0.1, 0.1));
 	virtual void Update() override;
 	~Leaf();
+
+	int getFood();
 };
 

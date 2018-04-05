@@ -43,7 +43,7 @@ Ant::~Ant()
 bool Ant::checkEnemies(bool needToReport)
 {
 	for (ForestObject* obj : *allObjects) {
-		if (obj->CompareTag("Caterpillar") || obj->CompareTag("Beetle"))
+		if (obj->compareTag("Caterpillar") || obj->compareTag("Beetle"))
 		{
 			if (glm::length(obj->getPosition() - position) < par->AntPar.viewDistance)
 			{
@@ -51,7 +51,7 @@ bool Ant::checkEnemies(bool needToReport)
 				if (enemy != NULL) {
 					enemies.push_back(enemy);
 				}
-				obj->SetTag(obj->GetTag() + " discovered");
+				obj->setTag(obj->getTag() + " discovered");
 				//если установлен параметр, то идем в муравейник сообщать
 				if (needToReport)
 				{
@@ -68,10 +68,10 @@ bool Ant::checkEnemies(bool needToReport)
 bool Ant::checkRes(bool needToPickUp)
 {
 	for (ForestObject* obj : *allObjects) {
-		if (obj->CompareTag("Leaf") || obj->CompareTag("Stick"))
+		if (obj->compareTag("Leaf") || obj->compareTag("Stick"))
 		{
-			ForestObject* temp = obj->GetParent();
-			if (glm::length(obj->getPosition() - position) < par->AntPar.viewDistance && obj->GetParent() == NULL)
+			ForestObject* temp = obj->getParent();
+			if (glm::length(obj->getPosition() - position) < par->AntPar.viewDistance && obj->getParent() == NULL)
 			{
 				//если муравей свободен, то подходим к ресурсу и уносим с собой в муравейник
 				if (isFree && needToPickUp)
@@ -179,19 +179,19 @@ void Ant::goHome()
 
 void Ant::enterToAnthill()
 {
-	queen->SendItems(items);
-	queen->SendEnemies(enemies);
+	queen->sendItems(items);
+	queen->sendEnemies(enemies);
 	target = NULL;
 
 	for (ForestObject* obj : childs) {
-		obj->SetParent(NULL);
+		obj->setParent(NULL);
 		obj->setDrawn(false);
 
 		auto it = std::find(allObjects->begin(), allObjects->end(), obj);
 		if (it != allObjects->end())
 			allObjects->erase(it);
 
-		obj->SetTag("broughtItem");
+		obj->setTag("broughtItem");
 	}
 	childs.clear();
 	items.clear();
@@ -252,7 +252,7 @@ void Ant::followItem()
 void Ant::pickUp(ForestObject * item)
 {
 	childs.push_back(item);
-	item->SetParent(this);
+	item->setParent(this);
 	isFree = false;
 	Eadle();
 }

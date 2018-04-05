@@ -21,7 +21,7 @@ Camera::Camera(int * windowWidth_, int * windowHeight_, float* deltaTime_, sf::R
 	Update();
 }
 
-void Camera::LookAt(vec3 position)
+void Camera::lookAt(vec3 position)
 {
 
 }

@@ -53,8 +53,8 @@ void Landscape::Update()
 	model = glm::rotate(model, glm::radians(rot.x), vec3(1, 0, 0));
 	model = glm::rotate(model, glm::radians(rot.y), vec3(0, 1, 0));
 	model = glm::rotate(model, glm::radians(rot.z), vec3(0, 0, 1));
-	mat4 view = camera->GetView();
-	mat4 proj = camera->GetProjection();
+	mat4 view = camera->getView();
+	mat4 proj = camera->getProjection();
 
 	sf::Texture::bind(texture);
 	glUniformMatrix4fv(glGetUniformLocation(shader->Program, "model"), 1, GL_FALSE, glm::value_ptr(model));

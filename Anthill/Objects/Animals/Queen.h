@@ -28,9 +28,9 @@ private:
 public:
 	int antsInAnthillForNow; // все муравьи, находящиеся именно в муравейнике
 
-	void SendItems(vector<ForestObject*> items);	//ант передает сюда ветки и листья, которые обнаружил, но не собрал
-	void AntAtHome() { antsInAnthillForNow++; };	//ант вызывает, когда пришел в муравейник
-	void SendEnemies(vector<Organism*> enemies);	//ант передает сюда врагов, которых обнаружил
+	void sendItems(vector<ForestObject*> items);	//ант передает сюда ветки и листья, которые обнаружил, но не собрал
+	void antAtHome() { antsInAnthillForNow++; };	//ант вызывает, когда пришел в муравейник
+	void sendEnemies(vector<Organism*> enemies);	//ант передает сюда врагов, которых обнаружил
 
 	Queen(Camera * camera_, Resources * res_, Parametres* par_, std::vector<ForestObject*>* objects, 
 		sf::RenderWindow * window_,
@@ -45,15 +45,14 @@ public:
 
 
 	//стартовая точка при создании симуляции ===================================
-	static Queen* Initialize(vec3 position_, Camera *camera, Resources* res, Parametres* par, 
+	static Queen* initialize(vec3 position_, Camera *camera, Resources* res, Parametres* par, 
 		sf::RenderWindow* window, vector<ForestObject*>* objects);
-	Anthill* CreateAnthill();
+	Anthill* createAnthill();
 	
 	//методы машины состояний ==================================================
 
-	void UpgradeRooms();
-	void InstantiateAnt(Role role, ForestObject* target = nullptr);
+	void upgradeRooms();
+	void instantiateAnt(Role role, ForestObject* target = nullptr);
 
 	vec3 getAnthillPosition();
 };
-

@@ -19,7 +19,6 @@ public:
 		vec3 scale_ = vec3(1, 1, 1));
 
 	virtual void Update() override;
-	void Start();
 	int getHealth();
 	void setHealth(int health);
 	int getAttack();

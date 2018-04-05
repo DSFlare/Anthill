@@ -53,14 +53,14 @@ public:
 	void setRotation(vec3 rotation_) { rotation = rotation_; }
 	void setScale   (vec3 scale_)	 { scale = scale_; }
 	
-	ForestObject* GetChild(int index) { return childs[index]; }
-	ForestObject* GetParent() { return parent; }
-	void SetParent(ForestObject* obj);
-	bool FindChild(std::string tag, ForestObject* container);
+	ForestObject* getChild(int index) { return childs[index]; }
+	ForestObject* getParent() { return parent; }
+	void setParent(ForestObject* obj);
+	bool findChild(std::string tag, ForestObject* container);
 	
-	bool CompareTag(std::string tag) { return this->tag == tag; }
-	void SetTag(std::string newTag) { tag = newTag;  }
-	string GetTag();
+	bool compareTag(std::string tag) { return this->tag == tag; }
+	void setTag(std::string newTag) { tag = newTag;  }
+	string getTag();
 
 	bool isObjDrawn();
 	void setDrawn(bool isDrawn_);
@@ -73,5 +73,5 @@ public:
 	void Draw();
 
 	// здесь происходят все вычисления, которые не должны быть переопределены в потомках
-	virtual void HiddenUpdate() final; 
+	virtual void hiddenUpdate() final; 
 };

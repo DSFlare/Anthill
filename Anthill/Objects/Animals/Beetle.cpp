@@ -12,7 +12,7 @@ Beetle::Beetle(Camera * camera_, Resources * res_, Parametres* par_, std::vector
 	tag = "Beetle";
 	health = par->beetlePar.health;
 	attack = par->beetlePar.attack;
-	action = &Beetle::Explore;
+	action = &Beetle::explore;
 
 	velosity = vec3(par->beetlePar.maxVelosity, 0, 0);
 	glm::rotateY(velosity, (rand() % 360) * 1.0f);
@@ -50,7 +50,7 @@ Beetle::~Beetle()
 void Beetle::checkAnts()
 {
 	for (ForestObject* obj : *allObjects) {
-		if (obj->CompareTag("Ant"))
+		if (obj->compareTag("Ant"))
 		{
 			if (glm::length(obj->getPosition() - position) < par->beetlePar.attackDistance)
 			{
@@ -74,7 +74,7 @@ vec3 Beetle::followTowards(vec3 target)
 	return steering;
 }
 
-void Beetle::Explore()
+void Beetle::explore()
 {
 	changeDirTimer++;
 	if (changeDirTimer > par->beetlePar.changeDirFreq)

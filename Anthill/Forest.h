@@ -4,7 +4,6 @@
 #include <SFML\Graphics.hpp>
 
 #include "Objects\ForestObject.h"
-#include "Objects\TestObject.h"
 #include "Objects\Landscape.h"
 #include "Objects\Animals\Ant.h"
 #include "Objects\Animals\Beetle.h"
@@ -46,7 +45,6 @@ private:
 
 	float generateItemsTimer = 0;
 
-	void Init();
 	void generateItems(int leafQuantity, int stickQuantity); //рандомно генерирует палки и листья
 	void generateEnemies(int bugs, int caterpillars); //рандомно генерирует врагов
 
@@ -58,9 +56,9 @@ public:
 	static sf::RenderWindow* InitializeGL(int width, int height, int style);
 
 	void Update();
-	void AddObject(ForestObject* obj);
+	void addObject(ForestObject* obj);
 
-	int StartSimulation();
-	void ProcessEvents(sf::Event);
+	int startSimulation();
+	void processEvents(sf::Event);
 };
 

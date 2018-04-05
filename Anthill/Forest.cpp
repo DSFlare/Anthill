@@ -93,9 +93,9 @@ void Forest::Update()
 	window->popGLStates();
 }
 
-void Forest::AddObject(ForestObject * obj)
+void Forest::addObject(ForestObject * obj)
 {
-
+	objects.push_back(obj);
 }
 
 void Forest::generateItems(int leafQuantity, int stickQuantity)
@@ -140,7 +140,7 @@ void Forest::generateEnemies(int bugs, int caterpillars)
 	}*/
 }
 
-int Forest::StartSimulation()
+int Forest::startSimulation()
 {
 	////////////////////////////////////////////////////////////////////////
 	////здесь заполняем сцену (интерфейс строим в конструкторе у Canvas)////
@@ -180,8 +180,8 @@ int Forest::StartSimulation()
 	objects.push_back(anthill);
 	anthill->setPosition(vec3(0, 0, 0));*/
 
-	Queen* queen = Queen::Initialize(vec3(0, 0, 0), camera, res, par, window, &objects);
-	Anthill* anthill = queen->CreateAnthill();
+	Queen* queen = Queen::initialize(vec3(0, 0, 0), camera, res, par, window, &objects);
+	Anthill* anthill = queen->createAnthill();
 	
 	
 
@@ -221,7 +221,7 @@ int Forest::StartSimulation()
 		sf::Event event;
 		while (window->pollEvent(event))
 		{
-			ProcessEvents(event);
+			processEvents(event);
 		}
 
 		//OpenGL комманды
@@ -235,7 +235,7 @@ int Forest::StartSimulation()
 	return 0;
 }
 
-void Forest::ProcessEvents(sf::Event e)
+void Forest::processEvents(sf::Event e)
 {
 	// Close window: exit
 	if (e.type == sf::Event::Closed)

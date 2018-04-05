@@ -35,10 +35,10 @@ public:
 	
 	Camera(int* windowWidth_, int* windowHeight_, float* deltaTime_, sf::RenderWindow* window_, Parametres* par_,
 		std::vector<ForestObject*>* allObjects_ );
-	void LookAt(vec3 position); // поворачивает камеру таким образом, что она смотрит на данный объект
+	void lookAt(vec3 position); // поворачивает камеру таким образом, что она смотрит на данный объект
 
-	mat4 GetView() { return viewMatrix; }
-	mat4 GetProjection() { return projectionMatrix; }
+	mat4 getView() { return viewMatrix; }
+	mat4 getProjection() { return projectionMatrix; }
 
 	virtual void HandleEvent(sf::Event e) override;
 	virtual void Destroy() override;

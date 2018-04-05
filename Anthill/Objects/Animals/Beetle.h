@@ -19,6 +19,6 @@ public:
 private:
 	vec3 followTowards(vec3 target);
 	void checkAnts();
-	void Explore();
+	void explore();
 };
 

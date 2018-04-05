@@ -2,11 +2,11 @@
 
 
 
-void Queen::SendItems(vector<ForestObject*> items)
+void Queen::sendItems(vector<ForestObject*> items)
 {
 }
 
-void Queen::SendEnemies(vector<Organism*> enemies)
+void Queen::sendEnemies(vector<Organism*> enemies)
 {
 }
 
@@ -45,7 +45,7 @@ Queen::~Queen()
 {
 }
 
-Queen * Queen::Initialize(vec3 position_, Camera * camera, Resources * res, Parametres* par, sf::RenderWindow * window, vector<ForestObject*>* objects)
+Queen * Queen::initialize(vec3 position_, Camera * camera, Resources * res, Parametres* par, sf::RenderWindow * window, vector<ForestObject*>* objects)
 {
 	//6 муравьев и матка в лесу
 	Queen* queen = new Queen(camera, res, par, objects, window);
@@ -54,13 +54,13 @@ Queen * Queen::Initialize(vec3 position_, Camera * camera, Resources * res, Para
 	queen->setPosition(position_);
 
 	for (int i = 0; i < 6; i++) {
-		queen->InstantiateAnt(Role::SCOUT);
+		queen->instantiateAnt(Role::SCOUT);
 	}
 
 	return queen;
 }
 
-Anthill * Queen::CreateAnthill()
+Anthill * Queen::createAnthill()
 {
 	//устанавливаем сам муравейник
 	anthill = new Anthill(window, camera, res, par, objects);
@@ -71,12 +71,12 @@ Anthill * Queen::CreateAnthill()
 	return anthill;
 }
 
-void Queen::UpgradeRooms()
+void Queen::upgradeRooms()
 {
 
 }
 
-void Queen::InstantiateAnt(Role role, ForestObject* target_)
+void Queen::instantiateAnt(Role role, ForestObject* target_)
 {
 	Ant* ant = new Ant(camera, res, par, objects, window, this);
 	objects->push_back(ant);

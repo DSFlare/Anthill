@@ -33,10 +33,10 @@ void ForestObject::Draw()
 	if (isDrawn)
 	{
 		glm::mat4 view;
-		view = camera->GetView();
+		view = camera->getView();
 
 		glm::mat4 projection;
-		projection = camera->GetProjection();
+		projection = camera->getProjection();
 
 		glm::mat4 modelMatrix;
 		modelMatrix = glm::translate(modelMatrix, position);
@@ -58,12 +58,12 @@ void ForestObject::Draw()
 	}
 }
 
-void ForestObject::SetParent(ForestObject * obj)
+void ForestObject::setParent(ForestObject * obj)
 {
 	parent = obj;
 }
 
-string ForestObject::GetTag()
+string ForestObject::getTag()
 {
 	return tag;
 }
@@ -86,7 +86,7 @@ void ForestObject::Update()
 	}
 }
 
-void ForestObject::HiddenUpdate()
+void ForestObject::hiddenUpdate()
 {
 
 }

@@ -23,3 +23,8 @@ void Stick::Update()
 Stick::~Stick()
 {
 }
+
+int Stick::getMaterial()
+{
+	return materialAmount;
+}

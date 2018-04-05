@@ -24,3 +24,8 @@ Leaf::~Leaf()
 {
 	ForestObject::Destroy();
 }
+
+int Leaf::getFood()
+{
+	return foodAmount;
+}

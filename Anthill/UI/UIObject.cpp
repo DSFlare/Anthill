@@ -7,7 +7,7 @@ UIObject::~UIObject()
 
 }
 
-void UIObject::HiddenUpdate()
+void UIObject::hiddenUpdate()
 {
 
 }
