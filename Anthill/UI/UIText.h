@@ -1,21 +1,19 @@
 #pragma once
-#include "UIImage.h"
-#include "../Objects/Anthill.h"
-#include "UIText.h"
+#include "d:\Projects\Anthill\Anthill\UI\UIObject.h"
 
-class UIAnthill: public UIImage 
+class UIText :
+	public UIObject
 {
-private:
-	Anthill* anthill;
-	UIText* text;
-
-	void drawAnthillInformation();
+protected:
+	sf::Font font;
+	sf::Text text;
 public:
-	UIAnthill(sf::RenderWindow* window_, sf::Texture* texture_, Anthill* anthill);
-	~UIAnthill();
+	UIText(sf::RenderWindow* window_, std::string font_);
+	~UIText();
 
 	virtual void setPosition(Vector2f position) override;
 	virtual void setScale(Vector2f scale) override;
+	void setFontSize(int fontSize);
 
 	void setText(std::string text);
 
@@ -24,4 +22,3 @@ public:
 	virtual void HandleEvent(sf::Event e) override;
 	virtual void Destroy() override;
 };
-

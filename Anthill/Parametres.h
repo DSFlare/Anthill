@@ -10,9 +10,14 @@ struct AntParametres
 	float approachRadius = 0.5;
 	float changeDirFreq = 2;
 
+	int a = 10;
 	float viewDistance = 1;
 	float attackDistance = 0.14;
 	float attack = 10;
+
+	float satietyLooses = 0.02;	//в секунду
+	float satietyLoosesInAnthill = 0.04;
+	float maxSatiety = 2.0f;
 
 	float antHealth = 80;
 };
@@ -20,7 +25,6 @@ struct AntParametres
 struct BeetleParametres
 {
 	//For stearing behaviour
-	int a = 10;
 	float maxForce = 0.007f;	//макс величина изменения velosity
 	float maxVelosity = 0.008f;	//максимальная дальность передвижения
 	float circkeDistance = 3.5f;	//круг перед существом, для рандомного движения
@@ -35,10 +39,22 @@ struct BeetleParametres
 	float health = 150;
 	float deathTimer = 5;
 };
+ 
+struct SimulationParametres
+{
+	float timeScale = 1.0f;
+	int antGrowingUpTime = 1000;
+	float resWithOneWorker = 0.001;
+	int startingAntsCount = 6;
+	float foodForNewEgg = 5;
+	float eggGrowingTime = 15;	//в сек
+};
 
 struct ForestParametres
 {
-	float generateItemsDelay = 1000;
+	float generateItemsDelay = 300;
+	int landscapeWidth = 50;
+	int landscapeHeight= 50;
 };
 
 class Parametres
@@ -47,6 +63,7 @@ public:
 	AntParametres AntPar;
 	BeetleParametres beetlePar;
 	ForestParametres forestPar;
+	SimulationParametres simPar;
 
 	Parametres();
 	~Parametres();

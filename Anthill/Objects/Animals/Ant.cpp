@@ -2,12 +2,22 @@
 #include "glm/gtx/rotate_vector.hpp"
 #include "glm/gtx/vector_angle.hpp"
 #include "Queen.h"
+#include "../../Timer.h"
 
 void Ant::Destroy()
 {
 	auto it = std::find(allObjects->begin(), allObjects->end(), this);
 	if (it != allObjects->end())
 		allObjects->erase(it);
+	if (role == HUNTER || role == SCOUT)
+	{
+		for (auto it = childs.begin(); it != childs.end(); ++it)
+		{
+			(*it)->setParent(NULL);
+			(*it)->setDrawn(true);
+		}
+	}
+	queen->deletingAnt(this);
 	delete this;
 }
 
@@ -16,6 +26,7 @@ void Ant::Update()
 	Organism::Update();
 	ForestObject::Draw();
 	(this->*action)();
+	hungry();
 }
 
 Ant::Ant(Camera * camera_, Resources * res_, Parametres* par_, std::vector<ForestObject*>* allObjects_,
@@ -29,6 +40,7 @@ Ant::Ant(Camera * camera_, Resources * res_, Parametres* par_, std::vector<Fores
 	tag = "Ant";
 	health = par->AntPar.antHealth;
 	attack = par->AntPar.attack;
+	satiety = par->AntPar.maxSatiety;
 
 	anthillPosition = vec3(0, 0, 0);
 }
@@ -65,6 +77,27 @@ bool Ant::checkEnemies(bool needToReport)
 }
 
 
+void Ant::hungry()
+{
+	static int lastTime = Timer::getTimeAsSec();
+	if (Timer::getTimeAsSec() != lastTime)
+	{
+		if (role == WORKER)
+		{
+			satiety -= par->AntPar.satietyLoosesInAnthill;
+			satiety += queen->askFood(par->AntPar.maxSatiety - satiety);
+		}
+		else
+		{
+			satiety -= par->AntPar.satietyLooses;
+		}
+		if (satiety <= 0)
+		{
+			this->Destroy();
+		}
+	}
+}
+
 bool Ant::checkRes(bool needToPickUp)
 {
 	for (ForestObject* obj : *allObjects) {
@@ -93,6 +126,7 @@ bool Ant::checkRes(bool needToPickUp)
 				else
 				{
 					items.push_back(obj);
+					obj->setTag(obj->getTag() + " discovered");
 				}
 
 			}
@@ -146,7 +180,14 @@ void Ant::calculateDiraction()
 //============================== методы EADLE ================================
 void Ant::Eadle()
 {
+	role = EADLE;
 	action = &Ant::goHome;
+}
+
+void Ant::Worker()
+{
+	action = &Ant::Worker;
+	role = WORKER;
 }
 
 void Ant::Warrior()
@@ -160,7 +201,6 @@ void Ant::goHome()
 	if (glm::length(anthillPosition - position) < 0.1)
 	{
 		enterToAnthill();
-		//Scout();
 	}
 	else
 	{
@@ -181,29 +221,44 @@ void Ant::enterToAnthill()
 {
 	queen->sendItems(items);
 	queen->sendEnemies(enemies);
+	queen->sendBroughtItems(childs);
 	target = NULL;
 
 	for (ForestObject* obj : childs) {
 		obj->setParent(NULL);
-		obj->setDrawn(false);
+		//obj->setDrawn(false);
 
-		auto it = std::find(allObjects->begin(), allObjects->end(), obj);
-		if (it != allObjects->end())
-			allObjects->erase(it);
+		if (obj->compareTag("Leaf") || obj->compareTag("Leaf discovered"))
+		{
+			obj->setTag("Leaf");
+			obj->setPosition(vec3(rand() % par->forestPar.landscapeWidth - par->forestPar.landscapeWidth / 2,
+				0, rand() % par->forestPar.landscapeHeight - par->forestPar.landscapeHeight / 2));
+		}
 
-		obj->setTag("broughtItem");
+		if (obj->compareTag("Stick") || obj->compareTag("Stick discovered"))
+		{
+			obj->setTag("Stick");
+			obj->setPosition(vec3(rand() % par->forestPar.landscapeWidth - par->forestPar.landscapeWidth / 2,
+				0, rand() % par->forestPar.landscapeHeight - par->forestPar.landscapeHeight / 2));
+		}
+
 	}
+
 	childs.clear();
 	items.clear();
 	enemies.clear();
 	isFree = true;
-	Destroy();
+	queen->antAtHome(this);
+	Worker();
+	isDrawn = false;
+	//Destroy();
 }
 
 //========================  методы SCOUT  ====================================
 
 void Ant::Scout()	//стартовый
 {
+	role = SCOUT;
 	velosity = vec3(par->AntPar.maxVelosity, 0, 0);
 	glm::rotateY(velosity, (rand() % 360) * 1.0f);
 	action = &Ant::explore;
@@ -254,11 +309,12 @@ void Ant::pickUp(ForestObject * item)
 	childs.push_back(item);
 	item->setParent(this);
 	isFree = false;
-	Eadle();
+	action = &Ant::goHome;
 }
 
 void Ant::Scout(ForestObject * target_)
 {
+	role = SCOUT;
 	target = target_;
 	action = &Ant::followItem;
 }
@@ -267,6 +323,7 @@ void Ant::Scout(ForestObject * target_)
 
 void Ant::Hunter(ForestObject * target_)
 {
+	role = HUNTER;
 	target = target_;
 	action = &Ant::followEnemy;
 }

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "Forest.h"
+#include "Timer.h"
 
 int main()	
 {	

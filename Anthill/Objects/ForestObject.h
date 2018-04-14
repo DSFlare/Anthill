@@ -11,6 +11,10 @@
 using glm::vec3;
 class Camera;
 
+enum ObjectType 
+{
+	ANT, ANTHILL, NONE, BEETLE, CATERPILLAR, LEAF, STICK
+};
 
 class ForestObject
 {

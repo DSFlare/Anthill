@@ -35,7 +35,6 @@ private:
 	Resources* res;
 	Parametres* par;
 
-	int landscapeWidth = 50, landscapeHeight = 50;
 
 
 	//время

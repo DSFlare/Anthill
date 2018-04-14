@@ -5,7 +5,7 @@ class Leaf
 	:public ForestObject
 {
 private:
-	int foodAmount;
+	float foodAmount;
 public:
 	Leaf(sf::RenderWindow* window_, Camera* camera_, Resources * res_, Parametres* par_,
 		std::vector<ForestObject*>* allObjects_,
@@ -15,6 +15,6 @@ public:
 	virtual void Update() override;
 	~Leaf();
 
-	int getFood();
+	float getFood();
 };
 

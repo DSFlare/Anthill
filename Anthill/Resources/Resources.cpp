@@ -50,3 +50,11 @@ void Resources::LoadModels(char * ant, char * queen, char * catherpillar, char *
 	//fenceModel = fence;
 }
 
+void Resources::LoadFonts(string uiAnthillNumbers)
+{
+	if (!anthillFontNumbers.loadFromFile(uiAnthillNumbers))
+	{
+		std::cout << "Failed font loading";
+	}
+}
+

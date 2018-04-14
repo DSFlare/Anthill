@@ -10,6 +10,7 @@ Leaf::Leaf(sf::RenderWindow* window_, Camera* camera_, Resources * res_, Paramet
 	texture = &(res->leafTex);
 	model = new Model3D(res->leafModel, texture);
 	tag = "Leaf";
+	foodAmount = rand() % 3 + 2;
 }
 
 void Leaf::Update()
@@ -25,7 +26,7 @@ Leaf::~Leaf()
 	ForestObject::Destroy();
 }
 
-int Leaf::getFood()
+float Leaf::getFood()
 {
 	return foodAmount;
 }

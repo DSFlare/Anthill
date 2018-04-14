@@ -40,6 +40,7 @@ public:
 	sf::Texture anthillSprite;
 	sf::Texture screenCenter;
 	sf::Texture hotkeys;
+	sf::Font anthillFontNumbers;
 
 	//звуки
 	sf::Sound music;
@@ -54,6 +55,8 @@ public:
 	void LoadShaders(string vertexSTD, string fragmentSTD, string vertexSelected, string fragmentSelected);
 
 	void LoadModels(char * ant, char * queen, char * catherpillar, char * beetle, char * anthill, char * leaf, char * stick, char * fence);
+
+	void LoadFonts(string uiAnthillNumbers);
 
 	Resources();
 	~Resources();

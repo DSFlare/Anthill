@@ -10,6 +10,7 @@ Stick::Stick(sf::RenderWindow* window_, Camera* camera_, Resources * res_, Param
 	texture = &(res->stickTex);
 	model = new Model3D(res->stickModel, texture);
 	tag = "Stick";
+	materialAmount = 1 + (rand() % 11) * 0.1;
 }
 
 
@@ -24,7 +25,7 @@ Stick::~Stick()
 {
 }
 
-int Stick::getMaterial()
+float Stick::getMaterial()
 {
 	return materialAmount;
 }

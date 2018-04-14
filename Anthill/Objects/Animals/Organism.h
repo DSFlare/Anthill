@@ -8,6 +8,7 @@ private:
 	
 protected:
 	int health;
+	float satiety;
 	int attack;
 	vec3 velosity; //скорость
 
@@ -19,6 +20,8 @@ public:
 		vec3 scale_ = vec3(1, 1, 1));
 
 	virtual void Update() override;
+	int getSatiety() {return satiety; }
+	void setSatiety(int satiety_) { satiety = satiety_; }
 	int getHealth();
 	void setHealth(int health);
 	int getAttack();

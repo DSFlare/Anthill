@@ -9,7 +9,8 @@ enum Role {
 	SCOUT,
 	WARRIOR,
 	HUNTER,
-	EADLE
+	EADLE,
+	WORKER
 };
 
 class Ant : public Organism
@@ -45,6 +46,7 @@ public:
 	void Scout(ForestObject* target); //приносит ресурсы и сообщает о живой еде
 	void Hunter(ForestObject* target); //
 	void Eadle();
+	void Worker();
 	//TODO
 	void Warrior();
 
@@ -53,6 +55,11 @@ public:
 private:
 
 	//Общие методы
+	/*/
+	изменяет сытость исходя из обстоятельств
+	если муравей в муравейнике пытается получить еду до полной сытости
+	/*/
+	void hungry();
 
 	/*/
 	ищет ресурсы в зоне видимости,

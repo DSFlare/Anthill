@@ -24,6 +24,8 @@ Forest::Forest(sf::RenderWindow* window_, Resources* res_, Parametres* par_)
 		"Resources/Models/Leaf/leaf.jpg", "Resources/Models/Stick/barktree.jpg", "",
 		"Resources/Models/Fence/Fence-01.jpg");
 
+	res->LoadFonts("Resources/UI/font.ttf");
+
 	//инициализируем переменные времени
 	deltaTime = 0;
 	lastFrame = 0;
@@ -75,12 +77,12 @@ void Forest::Update()
 	//std::cout << deltaTime << "    " << lastFrame << std::endl;
 
 	//генериурем ветки и палки
-	if (generateItemsTimer == par->forestPar.generateItemsDelay)
+	/*if (generateItemsTimer == par->forestPar.generateItemsDelay)
 	{
 		generateItemsTimer = 0;
 		generateItems(1, 1);
 	}
-	generateItemsTimer++;
+	generateItemsTimer++;*/
 
 
 	//для каждого объекта в лесу вызываем Update()
@@ -104,16 +106,16 @@ void Forest::generateItems(int leafQuantity, int stickQuantity)
 	{
 		Leaf* leaf = new Leaf(window, camera, res, par, &objects);
 
-		leaf->setPosition(vec3(rand() % landscapeWidth - landscapeWidth / 2,
-			0, rand() % landscapeHeight  - landscapeHeight / 2));
+		leaf->setPosition(vec3(rand() % par->forestPar.landscapeWidth - par->forestPar.landscapeWidth / 2,
+			0, rand() % par->forestPar.landscapeHeight  - par->forestPar.landscapeHeight / 2));
 
 		objects.push_back(leaf);
 	}
 	for (int i = 0; i < stickQuantity; i++)
 	{
 		Stick* stick = new Stick(window, camera, res, par, &objects);
-		stick->setPosition(vec3(rand() % landscapeWidth - landscapeWidth / 2,
-			0, rand() % landscapeHeight - landscapeHeight / 2));
+		stick->setPosition(vec3(rand() % par->forestPar.landscapeWidth - par->forestPar.landscapeWidth / 2,
+			0, rand() % par->forestPar.landscapeHeight - par->forestPar.landscapeHeight / 2));
 
 		objects.push_back(stick);
 	}
@@ -125,8 +127,8 @@ void Forest::generateEnemies(int bugs, int caterpillars)
 	{
 		Beetle* beetle = new Beetle(camera, res, par, &objects, window);
 
-		beetle->setPosition(vec3(rand() % landscapeWidth - landscapeWidth / 2,
-			0, rand() % landscapeHeight - landscapeHeight / 2));
+		beetle->setPosition(vec3(rand() % par->forestPar.landscapeWidth - par->forestPar.landscapeWidth / 2,
+			0, rand() % par->forestPar.landscapeHeight - par->forestPar.landscapeHeight / 2));
 
 		objects.push_back(beetle);
 	}
@@ -149,17 +151,18 @@ int Forest::startSimulation()
 	camera->setPosition(vec3(-5, 1, 0));
 
 	//добавим поверхность
-	Landscape* landscape = new Landscape(window, camera, res, par, &objects, landscapeWidth / 2, landscapeHeight / 2);
+	Landscape* landscape = new Landscape(window, camera, res, par, &objects, par->forestPar.landscapeWidth / 2, 
+		par->forestPar.landscapeHeight / 2);
 	objects.push_back(landscape);
 	landscape->setPosition(vec3(0, 0, 0));
 	landscape->setRotation(vec3(90, 0, 0));
 
 	//генерируем палки и листья
-	//generateItems(70, 70);
+	generateItems(60, 75);
 
 
 	//генерируем врагов
-	generateEnemies(5, 0);
+	//generateEnemies(3, 0);
 
 
 	/*for (int i = 0; i < 5; i++)
@@ -202,7 +205,7 @@ int Forest::startSimulation()
 	hotkeysInfo->setPosition(Vector2f(scrCenterX, scrCenterY));
 	hotkeysInfo->isActive = false;
 
-	UIAnthill* uiAnthill = new UIAnthill(window, &(res->anthillSprite));
+	UIAnthill* uiAnthill = new UIAnthill(window, &(res->anthillSprite), anthill);
 	canvas.objects.push_back(uiAnthill);
 	uiAnthill->setPosition(Vector2f(scrCenterX, scrCenterY));
 	uiAnthill->isActive = false;

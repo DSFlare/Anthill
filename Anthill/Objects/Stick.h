@@ -5,7 +5,7 @@ class Stick
 	:public ForestObject
 {
 private:
-	int materialAmount;
+	float materialAmount;
 public:
 	Stick(sf::RenderWindow* window_, Camera* camera_, Resources * res_, Parametres* par_, 
 		std::vector<ForestObject*>* allObjects_,
@@ -15,6 +15,6 @@ public:
 	virtual void Update() override;
 	~Stick();
 
-	int getMaterial();
+	float getMaterial();
 };
 

@@ -7,6 +7,11 @@ UIObject::~UIObject()
 
 }
 
+void UIObject::setParent(UIObject * obj)
+{
+	parent = obj;
+}
+
 void UIObject::hiddenUpdate()
 {
 
