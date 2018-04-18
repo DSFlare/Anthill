@@ -24,7 +24,7 @@ public:
 	void changeTexture(sf::Texture *texture);
 private:
 	/*  Данные модели  */
-	sf::Texture *texture;
+	sf::Texture* texture;
 	vector<Mesh> meshes;
 	string directory;
 	/*  Методы   */

@@ -15,7 +15,7 @@ public:
 	Anthill(sf::RenderWindow* window_, Camera* camera_, Resources* res_, Parametres* par_, std::vector<ForestObject*>* allObjects_);
 
 	~Anthill();
-
+	//возвращает количество использованных ресурсов
 	float upgradeRoom(RoomType type, float resources);
 
 	int getMainRoomSize() { return mainRoom.getCapacity(); }
@@ -31,12 +31,13 @@ public:
 
 	int getAntsInColony() { return antsInColony; }
 	void incAntsInColony() { antsInColony++; }
+	void decAntsInColony() { antsInColony--; }
 	void setAntsInColony(int antsInColony_) { antsInColony = antsInColony_; }
 	void setWorkersNumber(int number) { mainRoom.setCapacity(number); }
 
 	void addFood(float foodAmount_) { foodStorage.addItem(foodAmount_); }
 	void addResources(float resources) { stock.addItem(resources); }
-	void addAnt() { mainRoom.addItem(1); }
+	void addWorker() { mainRoom.addItem(1); }
 	void addEgg() { childRoom.addItem(1); }
 	void popAnt() { mainRoom.popItem(1); }
 

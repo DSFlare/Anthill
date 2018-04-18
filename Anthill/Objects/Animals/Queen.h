@@ -33,6 +33,7 @@ public:
 	void antAtHome(Ant* ant);;	//ант вызывает, когда пришел в муравейник
 	void sendEnemies(vector<Organism*> enemies);	//ант передает сюда врагов, которых обнаружил
 	float askFood(float quantity);
+	void enemyKilled(ForestObject* enemy);	//ант передает сюда врага, которого убил
 
 	vec3 getAnthillPosition();
 	void deletingAnt(Ant* ant);		//ант вызывает при смерти

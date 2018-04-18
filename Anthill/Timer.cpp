@@ -3,9 +3,9 @@
 
 sf::Clock Timer::clock;
 
-float Timer::getTimeAsSec()
+int Timer::getTimeAsSec()
 {
-	return clock.getElapsedTime().asSeconds();
+	return (int)clock.getElapsedTime().asSeconds();
 }
 
 int Timer::getTimeAsMs()

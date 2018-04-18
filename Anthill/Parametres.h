@@ -10,16 +10,16 @@ struct AntParametres
 	float approachRadius = 0.5;
 	float changeDirFreq = 2;
 
-	int a = 10;
 	float viewDistance = 1;
 	float attackDistance = 0.14;
-	float attack = 10;
+	float attack = 15;
 
-	float satietyLooses = 0.02;	//в секунду
-	float satietyLoosesInAnthill = 0.04;
-	float maxSatiety = 2.0f;
+	int a = 10;
+	float satietyLooses = 0.04;	//в секунду
+	float satietyLoosesInAnthill = 0.06;
+	float maxSatiety = 3.0f;
 
-	float antHealth = 80;
+	float antHealth = 100;
 };
 
 struct BeetleParametres
@@ -43,11 +43,12 @@ struct BeetleParametres
 struct SimulationParametres
 {
 	float timeScale = 1.0f;
-	int antGrowingUpTime = 1000;
 	float resWithOneWorker = 0.001;
 	int startingAntsCount = 6;
 	float foodForNewEgg = 5;
-	float eggGrowingTime = 15;	//в сек
+	int b = 10;
+	int eggGrowingTime = 15;	//в сек
+	float saveDistance = 7;
 };
 
 struct ForestParametres

@@ -1,5 +1,6 @@
 #include "Beetle.h"
 #include "glm/gtx/rotate_vector.hpp"
+#include "../../UI/Notificator.h"
 
 
 Beetle::Beetle(Camera * camera_, Resources * res_, Parametres* par_, std::vector<ForestObject*>* allObjects_, 
@@ -20,6 +21,7 @@ Beetle::Beetle(Camera * camera_, Resources * res_, Parametres* par_, std::vector
 
 void Beetle::Destroy()
 {
+	Notificator::notificate("One of the beelte was killed!");
 	static int deathTimer = 0;
 	if (deathTimer >= par->beetlePar.deathTimer) {
 		auto it = std::find(allObjects->begin(), allObjects->end(), this);
@@ -54,9 +56,11 @@ void Beetle::checkAnts()
 		{
 			if (glm::length(obj->getPosition() - position) < par->beetlePar.attackDistance)
 			{
-				Organism* ant = dynamic_cast<Organism*>(obj);
-				ant->makeDamage(attack);
+				target = dynamic_cast<Organism*>(obj);
+				action = &Beetle::fight;
 				return;
+				/*
+				return;*/
 			}
 		}
 	}
@@ -101,4 +105,31 @@ void Beetle::explore()
 		rotation.y = 360 - glm::degrees(acos(glm::dot(vec3(1, 0, 0), velosity) / glm::length(velosity)));
 	}
 	position.y = 0;
+}
+
+void Beetle::fight()
+{
+	if (glm::length(target->getPosition() - position) > par->beetlePar.attackDistance || target->getHealth() <= 0)
+	{
+		action = &Beetle::explore;
+		return;
+	}
+	else
+	{
+		if (health > 0)
+		{	
+			target->makeDamage(attack);
+			if (target->getHealth() <= 0)
+				Notificator::notificate("One of the ants was killed by beetle!");
+		}
+	}
+	if (health <= 0)
+	{
+		health = par->beetlePar.health;
+		this->setPosition(vec3(rand() % par->forestPar.landscapeWidth - par->forestPar.landscapeWidth / 2,
+			0, rand() % par->forestPar.landscapeHeight - par->forestPar.landscapeHeight / 2));
+		tag = "Beetle";
+		Notificator::notificate("One of the beelte was killed!");
+		action = &Beetle::explore;
+	}
 }

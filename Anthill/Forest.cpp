@@ -1,5 +1,5 @@
 #include "Forest.h"
-
+#include "UI/Notificator.h"
 
 
 
@@ -92,6 +92,7 @@ void Forest::Update()
 	}
 	window->pushGLStates();
 	canvas.Update();
+	Notificator::update();
 	window->popGLStates();
 }
 
@@ -162,7 +163,7 @@ int Forest::startSimulation()
 
 
 	//генерируем врагов
-	//generateEnemies(3, 0);
+	generateEnemies(3, 0);
 
 
 	/*for (int i = 0; i < 5; i++)
@@ -210,8 +211,8 @@ int Forest::startSimulation()
 	uiAnthill->setPosition(Vector2f(scrCenterX, scrCenterY));
 	uiAnthill->isActive = false;
 	
-
-
+	Notificator::initialize(window);
+	Notificator::notificate("SIMULATION STARTED!");
 
 
 	////////////////////////////////////////////////////////////////////////
@@ -230,8 +231,11 @@ int Forest::startSimulation()
 		//OpenGL комманды
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		//вычисления и отрисовка всех Drawable и UI объектов
-		Update();
+		if (isRunning)
+		{
+			//вычисления и отрисовка всех Drawable и UI объектов
+			Update();
+		}
 
 		window->display();
 	}
@@ -245,6 +249,13 @@ void Forest::processEvents(sf::Event e)
 	{
 		window->close();
 	}
+
+	else if (e.type == sf::Event::LostFocus)
+		isRunning = false;
+
+	else if (e.type == sf::Event::GainedFocus)
+		isRunning = true;
+
 
 	// Escape key: exit
 	else if ((e.type == sf::Event::KeyPressed) && (e.key.code == sf::Keyboard::Escape))

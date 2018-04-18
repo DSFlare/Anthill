@@ -8,7 +8,7 @@ UIAnthill::UIAnthill(sf::RenderWindow* window_, sf::Texture* texture_, Anthill* 
 	text = new UIText(window_, "Resources/UI/font.ttf");
 	text->setParent(this);
 	this->childs.push_back(text);
-	text->setFontSize(50);
+	text->setFontSize(40);
 }
 
 void UIAnthill::drawAnthillInformation()

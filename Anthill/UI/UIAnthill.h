@@ -12,7 +12,7 @@ private:
 	void drawAnthillInformation();
 public:
 	UIAnthill(sf::RenderWindow* window_, sf::Texture* texture_, Anthill* anthill);
-	~UIAnthill();
+	virtual ~UIAnthill();
 
 	virtual void setPosition(Vector2f position) override;
 	virtual void setScale(Vector2f scale) override;

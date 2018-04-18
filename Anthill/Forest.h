@@ -34,6 +34,7 @@ private:
 	bool isCursorVisible = false;
 	Resources* res;
 	Parametres* par;
+	bool isRunning = true;
 
 
 

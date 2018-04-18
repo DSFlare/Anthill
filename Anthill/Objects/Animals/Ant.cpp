@@ -2,6 +2,7 @@
 #include "glm/gtx/rotate_vector.hpp"
 #include "glm/gtx/vector_angle.hpp"
 #include "Queen.h"
+#include "../../UI/Notificator.h"
 #include "../../Timer.h"
 
 void Ant::Destroy()
@@ -23,10 +24,10 @@ void Ant::Destroy()
 
 void Ant::Update()
 {
-	Organism::Update();
 	ForestObject::Draw();
-	(this->*action)();
 	hungry();
+	(this->*action)();
+	Organism::Update();
 }
 
 Ant::Ant(Camera * camera_, Resources * res_, Parametres* par_, std::vector<ForestObject*>* allObjects_,
@@ -80,12 +81,14 @@ bool Ant::checkEnemies(bool needToReport)
 void Ant::hungry()
 {
 	static int lastTime = Timer::getTimeAsSec();
-	if (Timer::getTimeAsSec() != lastTime)
+	if (Timer::getTimeAsSec() > lastTime)
 	{
+		lastTime = Timer::getTimeAsSec();
 		if (role == WORKER)
 		{
 			satiety -= par->AntPar.satietyLoosesInAnthill;
 			satiety += queen->askFood(par->AntPar.maxSatiety - satiety);
+			health = par->AntPar.antHealth;
 		}
 		else
 		{
@@ -93,6 +96,7 @@ void Ant::hungry()
 		}
 		if (satiety <= 0)
 		{
+			Notificator::notificate("One of the ants died of hunger");
 			this->Destroy();
 		}
 	}
@@ -243,7 +247,8 @@ void Ant::enterToAnthill()
 		}
 
 	}
-
+	satiety += queen->askFood(par->AntPar.maxSatiety - satiety);
+	health = par->AntPar.antHealth;
 	childs.clear();
 	items.clear();
 	enemies.clear();
@@ -349,18 +354,30 @@ void Ant::Fight()
 	Organism* target_ = dynamic_cast<Organism*>(target);
 	if (target_->getHealth() > 0)
 	{
+		if (glm::length(target_->getPosition() - position) > par->AntPar.attackDistance)
+		{
+			action = &Ant::followEnemy;
+			return;
+		}
+
 		target_->makeDamage(attack);
+		if (target_->getHealth() <= 0)
+		{
+			auto it = std::find(enemies.begin(), enemies.end(), target_);
+			if (it != enemies.end())
+				enemies.erase(it);
+			queen->enemyKilled(target);
+			target = NULL;
+			action = &Ant::goHome;
+		}
 	}
 	else
 	{
 		auto it = std::find(enemies.begin(), enemies.end(), target_);
 		if (it != enemies.end())
 			enemies.erase(it);
+		queen->enemyKilled(target);
+		target = NULL;
 		action = &Ant::goHome;
-	}
-	if (glm::length(target_->getPosition() - position) > par->AntPar.attackDistance)
-	{
-		action = &Ant::followEnemy;
-		return;
 	}
 }

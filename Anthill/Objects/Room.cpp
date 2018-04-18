@@ -1,5 +1,5 @@
 #include "Room.h"
-
+#include "../../UI/Notificator.h"
 
 
 void Room::upgrade(float resources)
@@ -14,7 +14,6 @@ void Room::upgrade(float resources)
 			capacity++;
 		level++;
 		needResForUpgrade += 2;
-		needAntHoursForUpgrade += needAntHoursForUpgrade / 2;
 	}
 }
 
@@ -23,13 +22,6 @@ bool Room::isFull()
 	return fullness == capacity;
 }
 
-void Room::setPriority(int priority_)
-{
-	if (priority_ < 5 && priority_ > 0)
-	{
-		priority = priority_;
-	}
-}
 
 void Room::addItem(float number)
 {

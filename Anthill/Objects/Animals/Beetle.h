@@ -6,6 +6,7 @@ class Beetle :
 private:
 	int changeDirTimer = 0;
 	void(Beetle::*action)();	//функци€, выполн€юща€с€ каждый кадр
+	Organism* target = NULL;
 public:
 	Beetle(Camera * camera_, Resources * res_, Parametres* par_, std::vector<ForestObject*>* allObjects_, 
 		sf::RenderWindow * window_,
@@ -20,5 +21,5 @@ private:
 	vec3 followTowards(vec3 target);
 	void checkAnts();
 	void explore();
+	void fight();
 };
-

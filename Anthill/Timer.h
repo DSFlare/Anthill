@@ -6,7 +6,7 @@ class Timer
 private:
 	static sf::Clock clock;
 public:
-	static float getTimeAsSec();
+	static int getTimeAsSec();
 	static int getTimeAsMs();
 	static long getTimeAsMicroS();
 	Timer();

@@ -2,6 +2,7 @@
 #include <fstream>
 #include "Forest.h"
 #include "Timer.h"
+#include "UI/Notificator.h"
 
 int main()	
 {	
@@ -22,6 +23,7 @@ int main()
 
 	Forest forest(window, &res, &par);
 
+	//Notificator::initialize();
 	forest.startSimulation();
 	
 	return 0;

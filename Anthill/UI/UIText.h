@@ -8,13 +8,12 @@ protected:
 	sf::Font font;
 	sf::Text text;
 public:
-	UIText(sf::RenderWindow* window_, std::string font_);
-	~UIText();
+	UIText(sf::RenderWindow* window_, std::string font_ = "Resources/UI/font.ttf");
+	virtual ~UIText();
 
 	virtual void setPosition(Vector2f position) override;
 	virtual void setScale(Vector2f scale) override;
 	void setFontSize(int fontSize);
-
 	void setText(std::string text);
 
 	virtual void Update() override;

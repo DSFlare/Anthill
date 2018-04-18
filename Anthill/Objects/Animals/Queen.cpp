@@ -1,6 +1,6 @@
 #include "Queen.h"
 #include "../../Timer.h"
-
+#include "../../UI/Notificator.h"
 
 void Queen::sendBroughtItems(vector<ForestObject*> items)
 {
@@ -46,7 +46,7 @@ void Queen::antAtHome(Ant * ant)
 		if (it != warriors.end())
 			warriors.erase(it);
 	}
-	anthill->addAnt(); 
+	anthill->addWorker(); 
 	workers.push_back(ant);
 }
 
@@ -60,8 +60,18 @@ float Queen::askFood(float quantity)
 	return anthill->foodStorage.popItem(quantity);
 }
 
+void Queen::enemyKilled(ForestObject * enemy)
+{
+	auto pos = std::find(enemies.begin(), enemies.end(), enemy);
+	if (pos != enemies.end())
+	{
+		enemies.erase(pos);
+	}
+}
+
 void Queen::deletingAnt(Ant * ant)
 {
+	anthill->decAntsInColony();
 	if (ant->getRole() == HUNTER)
 	{
 		auto it = std::find(hunters.begin(), hunters.end(), ant);
@@ -169,7 +179,7 @@ void Queen::beginning()
 	
 	//========================reproduction=====================
 	if (anthill->foodStorage.getFullness() - par->simPar.foodForNewEgg >= anthill->foodStorage.getCapacity() * 0.5
-		&& anthill->mainRoom.getCapacity() - anthill->getAntsInColony() && !anthill->childRoom.isFull())
+		&& anthill->mainRoom.getCapacity() - anthill->getAntsInColony() > 0 && !anthill->childRoom.isFull())
 	{
 		layTheEgg();
 	}
@@ -177,7 +187,7 @@ void Queen::beginning()
 	{
 		growthEggs();
 	}
-	//======================ant control========================
+	//======================calculating workers number========================
 	if (anthill->stock.getFullness() == 0)
 	{
 		neededWorkers = 0;
@@ -198,18 +208,37 @@ void Queen::beginning()
 		}
 	}
 	
+	//======================sending ants===========================
 	for (int i = 0; i < anthill->getWorkersNumber() - neededWorkers; i++)
 	{
+		bool isSend = false;
 		Ant* ant = workers.front();
 		workers.erase(workers.begin());
 		anthill->popAnt();
 		ant->setDrawn(true);
-		if (items.empty())
+		for (auto it = enemies.begin(); it != enemies.end();)
+		{
+			Organism* enemy = dynamic_cast<Organism*>(*it);
+			if (enemy->getHealth() <= 0)
+			{
+				it = enemies.erase(it);
+				continue;
+			}
+			else if (glm::length((*it)->getPosition() - position) < par->simPar.saveDistance &&
+				anthill->getAntsInColony() > anthill->mainRoom.getCapacity() * 0.7)
+			{
+				ant->Hunter(*it);
+				hunters.push_back(ant);
+				isSend = true;
+			}
+			++it;
+		}
+		if (items.empty() && !isSend)
 		{
 			ant->Scout();
 			scouts.push_back(ant);
 		}
-		else
+		else if (!isSend)
 		{
 			ant->Scout(items.front());
 			scouts.push_back(ant);
@@ -258,9 +287,10 @@ void Queen::setUpgradePriority()
 
 void Queen::layTheEgg()
 {
+	Notificator::notificate("New egg added!");
 	anthill->foodStorage.popItem(par->simPar.foodForNewEgg);
 	anthill->addEgg();
-	eggs.push_back(par->simPar.antGrowingUpTime);
+	eggs.push_back(par->simPar.eggGrowingTime);
 }
 
 void Queen::growthEggs()
@@ -278,6 +308,7 @@ void Queen::growthEggs()
 				anthill->childRoom.popItem(1);
 				Queen::instantiateAnt(EADLE);
 				anthill->incAntsInColony();
+				Notificator::notificate("New ant was born!");
 			}
 			else
 			{
